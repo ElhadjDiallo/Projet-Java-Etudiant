@@ -27,7 +27,7 @@ public class Connect {
 
             String url = "jdbc:postgresql://localhost:5433/ChatStri";
             String user = "postgres";
-            String password = "Bah.19";
+            String password = "xxx";
 
             Connection con = DriverManager.getConnection(url, user, password);
             System.out.println("Connexion effective !");
