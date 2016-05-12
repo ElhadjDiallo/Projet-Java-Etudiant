@@ -5,16 +5,25 @@
  */
 package fr.stri.tchat;
 
+import ContenuSalonetClient.ListSalonClient;
+import ContenuSalonetClient.Salon;
+import ContenuSalonetClient.SalonClient;
+
 /**
  *
  * @author elhadj
  */
 public class Ihm extends javax.swing.JFrame {
 
+    ListSalonClient lst;
+
     /**
      * Creates new form Ihm
      */
     public Ihm() {
+        lst = new ListSalonClient();
+        Salon salon = new Salon("salon");
+        lst.addSalon(salon);
         initComponents();
     }
 
@@ -28,6 +37,8 @@ public class Ihm extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         jSplitPane1 = new javax.swing.JSplitPane();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
@@ -46,17 +57,19 @@ public class Ihm extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        scrollPanelClientEtSalon = new javax.swing.JScrollPane();
+        listSalonCLient = new javax.swing.JList<SalonClient>();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane4.setViewportView(jTextArea2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,13 +169,6 @@ public class Ihm extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
-
-        jPanel1.add(jScrollPane4);
-        jScrollPane4.setBounds(30, 20, 450, 70);
-
         jButton1.setText("Envoyer");
         jPanel1.add(jButton1);
         jButton1.setBounds(490, 50, 110, 29);
@@ -173,12 +179,8 @@ public class Ihm extends javax.swing.JFrame {
 
         jLabel1.setText("Administrateur");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        listSalonCLient.setModel(lst);
+        scrollPanelClientEtSalon.setViewportView(listSalonCLient);
 
         jButton2.setText("jButton2");
 
@@ -197,7 +199,7 @@ public class Ihm extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
+                    .addComponent(scrollPanelClientEtSalon, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -209,7 +211,7 @@ public class Ihm extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPanelClientEtSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(88, 88, 88)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -267,12 +269,17 @@ public class Ihm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+       
+        /* ListSalonClient listsalonclient=new ListSalonClient();
+         listsalonclient.ajouter(salon);
+         */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ihm().setVisible(true);
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -284,7 +291,6 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -294,7 +300,6 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -305,5 +310,7 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JList<SalonClient> listSalonCLient;
+    private javax.swing.JScrollPane scrollPanelClientEtSalon;
     // End of variables declaration//GEN-END:variables
 }
