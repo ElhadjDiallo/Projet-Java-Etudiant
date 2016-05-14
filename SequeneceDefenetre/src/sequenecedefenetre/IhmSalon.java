@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.stri.tchat;
+package sequenecedefenetre;
 
 import ContenuSalonetClient.Client;
 import ContenuSalonetClient.Salon;

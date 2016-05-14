@@ -142,7 +142,7 @@ public class MyJFrame extends javax.swing.JFrame {
 
     private void bt_ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ajouterActionPerformed
         // TODO add your handling code here:
-        Personne p = new Personne(jt_nom.getText(), jt_prenom.getText());
+        Personne p = new Personne("bah", "toto");
         System.out.println(p.toString());
         listeModele.add(p);
     }//GEN-LAST:event_bt_ajouterActionPerformed

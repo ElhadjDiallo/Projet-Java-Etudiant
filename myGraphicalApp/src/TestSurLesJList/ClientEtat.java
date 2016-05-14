@@ -1,4 +1,4 @@
-package ContenuSalonetClient;
+package TestSurLesJList;
 
 import javax.swing.ImageIcon;
 

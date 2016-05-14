@@ -1,4 +1,4 @@
-package ContenuSalonetClient;
+package TestSurLesJList;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class Salon extends SalonClient {
 		
 		
 	}
-        public ArrayList<Client> getlisteDesClientduSalon()
+        public ArrayList getlisteDesClientduSalon()
         {
             return listeDesClientduSalon;
         }
