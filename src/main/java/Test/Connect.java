@@ -49,7 +49,7 @@ public class Connect {
 
             Connection conn = DriverManager.getConnection(url, userdb, passworddb);
             System.out.println("Connexion effective !");
-  String sql = "SELECT * FROM Utilisateur where Login='"+username+"' and password='"+password+"'";
+            String sql = "SELECT * FROM Utilisateur where Login='"+username+"' and password='"+password+"'";
             Statement stmt = conn.createStatement();
          //   stmt.setString(1, username);
           //  stmt.setString(2, password);

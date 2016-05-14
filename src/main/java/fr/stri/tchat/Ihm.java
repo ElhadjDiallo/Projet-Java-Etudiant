@@ -252,7 +252,7 @@ public class Ihm extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("TlwgTypewriter", 2, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(54, 36, 209));
-        jLabel2.setText("STRI TCHAT ");
+        jLabel2.setText("STRI CHAT ");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
