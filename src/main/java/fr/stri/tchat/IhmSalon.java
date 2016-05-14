@@ -33,6 +33,10 @@ public class IhmSalon extends javax.swing.JPanel {
        listContenuSalonIhmCellrendere();
         
     }
+    public void afficher(String texte)
+    {
+        affichageContenu.setText(texte);
+    }
     
     public void listContenuSalonIhmCellrendere()
     {
@@ -81,7 +85,7 @@ public class IhmSalon extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         jlistIhm = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        affichageContenu = new javax.swing.JTextArea();
         jRadioButton4 = new javax.swing.JRadioButton();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
@@ -101,9 +105,10 @@ public class IhmSalon extends javax.swing.JPanel {
         jlistIhm.setVisibleRowCount(-1);
         jScrollPane4.setViewportView(jlistIhm);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane5.setViewportView(jTextArea2);
+        affichageContenu.setEditable(false);
+        affichageContenu.setColumns(20);
+        affichageContenu.setRows(5);
+        jScrollPane5.setViewportView(affichageContenu);
 
         jRadioButton4.setText("Normal");
 
@@ -150,6 +155,7 @@ public class IhmSalon extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea affichageContenu;
     private javax.swing.JList jList1;
     private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JRadioButton jRadioButton5;
@@ -157,7 +163,6 @@ public class IhmSalon extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JList jlistIhm;
     // End of variables declaration//GEN-END:variables
 }

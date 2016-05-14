@@ -12,10 +12,12 @@ import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.TableSalon;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
 /**
@@ -31,15 +33,17 @@ public class Ihm extends javax.swing.JFrame {
     private ListSalonClient listmodel;
     private IhmSalon ihmSalon;
     private TableSalon tablesalon;
+    private ArrayList<IhmSalon>tableIhm;
     /**
      * Creates new form Ihm
      */
     public Ihm(String nomUtilisateur,String nomAdmin) {
         
         listmodel = new ListSalonClient();
-           
+        tableIhm=new ArrayList<IhmSalon>();
       
          initComponents();
+         gererSaisie();
          listSalonClientCellRenderer();
          this.nomUtilisateur.setText(nomUtilisateur);
        this.jLabel1.setText(nomAdmin);
@@ -49,6 +53,11 @@ public class Ihm extends javax.swing.JFrame {
        
         
     }
+     public void gererSaisie()
+     {
+         zoneDeSaisie.setWrapStyleWord(true);
+         zoneDeSaisie.setLineWrap(true);
+     }
    
     private void vider()
     {
@@ -72,6 +81,9 @@ public class Ihm extends javax.swing.JFrame {
       
                
          tablesalon.ajouterUnSalon(salon);
+          salon = new Salon("salon1");
+        Client client7=new Client("client6");
+        salon.ajouterClientDansleSalon(client7);
          tablesalon.ajouterUnSalon(salon);
                Timer timer =new Timer();
         TimerTask Task=new TimerTask() {
@@ -83,8 +95,8 @@ public class Ihm extends javax.swing.JFrame {
           for(Salon salon2:tablesalon.getTableSalon())   
            {
             IhmSalon salonAjouter=new IhmSalon(salon2);
-           
-           onglets.add(salonAjouter);       
+           tableIhm.add(salonAjouter);
+           onglets.addTab(salonAjouter.getName(), salonAjouter);
            listmodel.addSalon(salon2);
            salon2.ajouterLesClientDanslaJlistSalonClient(listmodel);
                                
@@ -93,7 +105,7 @@ public class Ihm extends javax.swing.JFrame {
       
             }
         };
-        timer.scheduleAtFixedRate(Task,0, 10000);
+        timer.scheduleAtFixedRate(Task,0, 500000);
     }
     
     
@@ -171,7 +183,8 @@ public class Ihm extends javax.swing.JFrame {
     
     public void ajouterIhmSalon()
     {
-       onglets.add(ihmSalon);
+        onglets.addTab(ihmSalon.getName(),ihmSalon);
+       
     }
     
     
@@ -201,8 +214,8 @@ public class Ihm extends javax.swing.JFrame {
         jSplitPane4 = new javax.swing.JSplitPane();
         onglets = new javax.swing.JTabbedPane();
         EntreeClavier = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        envoyerMessage = new javax.swing.JButton();
+        scrollpaneSaisie = new javax.swing.JScrollPane();
         zoneDeSaisie = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -213,8 +226,8 @@ public class Ihm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jlistSalonClient = new javax.swing.JList();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        choixDeconnexion = new javax.swing.JMenu();
+        deconnexion = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -310,15 +323,20 @@ public class Ihm extends javax.swing.JFrame {
         jSplitPane4.setTopComponent(onglets);
         onglets.getAccessibleContext().setAccessibleName("Salon1");
 
-        jButton1.setText("Envoyer");
+        envoyerMessage.setText("Envoyer");
+        envoyerMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                envoyerMessageActionPerformed(evt);
+            }
+        });
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setFocusable(false);
-        jScrollPane1.setHorizontalScrollBar(null);
+        scrollpaneSaisie.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollpaneSaisie.setFocusable(false);
+        scrollpaneSaisie.setHorizontalScrollBar(null);
 
         zoneDeSaisie.setColumns(20);
         zoneDeSaisie.setRows(5);
-        jScrollPane1.setViewportView(zoneDeSaisie);
+        scrollpaneSaisie.setViewportView(zoneDeSaisie);
 
         javax.swing.GroupLayout EntreeClavierLayout = new javax.swing.GroupLayout(EntreeClavier);
         EntreeClavier.setLayout(EntreeClavierLayout);
@@ -326,18 +344,18 @@ public class Ihm extends javax.swing.JFrame {
             EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(envoyerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         EntreeClavierLayout.setVerticalGroup(
             EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(jButton1))
+                .addComponent(envoyerMessage))
         );
 
         jSplitPane4.setRightComponent(EntreeClavier);
@@ -397,12 +415,17 @@ public class Ihm extends javax.swing.JFrame {
 
         jSplitPane1.setRightComponent(jSplitPane3);
 
-        jMenu2.setText("File");
+        choixDeconnexion.setText("File");
 
-        jMenuItem2.setText("Deconnexion");
-        jMenu2.add(jMenuItem2);
+        deconnexion.setText("Deconnexion");
+        deconnexion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deconnexionActionPerformed(evt);
+            }
+        });
+        choixDeconnexion.add(deconnexion);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(choixDeconnexion);
 
         jMenu1.setText("Aide");
 
@@ -430,6 +453,33 @@ public class Ihm extends javax.swing.JFrame {
     private void ongletsCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_ongletsCaretPositionChanged
        // TODO add your handling code here:
     }//GEN-LAST:event_ongletsCaretPositionChanged
+
+    private void envoyerMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoyerMessageActionPerformed
+        // TODO add your handling code here:
+        
+        int indiceDuSalon=0;
+        String texte=new String();
+       texte=zoneDeSaisie.getText();
+       indiceDuSalon=onglets.getSelectedIndex();
+       System.out.println("l'indice est :"+indiceDuSalon);
+         System.out.println("le nombre est de :"+tableIhm.size());
+        System.out.println(tableIhm.get(indiceDuSalon).getName());
+        tableIhm.get(indiceDuSalon).afficher(texte);
+        onglets.remove(indiceDuSalon);
+        onglets.add(tableIhm.get(indiceDuSalon),indiceDuSalon);
+        onglets.setSelectedIndex(indiceDuSalon);
+        
+        
+   
+        System.out.println(texte);
+        System.out.println(""+indiceDuSalon);
+       
+    }//GEN-LAST:event_envoyerMessageActionPerformed
+
+    private void deconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deconnexionActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_deconnexionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -486,7 +536,9 @@ public class Ihm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel EntreeClavier;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JMenu choixDeconnexion;
+    private javax.swing.JMenuItem deconnexion;
+    private javax.swing.JButton envoyerMessage;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -495,15 +547,12 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
@@ -514,6 +563,7 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JList jlistSalonClient;
     private javax.swing.JLabel nomUtilisateur;
     private javax.swing.JTabbedPane onglets;
+    private javax.swing.JScrollPane scrollpaneSaisie;
     private javax.swing.JTextArea zoneDeSaisie;
     // End of variables declaration//GEN-END:variables
 
