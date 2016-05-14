@@ -32,17 +32,13 @@ public class ListSalonClient extends AbstractListModel<SalonClient> {
         return ls.get(index);
     }
 
-    /* private   DefaultListModel<SalonClient> dlm ;
-    
-     public ListSalonClient(){
-        
-     dlm=new DefaultListModel<>();
-    
-     }
-     public void ajouter(SalonClient salonclient)
-     {
-     dlm.addElement(salonclient);
-     }*/
+    public void viderLaliste()
+    {
+        if(!ls.isEmpty())
+        {
+            ls.removeAll(ls);
+        }
+    }
     public void addSalon(SalonClient salon) {
         ls.add(salon);
         fireContentsChanged(this, 0, ls.size());

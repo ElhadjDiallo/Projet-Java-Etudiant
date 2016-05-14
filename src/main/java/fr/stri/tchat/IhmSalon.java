@@ -28,7 +28,7 @@ public class IhmSalon extends javax.swing.JPanel {
        
        listModelIhm=new ListeduContenuDunSalonIhm(salon.getNom());
         initComponents();
-         listModelIhm.ajouter(salon);
+          listModelIhm.ajouter(salon);
         this.setName(salon.getNom());
        listContenuSalonIhmCellrendere();
         
@@ -95,6 +95,7 @@ public class IhmSalon extends javax.swing.JPanel {
 
         jScrollPane4.setHorizontalScrollBar(null);
 
+        jlistIhm.setBackground(new java.awt.Color(221, 213, 236));
         jlistIhm.setModel(listModelIhm);
         jlistIhm.setLayoutOrientation(javax.swing.JList.VERTICAL_WRAP);
         jlistIhm.setVisibleRowCount(-1);

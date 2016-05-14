@@ -44,6 +44,11 @@ public class ListeduContenuDunSalonIhm extends AbstractListModel<Client>  {
         }
         fireContentsChanged(this, 0, listecontenusalonIhm.size());
     }
+    public void viderlaliste()
+    {
+       
+        listecontenusalonIhm.removeAll(listecontenusalonIhm);
+    }
 
     
 

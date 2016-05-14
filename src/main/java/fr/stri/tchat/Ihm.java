@@ -9,6 +9,7 @@ import ContenuSalonetClient.Client;
 import ContenuSalonetClient.ListSalonClient;
 import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.SalonClient;
+import ContenuSalonetClient.TableSalon;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Timer;
@@ -29,41 +30,73 @@ public class Ihm extends javax.swing.JFrame {
     private Salon salon;
     private ListSalonClient listmodel;
     private IhmSalon ihmSalon;
-  
+    private TableSalon tablesalon;
     /**
      * Creates new form Ihm
      */
-    public Ihm() {
+    public Ihm(String nomUtilisateur,String nomAdmin) {
         
-       
-      listmodel = new ListSalonClient();
-        
-        salon = new Salon("salon");
-        Client client=new Client("diallo");
-        Client client2=new Client("diallo");
-        Client client3=new Client("diallo");
-        salon.ajouterClientDansleSalon(client);
-        salon.ajouterClientDansleSalon(client2);
-        salon.ajouterClientDansleSalon(client3);
-        /*ajoute le salon d'abord dans la list*/
-        listmodel.addSalon(salon);
-        /*on ajoute les clients du salon dans la model list */
-        salon.ajouterLesClientDanslaJlistSalonClient(listmodel);
-        ihmSalon=new IhmSalon(salon);
+        listmodel = new ListSalonClient();
+           
+      
          initComponents();
          listSalonClientCellRenderer();
-            salon = new Salon("salon");
+         this.nomUtilisateur.setText(nomUtilisateur);
+       this.jLabel1.setText(nomAdmin);
+      
+         
+          mettreAjour();
+       
+        
+    }
+   
+    private void vider()
+    {
+        if(onglets.getTabCount()!=0)
+        {
+            onglets.removeAll();
+        }
+           
+    }
+    public void mettreAjour()
+    {
+        /*zone où placer les requêtes sql*/
+        tablesalon=new TableSalon();
+         salon = new Salon("salon");
         Client client4=new Client("mon");
         Client client5=new Client(" mont");
         Client client6=new Client("son");
         salon.ajouterClientDansleSalon(client4);
         salon.ajouterClientDansleSalon(client5);
         salon.ajouterClientDansleSalon(client6);
-       
-           mettreAjour(salon);
-       
-        
+      
+               
+         tablesalon.ajouterUnSalon(salon);
+         tablesalon.ajouterUnSalon(salon);
+               Timer timer =new Timer();
+        TimerTask Task=new TimerTask() {
+
+            @Override
+            public void run() {
+           listmodel.viderLaliste();
+           vider();
+          for(Salon salon2:tablesalon.getTableSalon())   
+           {
+            IhmSalon salonAjouter=new IhmSalon(salon2);
+           
+           onglets.add(salonAjouter);       
+           listmodel.addSalon(salon2);
+           salon2.ajouterLesClientDanslaJlistSalonClient(listmodel);
+                               
+            }
+           
+      
+            }
+        };
+        timer.scheduleAtFixedRate(Task,0, 10000);
     }
+    
+    
     public void  listSalonClientCellRenderer()
     {
        jlistSalonClient.setCellRenderer(new ListCellRenderer<SalonClient>() {
@@ -142,25 +175,6 @@ public class Ihm extends javax.swing.JFrame {
     }
     
     
-    public void mettreAjour(final Salon salon2)
-    {
-        Timer timer =new Timer();
-        TimerTask Task=new TimerTask() {
-
-            @Override
-            public void run() {
-           IhmSalon salonAjouter=new IhmSalon(salon2);
-           onglets.add(salonAjouter);
-                
-           listmodel.addSalon(salon2);
-           salon2.ajouterLesClientDanslaJlistSalonClient(listmodel);
-           
-      
-            }
-        };
-        timer.scheduleAtFixedRate(Task, 10000, 10000);
-    }
-    
     
 
     /**
@@ -181,15 +195,15 @@ public class Ihm extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        choice1 = new java.awt.Choice();
+        nomUtilisateur = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
         jSplitPane3 = new javax.swing.JSplitPane();
         jSplitPane4 = new javax.swing.JSplitPane();
         onglets = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        EntreeClavier = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        zoneDeSaisie = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -199,8 +213,10 @@ public class Ihm extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jlistSalonClient = new javax.swing.JList();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -238,38 +254,37 @@ public class Ihm extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jSplitPane2.setLeftComponent(jPanel5);
 
-        jLabel3.setText("NomClient");
+        nomUtilisateur.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
+        nomUtilisateur.setForeground(new java.awt.Color(33, 35, 230));
+        nomUtilisateur.setText("NomClient");
 
-        choice1.setName("En ligne"); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En ligne", "Hors ligne", " " }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(320, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(249, Short.MAX_VALUE)
+                .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45))
         );
 
         jSplitPane2.setRightComponent(jPanel6);
@@ -301,31 +316,31 @@ public class Ihm extends javax.swing.JFrame {
         jScrollPane1.setFocusable(false);
         jScrollPane1.setHorizontalScrollBar(null);
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane1.setViewportView(jTextArea3);
+        zoneDeSaisie.setColumns(20);
+        zoneDeSaisie.setRows(5);
+        jScrollPane1.setViewportView(zoneDeSaisie);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout EntreeClavierLayout = new javax.swing.GroupLayout(EntreeClavier);
+        EntreeClavier.setLayout(EntreeClavierLayout);
+        EntreeClavierLayout.setHorizontalGroup(
+            EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        EntreeClavierLayout.setVerticalGroup(
+            EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jButton1))
         );
 
-        jSplitPane4.setRightComponent(jPanel1);
+        jSplitPane4.setRightComponent(EntreeClavier);
 
         jSplitPane3.setLeftComponent(jSplitPane4);
 
@@ -375,18 +390,26 @@ public class Ihm extends javax.swing.JFrame {
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jSplitPane3.setRightComponent(jPanel4);
 
         jSplitPane1.setRightComponent(jSplitPane3);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenu2.setText("File");
 
-        jMenu2.setText("A propos ");
+        jMenuItem2.setText("Deconnexion");
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Aide");
+
+        jMenuItem3.setText("A propos");
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -446,8 +469,8 @@ public class Ihm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
               //  new Ihm().setVisible(true);
-               Ihm ihm = new Ihm();
-               ihm.ajouterIhmSalon();
+               Ihm ihm = new Ihm("Client","Administrateur");
+            //   ihm.ajouterIhmSalon();
              
                 ihm.setVisible(true);
                     
@@ -461,21 +484,22 @@ public class Ihm extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel EntreeClavier;
     private javax.swing.ButtonGroup buttonGroup1;
-    private java.awt.Choice choice1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -487,9 +511,10 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JSplitPane jSplitPane4;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JList jlistSalonClient;
+    private javax.swing.JLabel nomUtilisateur;
     private javax.swing.JTabbedPane onglets;
+    private javax.swing.JTextArea zoneDeSaisie;
     // End of variables declaration//GEN-END:variables
 
     

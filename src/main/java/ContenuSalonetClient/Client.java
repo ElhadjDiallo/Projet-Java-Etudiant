@@ -11,9 +11,9 @@ public class Client extends SalonClient{
     private ClientEtat clientEtat;
 	public Client(String nomClient)
 	{
-		super(nomClient);
-		this.nomclient=nomClient;
-	    clientEtat=new ClientEtat(nomClient, new ImageIcon("ico.gif"));
+	    super(nomClient);
+            this.nomclient=nomClient;
+	    clientEtat=new ClientEtat(nomClient, new ImageIcon("/home/elhadj/NetBeansProjects/ico.gif"));
 		
 	}
 	public ImageIcon etatclient()

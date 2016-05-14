@@ -8,7 +8,7 @@ public class ClientEtat {
 	private ImageIcon icon;
 	public ClientEtat(String value, ImageIcon icon)
 	{
-		this.setValue(value);
+              this.setValue(value);
 	     this.setIcon(icon);
 	 
 	}
