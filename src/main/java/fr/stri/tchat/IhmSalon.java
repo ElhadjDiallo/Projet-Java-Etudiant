@@ -14,7 +14,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
 /**
- *
+ *https://github.com/ElhadjDiallo/Projet-Java-Etudiant.git
  * @author elhadj
  */
 public class IhmSalon extends javax.swing.JPanel {
