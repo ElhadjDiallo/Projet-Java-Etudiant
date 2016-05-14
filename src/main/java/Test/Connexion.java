@@ -49,7 +49,7 @@ public class Connexion extends javax.swing.JFrame {
         txt_password = new javax.swing.JTextField();
         Button_log = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setToolTipText("");
@@ -142,7 +142,10 @@ public class Connexion extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Connexion().setVisible(true);
-                connexion_en_cour c = new connexion_en_cour
+                 new Connexion_en_cour().setVisible(true);
+               // c.setVisible(true);
+               //Connexion_reussie c = new Connexion_reussie();
+               // c.setVisible(true);
             }
         });
     }
