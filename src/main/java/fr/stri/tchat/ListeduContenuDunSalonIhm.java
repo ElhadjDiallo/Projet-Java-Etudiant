@@ -9,6 +9,7 @@ import ContenuSalonetClient.Client;
 import ContenuSalonetClient.Salon;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
+//bonjour
 
 /**
  *
