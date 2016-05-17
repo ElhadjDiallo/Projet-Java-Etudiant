@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 /**
- * Author:  ngoyet-ndiaye
+ * Author:ndiaye
  * Created: 12 mai 2016
  */
 CREATE TABLE chat_message(
