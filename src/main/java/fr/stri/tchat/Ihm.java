@@ -348,10 +348,10 @@ public class Ihm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jMenuItem1 = new javax.swing.JMenuItem();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jSplitPane1 = new javax.swing.JSplitPane();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
@@ -367,6 +367,9 @@ public class Ihm extends javax.swing.JFrame {
         envoyerMessage = new javax.swing.JButton();
         scrollpaneSaisie = new javax.swing.JScrollPane();
         zoneDeSaisie = new javax.swing.JTextArea();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jRadioButton5 = new javax.swing.JRadioButton();
+        jRadioButton6 = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -489,24 +492,49 @@ public class Ihm extends javax.swing.JFrame {
         zoneDeSaisie.setRows(5);
         scrollpaneSaisie.setViewportView(zoneDeSaisie);
 
+        buttonGroup2.add(jRadioButton4);
+        jRadioButton4.setText("Normal");
+
+        buttonGroup2.add(jRadioButton5);
+        jRadioButton5.setText("Italique");
+
+        buttonGroup2.add(jRadioButton6);
+        jRadioButton6.setText("Gras");
+
         javax.swing.GroupLayout EntreeClavierLayout = new javax.swing.GroupLayout(EntreeClavier);
         EntreeClavier.setLayout(EntreeClavierLayout);
         EntreeClavierLayout.setHorizontalGroup(
             EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EntreeClavierLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addComponent(envoyerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(EntreeClavierLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jRadioButton4)
+                .addGap(62, 62, 62)
+                .addComponent(jRadioButton5)
+                .addGap(61, 61, 61)
+                .addComponent(jRadioButton6))
         );
         EntreeClavierLayout.setVerticalGroup(
             EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EntreeClavierLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(EntreeClavierLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(envoyerMessage))
+                .addContainerGap()
+                .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton4)
+                    .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButton6)
+                        .addComponent(jRadioButton5)))
+                .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EntreeClavierLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EntreeClavierLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(envoyerMessage)))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         jSplitPane4.setRightComponent(EntreeClavier);
@@ -917,7 +945,7 @@ public class Ihm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel EntreeClavier;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JMenu choixDeconnexion;
     private javax.swing.JMenuItem deconnexion;
     private javax.swing.JButton envoyerMessage;
@@ -935,6 +963,9 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JRadioButton jRadioButton4;
+    private javax.swing.JRadioButton jRadioButton5;
+    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;

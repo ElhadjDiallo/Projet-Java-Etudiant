@@ -90,9 +90,6 @@ public class IhmSalon extends javax.swing.JPanel {
         jlistIhm = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
         affichageContenu = new javax.swing.JTextArea();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -114,12 +111,6 @@ public class IhmSalon extends javax.swing.JPanel {
         affichageContenu.setRows(5);
         jScrollPane5.setViewportView(affichageContenu);
 
-        jRadioButton4.setText("Normal");
-
-        jRadioButton5.setText("Italique");
-
-        jRadioButton6.setText("Gras");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,13 +121,7 @@ public class IhmSalon extends javax.swing.JPanel {
                     .addGap(13, 13, 13)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jRadioButton4)
-                            .addGap(40, 40, 40)
-                            .addComponent(jRadioButton5)
-                            .addGap(83, 83, 83)
-                            .addComponent(jRadioButton6)))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(22, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -148,12 +133,7 @@ public class IhmSalon extends javax.swing.JPanel {
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(28, 28, 28)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jRadioButton4)
-                        .addComponent(jRadioButton5)
-                        .addComponent(jRadioButton6))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(54, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -161,9 +141,6 @@ public class IhmSalon extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea affichageContenu;
     private javax.swing.JList jList1;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
