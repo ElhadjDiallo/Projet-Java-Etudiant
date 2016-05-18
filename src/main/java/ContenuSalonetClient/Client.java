@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 
 
 public class Client extends SalonClient{
+        private String cp1;
 	
 	private String nomclient;
         /*mettre en ligne ou hors ligne */
