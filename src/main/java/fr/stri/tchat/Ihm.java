@@ -49,6 +49,8 @@ public class Ihm extends javax.swing.JFrame {
     /**
      * Creates new form Ihm
      */
+    
+    
     public Ihm(String nomUtilisateur,String nomAdmin) {
         
         listmodel = new ListSalonClient();
