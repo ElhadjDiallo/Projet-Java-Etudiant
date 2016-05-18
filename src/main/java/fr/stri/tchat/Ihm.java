@@ -12,6 +12,8 @@ import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.TableSalon;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -57,9 +59,22 @@ public class Ihm extends javax.swing.JFrame {
          listSalonClientCellRenderer();
          this.nomUtilisateur.setText(nomUtilisateur);
          this.jLabel1.setText(nomAdmin);
+         this.inciseNomClient.setText(nomUtilisateur.substring(0, 3));
          alarme=0;
          
           mettreAjour();
+        javax.swing.Timer timer1 = new javax.swing.Timer(3000, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+           //
+                // mise a jour
+                mettreAjour();
+            }
+
+                   });
+        
+        timer1.start();
        
         
     }
@@ -99,14 +114,16 @@ public class Ihm extends javax.swing.JFrame {
         }
            
     }
+    
+     private void maj() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
     public void mettreAjour()
     {
         /* Requête Utilisateur d'un salon  
  */
         /*requête pour recuper un salon */
       /*  ;*/
-        
-        
         
          
         
@@ -117,17 +134,18 @@ public class Ihm extends javax.swing.JFrame {
         
       
                
-        
+        /*
           
         Timer timer =new Timer();       
         TimerTask Task=new TimerTask() {
 
             @Override
             public void run() {
-                
+          */      
                 
         ArrayList<String>temp=new ArrayList<>();
         tablesalon=new TableSalon();
+    int    indiceCourant=onglets.getSelectedIndex();
      
         try {
            connexionAlabase();
@@ -152,7 +170,7 @@ public class Ihm extends javax.swing.JFrame {
            requete+="where nom_salon=";
            requete+="'"+lessalon+"'";
            requete+=" and  salon.id_salon=salonutilisateur.id_salon and utilisateur.id_membre=salonutilisateur.id_membre"; 
-                System.out.println(""+requete); 
+              System.out.println(""+requete); 
            salon = new Salon(lessalon);    
             Statement instruction = connexion.createStatement();
            ResultSet  requeteClientDuSalon=instruction.executeQuery(requete);
@@ -163,6 +181,7 @@ public class Ihm extends javax.swing.JFrame {
                   salon.ajouterClientDansleSalon(client4);   
               }
             tablesalon.ajouterUnSalon(salon);
+           
            
             }
              
@@ -186,14 +205,15 @@ public class Ihm extends javax.swing.JFrame {
            salon2.ajouterLesClientDanslaJlistSalonClient(listmodel);
                                
             }
-            
+             onglets.setSelectedIndex(indiceCourant);
+             
           
-               
+            /*   
            
       
             }
         };
-        timer.scheduleAtFixedRate(Task,0, 30*1000);
+        timer.scheduleAtFixedRate(Task,0, 30*1000);*/
     }
     
     
@@ -337,7 +357,7 @@ public class Ihm extends javax.swing.JFrame {
         panelClient = new javax.swing.JPanel();
         nomUtilisateur = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        inciseNomClient = new javax.swing.JLabel();
         jSplitPane3 = new javax.swing.JSplitPane();
         jSplitPane4 = new javax.swing.JSplitPane();
         onglets = new javax.swing.JTabbedPane();
@@ -401,9 +421,9 @@ public class Ihm extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En ligne", "Hors ligne", " " }));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/cl.jpg"))); // NOI18N
-        jLabel3.setText("CL");
-        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        inciseNomClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/cl.jpg"))); // NOI18N
+        inciseNomClient.setText("CL");
+        inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout panelClientLayout = new javax.swing.GroupLayout(panelClient);
         panelClient.setLayout(panelClientLayout);
@@ -413,7 +433,7 @@ public class Ihm extends javax.swing.JFrame {
                 .addContainerGap(221, Short.MAX_VALUE)
                 .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(inciseNomClient)
                 .addGap(2, 2, 2)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -424,7 +444,7 @@ public class Ihm extends javax.swing.JFrame {
                 .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
+                    .addComponent(inciseNomClient)
                     .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
         );
@@ -701,34 +721,12 @@ public class Ihm extends javax.swing.JFrame {
        texte=zoneDeSaisie.getText();
        indiceDuSalon=onglets.getSelectedIndex();
       
-         String requeteNblinge="select Count(*) as nombre from envoyermess";
+        
         String requeteIdSalon="Select id_salon from salon where nom_salon";
                requeteIdSalon+=" ="+"'"+tableIhm.get(indiceDuSalon).getName()+"'";
         String idcompte="select id_membre from utilisateur where login";
         idcompte+=" ='"+this.nomUtilisateur.getText()+"'";
         
-        try {
-            
-        connexionAlabase();
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requeteNblinge);
-         while (resultat.next()) {
-                   
-             nombreligne=resultat.getString("nombre");
-            // System.out.println("le nombre de ligne est "+nombreligne);
-             
-             
-            
-             
-         
-          }
-         nbligne=Integer.parseInt(nombreligne);
-         nbligne++;
-          
-
-            
-        } catch (Exception e) {
-        }
         try {
             
          Statement instruction = connexion.createStatement();
@@ -763,7 +761,7 @@ public class Ihm extends javax.swing.JFrame {
         }
         String dateheure=String.format("%tc",cal);
          String requeteInsertion="INSERT INTO envoyermess VALUES";
-                 requeteInsertion+="(default "+idsalon+","+idmembre+",'"+dateheure+"','"+texte+"')";
+                 requeteInsertion+="("+""+idsalon+","+idmembre+","+"CURRENT_TIMESTAMP"+",'"+texte+"')";
                  System.out.println("la requête d'insertion est :"+requeteInsertion);
       
         try {
@@ -921,6 +919,7 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JMenu choixDeconnexion;
     private javax.swing.JMenuItem deconnexion;
     private javax.swing.JButton envoyerMessage;
+    private javax.swing.JLabel inciseNomClient;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -928,7 +927,6 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
