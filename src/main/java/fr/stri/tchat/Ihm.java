@@ -380,7 +380,7 @@ public class Ihm extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("TlwgTypewriter", 2, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(54, 36, 209));
-        jLabel2.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/Projet-Java-Etudiant /src/main/java/fr/stri/tchat/strilogo_opt(1).png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/strilogo_opt(1).png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -401,7 +401,7 @@ public class Ihm extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En ligne", "Hors ligne", " " }));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/Projet-Java-Etudiant /src/main/java/fr/stri/tchat/cl.jpg")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/cl.jpg"))); // NOI18N
         jLabel3.setText("CL");
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -843,6 +843,9 @@ public class Ihm extends javax.swing.JFrame {
         }
         tableIhm.get(indiceDuSalon).afficher(messages);
         onglets.remove(indiceDuSalon);
+        
+       // IhmSalon componentAt = (IhmSalon) onglets.getComponentAt(0);
+       // componentAt.listContenuSalonIhmCellrendere();
         
         onglets.add(tableIhm.get(indiceDuSalon),indiceDuSalon);
         onglets.setSelectedIndex(indiceDuSalon);

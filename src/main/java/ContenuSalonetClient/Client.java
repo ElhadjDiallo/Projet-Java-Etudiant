@@ -13,7 +13,7 @@ public class Client extends SalonClient{
 	{
 	    super(nomClient);
             this.nomclient=nomClient;
-	    clientEtat=new ClientEtat(nomClient, new ImageIcon("/home/elhadj/NetBeansProjects/Projet-Java-Etudiant /src/main/java/fr/stri/tchat/ico.gif"));
+	    clientEtat=new ClientEtat(nomClient, new ImageIcon(getClass().getResource("/fr/stri/tchat/ico.gif")));
 		
 	}
 	public ImageIcon etatclient()
