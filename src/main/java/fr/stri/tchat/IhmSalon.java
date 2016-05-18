@@ -37,6 +37,10 @@ public class IhmSalon extends javax.swing.JPanel {
     {
         affichageContenu.setText(texte);
     }
+    public String getNom()
+    {
+        return this.getName();
+    }
     
     public void listContenuSalonIhmCellrendere()
     {

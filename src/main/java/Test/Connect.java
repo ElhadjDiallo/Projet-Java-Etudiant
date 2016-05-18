@@ -21,50 +21,63 @@ public class Connect {
     public static void main(String[] args) {
         //ConnexionBd c = new ConnexionBd();
         //c.obtenirConnexion();
+       /* 
         try {
             Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/ChatStri";
+            String url = "jdbc:postgresql://localhost:5433/javaSTRI";
             String user = "postgres";
-            String password = "Bah.19";
+            String password = "root";
 
             Connection con = DriverManager.getConnection(url, user, password);
             System.out.println("Connexion effective !");
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
+    
+    
 
     static boolean isValidUser(String username, String password) {
-        boolean tmp = false;
+        boolean connecter=false;
+        
         try {
-            Class.forName("org.postgresql.Driver");
+//      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5432/projet_java";
-            String userdb = "postgres";
-            String passworddb = "root";
+            String url = "jdbc:postgresql://localhost:5433/javaSTRI";
+            String user = "postgres";
+            String password1="diallo";
 
-            Connection conn = DriverManager.getConnection(url, userdb, passworddb);
+            Connection connexion = DriverManager.getConnection(url, user, password1);
             System.out.println("Connexion effective !");
-            String sql = "SELECT * FROM Utilisateur where Login='"+username+"' and password='"+password+"'";
-            Statement stmt = conn.createStatement();
-         //   stmt.setString(1, username);
-          //  stmt.setString(2, password);
-      ResultSet rs = stmt.executeQuery(sql);
-      //STEP 5: Extract data from result set
-      while(rs.next()){
-         //Retrieve by column name
-         
-         tmp=true;
-      }
-      rs.close();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-            tmp=false;
+      Statement instruction = connexion.createStatement();
+      ResultSet resultat = instruction.executeQuery("SELECT login,mdp FROM utilisateur");
+      
+      while (resultat.next()) {
+             
+        //System.out.println("id_membre : "+ résultat.getString("id_membre"));
+        if(resultat.getString("login").compareTo(username)==0 && resultat.getString("mdp").compareTo(password)==0 )
+        {
+            connecter=true;
+            return connecter;
         }
-        return tmp;
+        else 
+        {
+            System.out.println("ERReur");
+        }
+        
+      }
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+  }
+        
+    
     }
-}
+       
+
+
