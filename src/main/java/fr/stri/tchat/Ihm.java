@@ -6,6 +6,8 @@
 package fr.stri.tchat;
 
 import ContenuSalonetClient.Client;
+import ContenuSalonetClient.ClientEtat;
+import ContenuSalonetClient.FormeClientBd;
 import ContenuSalonetClient.ListSalonClient;
 import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.SalonClient;
@@ -23,8 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -45,7 +50,7 @@ public class Ihm extends javax.swing.JFrame {
     private TableSalon tablesalon;
     private ArrayList<IhmSalon>tableIhm;
     private Connection connexion;
-    private int alarme;
+   
     /**
      * Creates new form Ihm
      */
@@ -62,7 +67,7 @@ public class Ihm extends javax.swing.JFrame {
          this.nomUtilisateur.setText(nomUtilisateur);
          this.jLabel1.setText(nomAdmin);
          this.inciseNomClient.setText(nomUtilisateur.substring(0, 3));
-         alarme=0;
+        
          
           mettreAjour();
         javax.swing.Timer timer1 = new javax.swing.Timer(3000, new ActionListener() {
@@ -116,6 +121,7 @@ public class Ihm extends javax.swing.JFrame {
         }
            
     }
+   
     
      private void maj() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -143,14 +149,16 @@ public class Ihm extends javax.swing.JFrame {
 
             @Override
             public void run() {
-          */      
-                
+          */ 
+        int indiceDuClient;
+        String online=new String();
+        HashMap<Integer,FormeClientBd> tabclient= new HashMap<Integer,FormeClientBd>();
         ArrayList<String>temp=new ArrayList<>();
         tablesalon=new TableSalon();
     int    indiceCourant=onglets.getSelectedIndex();
-     
-        try {
-           connexionAlabase();
+    connexionAlabase();
+               try {
+           
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery("Select nom_salon from salon");
             
@@ -165,22 +173,95 @@ public class Ihm extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+            
+            int i=0;  
+         try {
+             for(String lesalon:temp)
+             {
+             
+             String requetestatus="select  online_status,utilisateur.id_membre,login from enligne ,salon";
+             requetestatus+=",utilisateur where enligne.id_membre=utilisateur.id_membre and ";
+             requetestatus+="salon.nom_salon="+"'"+lesalon+"' and salon.id_salon=enligne.id_salon";
+             
+              System.out.println("la requete est "+requetestatus);
+             ClientEtat enligne=new ClientEtat("default", new ImageIcon(getClass().getResource("/fr/stri/tchat/ico.gif")));
+             ClientEtat horsligne=new ClientEtat("default", new ImageIcon(getClass().getResource("/fr/stri/tchat/pasconnecte.gif")));
+            
+            Statement instruction = connexion.createStatement();
+            ResultSet resultat = instruction.executeQuery(requetestatus);
+            
+            while (resultat.next())
+            {
+                
+                
+              indiceDuClient=Integer.parseInt(resultat.getString("id_membre"));
+  
+               online=resultat.getString("online_status");
+               
+              
+                
+                if(online.compareTo("Hors-ligne")==0)
+                {
+                   
+                  
+                FormeClientBd utiliseClient=new FormeClientBd(resultat.getString("login"), indiceDuClient, horsligne, lesalon);    
+                tabclient.put(i,utiliseClient);
+                    
+                }
+                if(online.compareTo("En ligne")==0)
+                {
+                     
+                 FormeClientBd utiliseClient=new FormeClientBd(resultat.getString("login"), indiceDuClient,enligne, lesalon);
+                  
+                  tabclient.put(i, utiliseClient);
+                          
+                }
+                
+                i++;
+                
+            }
+             
+             }    
+             
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+         
+                System.err.println("le nombre d'element est "+tabclient.size()); 
+     
+        ArrayList<Client>list=new ArrayList<>();
         try {
             for(String lessalon:temp)
             {
-            String  requete="Select login from utilisateur,salonutilisateur,salon ";
+            String  requete="Select login,utilisateur.id_membre from utilisateur,salonutilisateur,salon ";
            requete+="where nom_salon=";
            requete+="'"+lessalon+"'";
            requete+=" and  salon.id_salon=salonutilisateur.id_salon and utilisateur.id_membre=salonutilisateur.id_membre"; 
-              System.out.println(""+requete); 
+              
            salon = new Salon(lessalon);    
             Statement instruction = connexion.createStatement();
            ResultSet  requeteClientDuSalon=instruction.executeQuery(requete);
            while(requeteClientDuSalon.next())
               {
-                
-                  Client client4=new Client(requeteClientDuSalon.getString("login"));
-                  salon.ajouterClientDansleSalon(client4);   
+                  int cle=Integer.parseInt(requeteClientDuSalon.getString("id_membre"));
+                /* if(tabclient.get(cle).retournerSalon().compareTo(lessalon)==0)
+                 {
+                     System.out.println("bien vu");
+                     salon.ajouterClientDansleSalon(tabclient.get(cle).retournerClient());
+                 }*/
+                 list=salon.findClient(tabclient, lessalon);
+                 if(list.isEmpty()==false)
+                 {
+                     for(Client cl:list)
+                     {
+                         System.out.println("les clients sont "+cl.getNomclient());
+                         salon.ajouterClientDansleSalon(cl);
+                     }
+                    
+                 }
+               
+               
+                    
               }
             tablesalon.ajouterUnSalon(salon);
            
@@ -188,6 +269,7 @@ public class Ihm extends javax.swing.JFrame {
             }
              
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
          
@@ -296,46 +378,6 @@ public class Ihm extends javax.swing.JFrame {
         onglets.addTab(ihmSalon.getName(),ihmSalon);
        
     }
-    public void  gestionAlarme()
-    {
-        String requeteNblinge="select Count(*) as nombre from envoyermess";
-        String nbajour=new String();
-        int valeur;
-        int temp=0;
-        try {
-            
-        connexionAlabase();
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requeteNblinge);
-         while (resultat.next()) {
-                   
-            nbajour=resultat.getString("nombre");
-            System.out.println("le nombre de ligne est "+nbajour);
-             
-             
-            
-             
-         
-          }
-         resultat.close();
-         
-         valeur=Integer.parseInt(nbajour);
-         temp=valeur;
-         if(temp!=this.alarme)
-         {
-             System.out.println("y' a eu modification à la base de donnée");
-         }
-         this.alarme=valeur;
-         
-          
-
-            
-        } catch (Exception e) {
-            System.err.println("Erreur dans gestion alarme");
-        }
-   
-    }
-    
     
     
 
@@ -634,12 +676,12 @@ public class Ihm extends javax.swing.JFrame {
     }//GEN-LAST:event_ongletsCaretPositionChanged
    public void recupererContenuSalon(IhmSalon ihmSalon)
    {
-         String nombreligne = null;
-        String idsalon = null;
-        String idmembre = null;
-        String login=null;
+        
+        String idsalon = new String();
+        String idmembre =new String();
+        String login=new String();
         int indiceDuSalon=0;
-        int nbligne = 0;
+      
         ArrayList<String> lislogin=new ArrayList<>();
         ArrayList <String>listMessag=new ArrayList<>();
           String requeteIdSalon="Select id_salon from salon where nom_salon";
@@ -736,12 +778,11 @@ public class Ihm extends javax.swing.JFrame {
     private void envoyerMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoyerMessageActionPerformed
         // TODO add your handling code here:
          
-        gestionAlarme();
-        Calendar cal = Calendar.getInstance();
-        String nombreligne = null;
-        String idsalon = null;
-        String idmembre = null;
-        String login=null;
+        
+        boolean verif=false;
+        String idsalon = new String();
+        String idmembre =new String();
+        String login=new String();
         int indiceDuSalon=0;
         int nbligne = 0;
         ArrayList<String> lislogin=new ArrayList<>();
@@ -789,10 +830,35 @@ public class Ihm extends javax.swing.JFrame {
             
         } catch (Exception e) {
         }
-        String dateheure=String.format("%tc",cal);
+        
+        String requeteRecupereEtatUTilisateur="select  online_status from enligne where   enligne.id_membre="+idmembre+" "
+            + "and enligne.id_salon="+idsalon+"";
+        System.err.println("la requete "+requeteRecupereEtatUTilisateur);
+        
+        try {
+            Statement instruction = connexion.createStatement();
+            ResultSet resultat = instruction.executeQuery(requeteRecupereEtatUTilisateur);
+            while(resultat.next())
+            {
+                
+                System.out.println(resultat.getString("online_status")); 
+              
+                  verif=true;
+              
+              
+            }
+       
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        if(verif)
+        {
          String requeteInsertion="INSERT INTO envoyermess VALUES";
                  requeteInsertion+="("+""+idsalon+","+idmembre+","+"CURRENT_TIMESTAMP"+",'"+texte+"')";
-                 System.out.println("la requête d'insertion est :"+requeteInsertion);
+                 
       
         try {
             
@@ -803,12 +869,13 @@ public class Ihm extends javax.swing.JFrame {
         } catch (Exception e) {
             
         }
+        }
        
        String requetemesSalon;
        requetemesSalon="select login from utilisateur,envoyermess"; 
        requetemesSalon+=" where id_salon=";
        requetemesSalon+="'"+idsalon+"'"+" and utilisateur.id_membre=envoyermess.id_membre";
-         System.out.println("la requête des login"+requetemesSalon);
+        
         try {
             
          Statement instruction = connexion.createStatement();

@@ -32,10 +32,25 @@ public class ListeduContenuDunSalonIhm extends AbstractListModel<Client>  {
     public int getSize() {
       return listecontenusalonIhm.size();
     }
+    public int position(String nom)
+    {
+        for(Client client:listecontenusalonIhm)
+        {
+            if(client.getNom().compareTo(nom)==0)
+            {
+                return listecontenusalonIhm.indexOf(client);
+            }
+        }
+         return -1;
+    }
 
     @Override
     public Client getElementAt(int index) {
         return listecontenusalonIhm.get(index);
+    }
+    public void retirerElemen(int index)
+    {
+        listecontenusalonIhm.remove(index);
     }
     public void ajouter(Salon salon)
     {

@@ -28,11 +28,12 @@ public class IhmSalon extends javax.swing.JPanel {
        
        listModelIhm=new ListeduContenuDunSalonIhm(salon.getNom());
         initComponents();
-          listModelIhm.ajouter(salon);
+        listModelIhm.ajouter(salon);
         this.setName(salon.getNom());
        listContenuSalonIhmCellrendere();
         
     }
+    
     public void afficher(String texte)
     {
         affichageContenu.setText(texte);

@@ -1,3 +1,4 @@
+
 package ContenuSalonetClient;
 
 import javax.swing.ImageIcon;
@@ -14,7 +15,7 @@ public class Client extends SalonClient{
 	{
 	    super(nomClient);
             this.nomclient=nomClient;
-	    clientEtat=new ClientEtat(nomClient, new ImageIcon(getClass().getResource("/fr/stri/tchat/ico.gif")));
+	    clientEtat=new ClientEtat(nomClient, new ImageIcon(getClass().getResource("/fr/stri/tchat/pasconnecte.gif")));
 		
 	}
 	public ImageIcon etatclient()
@@ -24,7 +25,7 @@ public class Client extends SalonClient{
 	}
 	public void ajouterEtatClient(ImageIcon icon)
 	{
-		setClientEtat(new ClientEtat(getNomclient(), icon));
+	setClientEtat(new ClientEtat(getNomclient(), icon));
 	}
 	public String getNomclient() {
 		return nomclient;

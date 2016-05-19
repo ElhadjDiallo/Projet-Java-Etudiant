@@ -1,6 +1,11 @@
 package ContenuSalonetClient;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Iterator;
 
 public class Salon extends SalonClient {
 	private String nomSalon;
@@ -16,7 +21,54 @@ public class Salon extends SalonClient {
                 listeDesClientduSalon=new ArrayList<Client>();
 		
 		
-	}
+	
+        }
+        
+        public void recupererUnClient(String nom)
+        {
+            Client clientModifier;
+            int i=0;
+            for(Client client :listeDesClientduSalon)
+            {
+                if(client.getNom().compareTo(nom)==0)
+                {
+                   // System.out.println("client"+client);
+                   //listeDesClientduSalon.remove(client);
+                  
+                  
+                }
+                i++;
+            }
+        }
+        
+        public ArrayList<Client> findClient(HashMap<Integer,FormeClientBd>boite,String nomSalon)
+        {
+            
+            ArrayList<Client>retour=new ArrayList<>();
+           
+          Iterator it=boite.keySet().iterator();
+          while(it.hasNext())
+          {
+               Object key=it.next();
+              Object value=boite.get(key);
+           if(((FormeClientBd)value).retournerSalon().compareTo(nomSalon)==0)
+           {
+               
+               
+                retour.add(((FormeClientBd)value).retournerClient());  
+                
+            
+               
+           }
+          }
+            
+        
+          
+             
+          
+          return retour;
+            
+        }
         public ArrayList<Client> getlisteDesClientduSalon()
         {
             return listeDesClientduSalon;
