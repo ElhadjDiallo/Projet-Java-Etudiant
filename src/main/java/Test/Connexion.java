@@ -7,6 +7,8 @@ package Test;
 
 import fr.stri.tchat.Ihm;
 import gestionErreur.ErreurDeConnexion;
+import gestionErreur.EtablissementDeConnexion;
+import gestionErreur.EtatConnexion;
 import java.awt.Color;
 import java.awt.*;
 import java.sql.Connection;
@@ -171,11 +173,21 @@ public class Connexion extends javax.swing.JFrame {
          
          if(Connect.isValidUser(username, pass,this.nombd,this.user,this.password))
          {
-         Ihm ihm = new Ihm(nomCLient,"Administrateur");
+         
             //   ihm.ajouterIhmSalon();
+             this.dispose();
+            EtablissementDeConnexion etc= new EtablissementDeConnexion(this, rootPaneCheckingEnabled);
+              etc.setVisible(rootPaneCheckingEnabled);
+             if(!etc.isActive())
+             { Ihm ihm = new Ihm(nomCLient,"Administrateur");
            ihm.setLocationRelativeTo(null);
           ihm.setVisible(true);
-          this.dispose();
+                 
+             }
+               
+            
+              
+           
          }
          else 
          {
