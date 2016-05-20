@@ -6,6 +6,7 @@
 package Test;
 
 import fr.stri.tchat.Ihm;
+import gestionErreur.ErreurDeConnexion;
 import java.awt.Color;
 import java.awt.*;
 import java.sql.Connection;
@@ -24,12 +25,31 @@ public class Connexion extends javax.swing.JFrame {
     /***** Creates new form connexion
      *******/
     private String nomCLient;
+    private String nombd;
+    private String user;
+    private String password;
     public Connexion() {
         initComponents();
         setTitle("connexion");
         getContentPane().setBackground(new Color(204,204,255));
+        password="diallo";
+        user="postgres";
+        nombd="javaSTRI";
         
     }
+    public String getpassword()
+    {
+        return password;
+    }
+    public String getuser()
+    {
+        return user;
+    }
+    public String getnombd()
+    {
+        return nombd;
+    }
+            
     
 
     /**
@@ -102,7 +122,7 @@ public class Connexion extends javax.swing.JFrame {
                             .addComponent(Txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mdpasse, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Button_log, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,16 +133,13 @@ public class Connexion extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(mdpasse, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mdpasse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(Button_log)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,9 +150,7 @@ public class Connexion extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -154,13 +169,19 @@ public class Connexion extends javax.swing.JFrame {
         
         String pass=new String(password);
          
-         if(Connect.isValidUser(username, pass))
+         if(Connect.isValidUser(username, pass,this.nombd,this.user,this.password))
          {
          Ihm ihm = new Ihm(nomCLient,"Administrateur");
             //   ihm.ajouterIhmSalon();
-             
+           ihm.setLocationRelativeTo(null);
           ihm.setVisible(true);
           this.dispose();
+         }
+         else 
+         {
+             ErreurDeConnexion erreur=new ErreurDeConnexion(this, rootPaneCheckingEnabled);
+             erreur.setLocation(600, 500);
+             erreur.setVisible(rootPaneCheckingEnabled);
          }
          
                     
@@ -197,13 +218,19 @@ public class Connexion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Connexion().setVisible(true);
-                 //new Connexion_en_cour().setVisible(true);
-               // c.setVisible(true);
-               //Connexion_reussie c = new Connexion_reussie();
-               // c.setVisible(true);
+               
+                
+            Connexion  conexion=new Connexion();
+            conexion.setLocationRelativeTo(null);
+           
+               conexion.setVisible(true);
+                 
             }
         });
+    }
+    public void gestionzoneSaisie()
+    {
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

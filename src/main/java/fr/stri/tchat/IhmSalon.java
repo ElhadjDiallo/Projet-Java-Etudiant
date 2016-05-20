@@ -7,11 +7,18 @@ package fr.stri.tchat;
 
 import ContenuSalonetClient.Client;
 import ContenuSalonetClient.Salon;
+import Test.Connexion;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  *https://github.com/ElhadjDiallo/Projet-Java-Etudiant.git
@@ -23,7 +30,7 @@ public class IhmSalon extends javax.swing.JPanel {
      * Creates new form IhmSalon
      */
     private ListeduContenuDunSalonIhm listModelIhm;
-   
+    private String gestionaffichage;
     public IhmSalon(Salon salon) {
        
        listModelIhm=new ListeduContenuDunSalonIhm(salon.getNom());
@@ -31,12 +38,51 @@ public class IhmSalon extends javax.swing.JPanel {
         listModelIhm.ajouter(salon);
         this.setName(salon.getNom());
        listContenuSalonIhmCellrendere();
+       //this.gestionaffichage="normal";
+       
         
     }
     
-    public void afficher(String texte)
+    
+    public void afficher(String texte,String selection)
     {
-       affichageSalonClient.setText(texte);
+        
+       
+        
+     StyledDocument document = new DefaultStyledDocument();
+    SimpleAttributeSet attributes = new SimpleAttributeSet();
+    attributes = new SimpleAttributeSet();
+    if(selection.compareTo("gras")==0)
+    {
+    attributes.addAttribute(StyleConstants.CharacterConstants.Bold, Boolean.TRUE);
+    
+     //attributes.addAttribute(StyleConstants.CharacterConstants.Foreground, Color.LIGHT_GRAY);
+    }
+    else if(selection.compareTo("italique")==0)
+    {
+    attributes.addAttribute(StyleConstants.CharacterConstants.Italic, Boolean.TRUE);    
+    }
+    else if(selection.compareTo("normal")==0)
+    {
+        Font f = new Font("Courier", Font.BOLD, 50);
+        attributes.addAttribute(f, Boolean.TRUE);
+    }
+    else 
+    {
+        Font f = new Font("Courier", Font.BOLD, 50);
+        attributes.addAttribute(f, Boolean.TRUE);
+    }
+    try {
+      document.insertString(document.getLength(),texte, attributes);
+       
+        affichageSalonClient.setDocument(document);
+        affichageSalonClient.setCaretPosition(document.getLength());
+    } catch (BadLocationException badLocationException) {
+
+       badLocationException.printStackTrace();
+    }
+      
+      // affichageSalonClient.setText(texte);
     }
     public String getNom()
     {
@@ -52,12 +98,25 @@ public class IhmSalon extends javax.swing.JPanel {
                JLabel resultat=new JLabel();
                resultat.setText(value.toString());
                resultat.setIcon(value.etatclient());
+               int i=0;
                
+              if(list.getSelectedIndex()!=-1)
+               {
+                   Connexion n=new Connexion();
+                   n.setVisible(true);
+                   list.clearSelection();
+               }
                if(isSelected)
                {
                    
                    
                    resultat.setBackground(Color.CYAN);
+                   if(isSelected && i==0)
+               {
+                   System.out.println("DIALLLO");
+                   i++;
+               }
+                   
                }
                else 
                {
@@ -107,6 +166,18 @@ public class IhmSalon extends javax.swing.JPanel {
         jlistIhm.setVisibleRowCount(-1);
         jScrollPane4.setViewportView(jlistIhm);
 
+        affichageSalonClient.setEditable(false);
+        affichageSalonClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                affichageSalonClientMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                affichageSalonClientMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                affichageSalonClientMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(affichageSalonClient);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -135,6 +206,23 @@ public class IhmSalon extends javax.swing.JPanel {
                     .addContainerGap(332, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void affichageSalonClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_affichageSalonClientMouseExited
+        // TODO add your handling code here:
+        this.gestionaffichage="toucher";
+        
+    }//GEN-LAST:event_affichageSalonClientMouseExited
+
+    private void affichageSalonClientMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_affichageSalonClientMousePressed
+        // TODO add your handling code here:
+       
+        
+    }//GEN-LAST:event_affichageSalonClientMousePressed
+
+    private void affichageSalonClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_affichageSalonClientMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_affichageSalonClientMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

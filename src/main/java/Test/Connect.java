@@ -1,5 +1,6 @@
 package Test;
 
+import gestionErreur.ErreurDeConnexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,10 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connect {
-
+   
     public Connect() {
+        
         // TODO Auto-generated constructor stub
     }
+    
 
     /**
      * @param args
@@ -40,16 +43,16 @@ public class Connect {
     
     
 
-    static boolean isValidUser(String username, String password) {
+    static boolean isValidUser(String username, String password,String nombd,String user,String password1) {
         boolean connecter=false;
         
         try {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/javaSTRI";
-            String user = "postgres";
-            String password1="diallo";
+            String url = "jdbc:postgresql://localhost:5433/"+nombd;
+          
+            
 
             Connection connexion = DriverManager.getConnection(url, user, password1);
             System.out.println("Connexion effective !");
@@ -67,6 +70,7 @@ public class Connect {
         else 
         {
             System.out.println("ERReur");
+            
         }
         
       }

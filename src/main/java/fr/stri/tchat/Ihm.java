@@ -12,6 +12,7 @@ import ContenuSalonetClient.ListSalonClient;
 import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.TableSalon;
+import Test.Connexion;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -50,7 +51,7 @@ public class Ihm extends javax.swing.JFrame {
     private TableSalon tablesalon;
     private ArrayList<IhmSalon>tableIhm;
     private Connection connexion;
-   
+    private String style;
     /**
      * Creates new form Ihm
      */
@@ -66,11 +67,14 @@ public class Ihm extends javax.swing.JFrame {
          listSalonClientCellRenderer();
          this.nomUtilisateur.setText(nomUtilisateur);
          this.jLabel1.setText(nomAdmin);
-         this.inciseNomClient.setText(nomUtilisateur.substring(0, 3));
-        
+         this.inciseNomClient.setText(nomUtilisateur.substring(0, 2));
+         boutonGras.setName("gras");
+         boutonItalique.setName("italique");
+         boutonNormal.setName("normale");
+          this.style="normal";
          
           mettreAjour();
-        javax.swing.Timer timer1 = new javax.swing.Timer(3000, new ActionListener() {
+        javax.swing.Timer timer1 = new javax.swing.Timer(2000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,15 +96,17 @@ public class Ihm extends javax.swing.JFrame {
      }
      public void connexionAlabase()
      {
+         Connexion con =new Connexion();
          try {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/javaSTRI";
-            String user = "postgres";
-            String password1="diallo";
+            String url = "jdbc:postgresql://localhost:5433/";
+            url+=con.getnombd();
+            
+            
 
-           this.connexion = DriverManager.getConnection(url, user, password1);
+           this.connexion = DriverManager.getConnection(url,con.getuser(), con.getpassword());
             System.out.println("Connexion effective !");
           
          
@@ -123,34 +129,10 @@ public class Ihm extends javax.swing.JFrame {
     }
    
     
-     private void maj() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
+    
     public void mettreAjour()
     {
-        /* Requête Utilisateur d'un salon  
- */
-        /*requête pour recuper un salon */
-      /*  ;*/
-        
-         
-        
-         
-        
-      
-        
-        
-      
-               
-        /*
-          
-        Timer timer =new Timer();       
-        TimerTask Task=new TimerTask() {
-
-            @Override
-            public void run() {
-          */ 
-        int indiceDuClient;
+       int indiceDuClient;
         String online=new String();
         HashMap<Integer,FormeClientBd> tabclient= new HashMap<Integer,FormeClientBd>();
         ArrayList<String>temp=new ArrayList<>();
@@ -183,7 +165,7 @@ public class Ihm extends javax.swing.JFrame {
              requetestatus+=",utilisateur where enligne.id_membre=utilisateur.id_membre and ";
              requetestatus+="salon.nom_salon="+"'"+lesalon+"' and salon.id_salon=enligne.id_salon";
              
-              System.out.println("la requete est "+requetestatus);
+             
              ClientEtat enligne=new ClientEtat("default", new ImageIcon(getClass().getResource("/fr/stri/tchat/ico.gif")));
              ClientEtat horsligne=new ClientEtat("default", new ImageIcon(getClass().getResource("/fr/stri/tchat/pasconnecte.gif")));
             
@@ -227,7 +209,7 @@ public class Ihm extends javax.swing.JFrame {
              e.printStackTrace();
         }
          
-                System.err.println("le nombre d'element est "+tabclient.size()); 
+               
      
         ArrayList<Client>list=new ArrayList<>();
         try {
@@ -245,17 +227,13 @@ public class Ihm extends javax.swing.JFrame {
            while(requeteClientDuSalon.next())
               {
                   int cle=Integer.parseInt(requeteClientDuSalon.getString("id_membre"));
-                /* if(tabclient.get(cle).retournerSalon().compareTo(lessalon)==0)
-                 {
-                     System.out.println("bien vu");
-                     salon.ajouterClientDansleSalon(tabclient.get(cle).retournerClient());
-                 }*/
+               
                  list=salon.findClient(tabclient, lessalon);
                  if(list.isEmpty()==false)
                  {
                      for(Client cl:list)
                      {
-                         System.out.println("les clients sont "+cl.getNomclient());
+                       
                          salon.ajouterClientDansleSalon(cl);
                      }
                     
@@ -282,8 +260,8 @@ public class Ihm extends javax.swing.JFrame {
            vider();
           for(Salon salon2:tablesalon.getTableSalon())   
            {
-            IhmSalon salonAjouter=new IhmSalon(salon2);
-            recupererContenuSalon(salonAjouter);
+           IhmSalon salonAjouter=new IhmSalon(salon2);
+           recupererContenuSalon(salonAjouter);
            tableIhm.add(salonAjouter);
            onglets.addTab(salonAjouter.getName(), salonAjouter);
            listmodel.addSalon(salon2);
@@ -292,13 +270,7 @@ public class Ihm extends javax.swing.JFrame {
             }
              onglets.setSelectedIndex(indiceCourant);
              
-          
-            /*   
-           
-      
-            }
-        };
-        timer.scheduleAtFixedRate(Task,0, 30*1000);*/
+       
     }
     
     
@@ -324,6 +296,7 @@ public class Ihm extends javax.swing.JFrame {
                }
                else 
                {
+                  
                    f.setBackground(Color.CYAN);
                }
              
@@ -344,7 +317,7 @@ public class Ihm extends javax.swing.JFrame {
                else
                {
                 f.setForeground(Color.blue);   
-               }
+              }
            
 
              
@@ -394,7 +367,7 @@ public class Ihm extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jMenuItem1 = new javax.swing.JMenuItem();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        groupeBouton = new javax.swing.ButtonGroup();
         jSplitPane1 = new javax.swing.JSplitPane();
         jSplitPane2 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
@@ -410,9 +383,9 @@ public class Ihm extends javax.swing.JFrame {
         envoyerMessage = new javax.swing.JButton();
         scrollpaneSaisie = new javax.swing.JScrollPane();
         zoneDeSaisie = new javax.swing.JTextArea();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        boutonNormal = new javax.swing.JRadioButton();
+        boutonItalique = new javax.swing.JRadioButton();
+        boutonGras = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -517,6 +490,11 @@ public class Ihm extends javax.swing.JFrame {
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
+        onglets.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ongletsKeyPressed(evt);
+            }
+        });
         jSplitPane4.setTopComponent(onglets);
         onglets.getAccessibleContext().setAccessibleName("Salon1");
 
@@ -535,14 +513,29 @@ public class Ihm extends javax.swing.JFrame {
         zoneDeSaisie.setRows(5);
         scrollpaneSaisie.setViewportView(zoneDeSaisie);
 
-        buttonGroup2.add(jRadioButton4);
-        jRadioButton4.setText("Normal");
+        groupeBouton.add(boutonNormal);
+        boutonNormal.setText("Normal");
+        boutonNormal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonNormalActionPerformed(evt);
+            }
+        });
 
-        buttonGroup2.add(jRadioButton5);
-        jRadioButton5.setText("Italique");
+        groupeBouton.add(boutonItalique);
+        boutonItalique.setText("Italique");
+        boutonItalique.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonItaliqueActionPerformed(evt);
+            }
+        });
 
-        buttonGroup2.add(jRadioButton6);
-        jRadioButton6.setText("Gras");
+        groupeBouton.add(boutonGras);
+        boutonGras.setText("Gras");
+        boutonGras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonGrasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout EntreeClavierLayout = new javax.swing.GroupLayout(EntreeClavier);
         EntreeClavier.setLayout(EntreeClavierLayout);
@@ -555,21 +548,21 @@ public class Ihm extends javax.swing.JFrame {
                 .addComponent(envoyerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(jRadioButton4)
+                .addComponent(boutonNormal)
                 .addGap(62, 62, 62)
-                .addComponent(jRadioButton5)
+                .addComponent(boutonItalique)
                 .addGap(61, 61, 61)
-                .addComponent(jRadioButton6))
+                .addComponent(boutonGras))
         );
         EntreeClavierLayout.setVerticalGroup(
             EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EntreeClavierLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButton4)
+                    .addComponent(boutonNormal)
                     .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jRadioButton6)
-                        .addComponent(jRadioButton5)))
+                        .addComponent(boutonGras)
+                        .addComponent(boutonItalique)))
                 .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EntreeClavierLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -682,7 +675,7 @@ public class Ihm extends javax.swing.JFrame {
         String idmembre =new String();
         String login=new String();
         int indiceDuSalon=0;
-      
+        ArrayList<String>date=new ArrayList<>();
         ArrayList<String> lislogin=new ArrayList<>();
         ArrayList <String>listMessag=new ArrayList<>();
           String requeteIdSalon="Select id_salon from salon where nom_salon";
@@ -712,7 +705,7 @@ public class Ihm extends javax.swing.JFrame {
               System.err.println("Erreur sur Id Salon");
         }
           
-         requetemesSalon="select login from utilisateur,envoyermess"; 
+         requetemesSalon="select login,message_time from utilisateur,envoyermess"; 
          requetemesSalon+=" where id_salon=";
          requetemesSalon+="'"+idsalon+"'"+" and utilisateur.id_membre=envoyermess.id_membre";
       
@@ -728,13 +721,14 @@ public class Ihm extends javax.swing.JFrame {
             
                 login=resultat.getString("login");      
                 lislogin.add(login);
+                date.add(resultat.getString("message_time").substring(0, 19));
              
          
           }
             
             
         } catch (Exception e) {
-            System.out.println("Erreur sur les logins");
+            e.printStackTrace();
         }
          requeteMessage="select message from envoyermess  where id_salon=";
          requeteMessage+="'"+idsalon+"'";
@@ -761,6 +755,8 @@ public class Ihm extends javax.swing.JFrame {
         String messages = new String();
         for(String mes:listMessag)
         {
+         messages+=date.get(i);
+         messages+="    ";
          messages+=lislogin.get(i);
          messages+="   ";
          messages+=mes;
@@ -768,8 +764,9 @@ public class Ihm extends javax.swing.JFrame {
          i++;
                   
         }
-        ihmSalon.afficher(messages);
-          
+      
+           ihmSalon.afficher(messages,style);
+         
         
        
    
@@ -785,12 +782,13 @@ public class Ihm extends javax.swing.JFrame {
         String idmembre =new String();
         String login=new String();
         int indiceDuSalon=0;
-        int nbligne = 0;
+     
         ArrayList<String> lislogin=new ArrayList<>();
         ArrayList <String>listMessag=new ArrayList<>();
         
         String texte=new String();
        texte=zoneDeSaisie.getText();
+       zoneDeSaisie.setText("");
        indiceDuSalon=onglets.getSelectedIndex();
       
         
@@ -834,7 +832,7 @@ public class Ihm extends javax.swing.JFrame {
         
         String requeteRecupereEtatUTilisateur="select  online_status from enligne where   enligne.id_membre="+idmembre+" "
             + "and enligne.id_salon="+idsalon+"";
-        System.err.println("la requete "+requeteRecupereEtatUTilisateur);
+     
         
         try {
             Statement instruction = connexion.createStatement();
@@ -937,16 +935,17 @@ public class Ihm extends javax.swing.JFrame {
           i++;
                   
         }
-        tableIhm.get(indiceDuSalon).afficher(messages);
+        
+         
+        tableIhm.get(indiceDuSalon).afficher(messages,style);
         onglets.remove(indiceDuSalon);
         
-       // IhmSalon componentAt = (IhmSalon) onglets.getComponentAt(0);
-       // componentAt.listContenuSalonIhmCellrendere();
+       
         
         onglets.add(tableIhm.get(indiceDuSalon),indiceDuSalon);
         onglets.setSelectedIndex(indiceDuSalon);
         
-        //mettreAjour();
+       
         
         
    
@@ -958,6 +957,38 @@ public class Ihm extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_deconnexionActionPerformed
+
+    private void boutonGrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonGrasActionPerformed
+        // TODO add your handling code here:
+               if(boutonGras.isSelected())
+          {
+              System.out.println("bien selectionner ");
+              this.style="gras";
+          }
+          
+    
+    }//GEN-LAST:event_boutonGrasActionPerformed
+
+    private void boutonItaliqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonItaliqueActionPerformed
+        // TODO add your handling code here:
+        if(boutonItalique.isSelected())
+        {
+            this.style="italique";
+        }
+    }//GEN-LAST:event_boutonItaliqueActionPerformed
+
+    private void boutonNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonNormalActionPerformed
+        // TODO add your handling code here:
+        if(boutonNormal.isSelected())
+        {
+            this.style="normale";
+        }
+    }//GEN-LAST:event_boutonNormalActionPerformed
+
+    private void ongletsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ongletsKeyPressed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_ongletsKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1013,10 +1044,13 @@ public class Ihm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel EntreeClavier;
-    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JRadioButton boutonGras;
+    private javax.swing.JRadioButton boutonItalique;
+    private javax.swing.JRadioButton boutonNormal;
     private javax.swing.JMenu choixDeconnexion;
     private javax.swing.JMenuItem deconnexion;
     private javax.swing.JButton envoyerMessage;
+    private javax.swing.ButtonGroup groupeBouton;
     private javax.swing.JLabel inciseNomClient;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1031,9 +1065,6 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
