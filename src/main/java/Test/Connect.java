@@ -53,6 +53,9 @@ public class Connect {
             String url = "jdbc:postgresql://localhost:5433/"+nombd;
           
             
+            String url = "jdbc:postgresql://localhost:5433/ChatStri";
+            String user = "postgres";
+            String password1="Bah.19";
 
             Connection connexion = DriverManager.getConnection(url, user, password1);
             System.out.println("Connexion effective !");

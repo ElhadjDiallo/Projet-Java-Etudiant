@@ -24,6 +24,10 @@ public class InterfaceClient extends javax.swing.JDialog {
         initComponents();
     }
 
+    public InterfaceClient() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,8 +159,6 @@ public class InterfaceClient extends javax.swing.JDialog {
                 .addGap(20, 20, 20))
         );
 
-        jButton1.getAccessibleContext().setAccessibleName("envoyer");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -211,18 +213,34 @@ public class InterfaceClient extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(InterfaceClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InterfaceClient dialog = new InterfaceClient(new javax.swing.JFrame(), true);
+               
+                /*InterfaceClient dialog = new InterfaceClient(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
-                dialog.setVisible(true);
+                dialog.setVisible(true);*/
             }
         });
     }

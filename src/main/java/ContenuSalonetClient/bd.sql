@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 /**
- * Author:  ngoyet-ndiaye
- * Created: 12 mai 2016
+ * Author:  BAH
+ * Created: 20 mai 2016
  */
 
 -- Database: "javaSTRI"
@@ -21,15 +21,6 @@ CREATE DATABASE "javaSTRI"
        CONNECTION LIMIT = -1;
 
 
-
-CREATE TABLE chat_message(
-        message_id   Int NOT NULL ,
-        message_user Varchar (50) ,
-        message_time TIMESTAMP,
-        message_text Varchar (255) ,
-        id_membre    Int ,
-        PRIMARY KEY (message_id )
-);
 
 -- Table: public.envoyermess
 
@@ -64,6 +55,7 @@ CREATE TABLE public.salon
   nom_salon character varying(50),
   CONSTRAINT salon_pkey PRIMARY KEY (id_salon)
 )
+
 WITH (
   OIDS=FALSE
 );
@@ -94,7 +86,6 @@ ALTER TABLE public.salonutilisateur
 -- Table: public.utilisateur
 
 -- DROP TABLE public.utilisateur;
-
 CREATE TABLE public.utilisateur
 (
   id_membre integer NOT NULL,
@@ -108,33 +99,6 @@ WITH (
 ALTER TABLE public.utilisateur
   OWNER TO postgres;
 
-
-
-
-
-
-
-
-
-
-CREATE TABLE Salon(
-        id_salon   Int NOT NULL ,
-        nom_salon  Varchar (50) ,
-        type_salon Varchar (25) ,
-        text_salon Varchar (255) ,
-        PRIMARY KEY (id_salon )
-);
-
-
-CREATE TABLE utilisateur(
-        id_membre Int NOT NULL ,
-        login     Varchar (50) ,
-        mdp       Varchar (50) ,
-        PRIMARY KEY (id_membre )
-);
-
-
-
 CREATE TYPE online AS ENUM ('en ligne','absent ','occupé');
 
 CREATE TABLE EnLigne(
@@ -144,17 +108,35 @@ CREATE TABLE EnLigne(
         PRIMARY KEY (id_salon ,id_membre )
 );
 
+-- Table: public.MessagePrive;
 
+-- DROP TABLE public.MessagePrive;
 
-
-CREATE TABLE envoyerMess(
-        id_salon  Int NOT NULL ,
-        id_membre Int NOT NULL ,
-        PRIMARY KEY (id_salon ,id_membre )
+CREATE TABLE public.MessagePrive
+(
+  id_membre1 integer NOT NULL,
+  id_membre2 integer NOT NULL,
+  message_time timestamp without time zone NOT NULL,
+  message text,
+  CONSTRAINT Message_pkey PRIMARY KEY (id_membre1, id_membre2, message_time),
+  CONSTRAINT fk_MessagePrive_id_membre FOREIGN KEY (id_membre1)
+      REFERENCES public.utilisateur (id_membre) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_MessagePrive_id_membre FOREIGN KEY (id_membre2)
+      REFERENCES public.utilisateur (id_membre) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
 );
+ALTER TABLE public.MessagePrive
+  OWNER TO postgres;
 
-ALTER TABLE chat_message ADD CONSTRAINT FK_chat_message_id_membre FOREIGN KEY (id_membre) REFERENCES utilisateur(id_membre);
+
+
 ALTER TABLE EnLigne ADD CONSTRAINT FK_online_id_salon FOREIGN KEY (id_salon) REFERENCES Salon(id_salon);
 ALTER TABLE Enligne ADD CONSTRAINT FK_online_id_membre FOREIGN KEY (id_membre) REFERENCES utilisateur(id_membre);
 ALTER TABLE envoyerMess ADD CONSTRAINT FK_envoyerMess_id_salon FOREIGN KEY (id_salon) REFERENCES Salon(id_salon);
 ALTER TABLE envoyerMess ADD CONSTRAINT FK_envoyerMess_id_membre FOREIGN KEY (id_membre) REFERENCES utilisateur(id_membre);
+ALTER TABLE MessagePrive ADD CONSTRAINT FK_MessagePrive_id_membre2 FOREIGN KEY (id_membre1) REFERENCES utilisateur(id_membre);
+ALTER TABLE MessagePrive ADD CONSTRAINT FK_MessagePrive_id_membre2 FOREIGN KEY (id_membre2) REFERENCES utilisateur(id_membre);
