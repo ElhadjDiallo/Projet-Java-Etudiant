@@ -841,7 +841,7 @@ public class Ihm extends javax.swing.JFrame {
             while(resultat.next())
             {
                 
-                System.out.println(resultat.getString("online_status")); 
+                if(resultat.getString("online_status").compareTo("Hors-ligne")!=0)
               
                   verif=true;
               
