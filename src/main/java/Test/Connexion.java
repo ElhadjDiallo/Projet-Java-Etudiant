@@ -85,8 +85,6 @@ public class Connexion extends javax.swing.JFrame {
             }
         });
 
-        mdpasse.setText("jPasswordField1");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -150,10 +148,13 @@ public class Connexion extends javax.swing.JFrame {
     private void Button_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_logActionPerformed
     
     
-        String password =mdpasse.getSelectedText();
+        char[] password =mdpasse.getPassword();
         String username = Txt_username.getText();
         this.nomCLient=Txt_username.getText();
-         if(Connect.isValidUser(username, password))
+        
+        String pass=new String(password);
+         
+         if(Connect.isValidUser(username, pass))
          {
          Ihm ihm = new Ihm(nomCLient,"Administrateur");
             //   ihm.ajouterIhmSalon();

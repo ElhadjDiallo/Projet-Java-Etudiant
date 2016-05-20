@@ -233,7 +233,8 @@ public class Ihm extends javax.swing.JFrame {
         try {
             for(String lessalon:temp)
             {
-            String  requete="Select login,utilisateur.id_membre from utilisateur,salonutilisateur,salon ";
+            
+                String  requete="Select login,utilisateur.id_membre from utilisateur,salonutilisateur,salon ";
            requete+="where nom_salon=";
            requete+="'"+lessalon+"'";
            requete+=" and  salon.id_salon=salonutilisateur.id_salon and utilisateur.id_membre=salonutilisateur.id_membre"; 
