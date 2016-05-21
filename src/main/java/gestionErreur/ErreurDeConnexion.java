@@ -40,10 +40,13 @@ public class ErreurDeConnexion extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(240, 240, 188));
 
+        jLabel1.setBackground(new java.awt.Color(240, 240, 188));
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/Projet-Java-Etudiant_derniere_version/src/main/resources/fr/stri/tchat/a_opt.png")); // NOI18N
         jLabel1.setText("Erreur d'Authentification");
+        jLabel1.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

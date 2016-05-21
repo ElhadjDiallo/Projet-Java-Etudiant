@@ -158,6 +158,8 @@ public class IhmSalon extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jList1);
 
+        setBackground(new java.awt.Color(240, 240, 188));
+
         jScrollPane4.setHorizontalScrollBar(null);
 
         jlistIhm.setBackground(new java.awt.Color(221, 213, 236));

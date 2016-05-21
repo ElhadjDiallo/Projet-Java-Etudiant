@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -52,6 +55,8 @@ public class Ihm extends javax.swing.JFrame {
     private ArrayList<IhmSalon>tableIhm;
     private Connection connexion;
     private String style;
+  
+    private  javax.swing.Timer timer1;
     /**
      * Creates new form Ihm
      */
@@ -74,7 +79,7 @@ public class Ihm extends javax.swing.JFrame {
           this.style="normal";
          
           mettreAjour();
-        javax.swing.Timer timer1 = new javax.swing.Timer(2000, new ActionListener() {
+        timer1 = new javax.swing.Timer(2000, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,6 +142,7 @@ public class Ihm extends javax.swing.JFrame {
         HashMap<Integer,FormeClientBd> tabclient= new HashMap<Integer,FormeClientBd>();
         ArrayList<String>temp=new ArrayList<>();
         tablesalon=new TableSalon();
+     
     int    indiceCourant=onglets.getSelectedIndex();
     connexionAlabase();
                try {
@@ -148,12 +154,15 @@ public class Ihm extends javax.swing.JFrame {
               
               
               temp.add(resultat.getString("nom_salon"));
-            
+             
+              
+             
               
           }
             
         } catch (Exception e) {
-            e.printStackTrace();
+           
+                   System.out.println("Erreur là");
         }
             
             int i=0;  
@@ -374,7 +383,7 @@ public class Ihm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         panelClient = new javax.swing.JPanel();
         nomUtilisateur = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        etatC = new javax.swing.JComboBox();
         inciseNomClient = new javax.swing.JLabel();
         jSplitPane3 = new javax.swing.JSplitPane();
         jSplitPane4 = new javax.swing.JSplitPane();
@@ -413,21 +422,26 @@ public class Ihm extends javax.swing.JFrame {
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setResizeWeight(1.0E-10);
 
-        jSplitPane2.setDividerLocation(300);
+        jSplitPane2.setDividerLocation(550);
         jSplitPane2.setDividerSize(0);
         jSplitPane2.setResizeWeight(0.01);
 
+        jPanel5.setBackground(new java.awt.Color(240, 240, 188));
         jPanel5.setToolTipText("");
 
-        jLabel2.setFont(new java.awt.Font("TlwgTypewriter", 2, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(54, 36, 209));
+        jLabel2.setBackground(new java.awt.Color(240, 240, 188));
+        jLabel2.setFont(new java.awt.Font("TlwgTypewriter", 1, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(70, 209, 7));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/strilogo_opt(1).png"))); // NOI18N
+        jLabel2.setText("CHAT STRI");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,12 +450,22 @@ public class Ihm extends javax.swing.JFrame {
 
         jSplitPane2.setLeftComponent(jPanel5);
 
+        panelClient.setBackground(new java.awt.Color(240, 240, 188));
+        panelClient.setToolTipText("");
+
         nomUtilisateur.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         nomUtilisateur.setForeground(new java.awt.Color(33, 35, 230));
+        nomUtilisateur.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/Projet-Java-Etudiant_derniere_version/src/main/java/fr/stri/tchat/ico.gif")); // NOI18N
         nomUtilisateur.setText("NomClient");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En ligne", "Hors ligne", " " }));
+        etatC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En ligne", "Hors ligne", " " }));
+        etatC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                etatCActionPerformed(evt);
+            }
+        });
 
+        inciseNomClient.setFont(new java.awt.Font("URW Chancery L", 1, 24)); // NOI18N
         inciseNomClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/cl.jpg"))); // NOI18N
         inciseNomClient.setText("CL");
         inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -450,24 +474,27 @@ public class Ihm extends javax.swing.JFrame {
         panelClient.setLayout(panelClientLayout);
         panelClientLayout.setHorizontalGroup(
             panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelClientLayout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
-                .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(inciseNomClient)
-                .addGap(2, 2, 2)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelClientLayout.createSequentialGroup()
+                .addGroup(panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelClientLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(inciseNomClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(etatC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelClientLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelClientLayout.setVerticalGroup(
             panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClientLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inciseNomClient)
-                    .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                    .addComponent(etatC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inciseNomClient))
+                .addGap(49, 49, 49))
         );
 
         jSplitPane2.setRightComponent(panelClient);
@@ -479,9 +506,11 @@ public class Ihm extends javax.swing.JFrame {
         jSplitPane3.setResizeWeight(0.9);
 
         jSplitPane4.setDividerLocation(400);
+        jSplitPane4.setDividerSize(1);
         jSplitPane4.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         jSplitPane4.setResizeWeight(0.9);
 
+        onglets.setBackground(new java.awt.Color(240, 240, 188));
         onglets.setName("En ligne"); // NOI18N
         onglets.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
@@ -498,7 +527,10 @@ public class Ihm extends javax.swing.JFrame {
         jSplitPane4.setTopComponent(onglets);
         onglets.getAccessibleContext().setAccessibleName("Salon1");
 
+        EntreeClavier.setBackground(new java.awt.Color(240, 240, 188));
+
         envoyerMessage.setText("Envoyer");
+        envoyerMessage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         envoyerMessage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 envoyerMessageActionPerformed(evt);
@@ -563,23 +595,31 @@ public class Ihm extends javax.swing.JFrame {
                     .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(boutonGras)
                         .addComponent(boutonItalique)))
+                .addGap(18, 18, 18)
                 .addGroup(EntreeClavierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(EntreeClavierLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(EntreeClavierLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(envoyerMessage)))
-                .addContainerGap(170, Short.MAX_VALUE))
+                        .addGap(13, 13, 13)
+                        .addComponent(envoyerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         jSplitPane4.setRightComponent(EntreeClavier);
 
         jSplitPane3.setLeftComponent(jSplitPane4);
 
+        jPanel4.setBackground(new java.awt.Color(240, 240, 188));
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(16, 204, 36));
         jLabel1.setText("Administrateur");
 
         jButton2.setText("Ajouter Salon");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Supprimer Salon");
 
@@ -655,7 +695,7 @@ public class Ihm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -670,7 +710,7 @@ public class Ihm extends javax.swing.JFrame {
     }//GEN-LAST:event_ongletsCaretPositionChanged
    public void recupererContenuSalon(IhmSalon ihmSalon)
    {
-        
+       
         String idsalon = new String();
         String idmembre =new String();
         String login=new String();
@@ -755,17 +795,20 @@ public class Ihm extends javax.swing.JFrame {
         String messages = new String();
         for(String mes:listMessag)
         {
+         mes=mes.replace("\"", "'");
          messages+=date.get(i);
          messages+="    ";
          messages+=lislogin.get(i);
          messages+="   ";
          messages+=mes;
          messages+="\n";
+    
+         
          i++;
                   
         }
       
-           ihmSalon.afficher(messages,style);
+         ihmSalon.afficher(messages,style);
          
         
        
@@ -785,7 +828,7 @@ public class Ihm extends javax.swing.JFrame {
      
         ArrayList<String> lislogin=new ArrayList<>();
         ArrayList <String>listMessag=new ArrayList<>();
-        
+        ArrayList<String>date=new ArrayList<>();
         String texte=new String();
        texte=zoneDeSaisie.getText();
        zoneDeSaisie.setText("");
@@ -855,9 +898,12 @@ public class Ihm extends javax.swing.JFrame {
         
         if(verif)
         {
+          
+            texte=texte.replace("'", "\"");
+           
          String requeteInsertion="INSERT INTO envoyermess VALUES";
                  requeteInsertion+="("+""+idsalon+","+idmembre+","+"CURRENT_TIMESTAMP"+",'"+texte+"')";
-                 
+                 System.out.println("la requete "+requeteInsertion);
       
         try {
             
@@ -871,7 +917,7 @@ public class Ihm extends javax.swing.JFrame {
         }
        
        String requetemesSalon;
-       requetemesSalon="select login from utilisateur,envoyermess"; 
+       requetemesSalon="select login,message_time from utilisateur,envoyermess"; 
        requetemesSalon+=" where id_salon=";
        requetemesSalon+="'"+idsalon+"'"+" and utilisateur.id_membre=envoyermess.id_membre";
         
@@ -912,27 +958,43 @@ public class Ihm extends javax.swing.JFrame {
             
         } catch (Exception e) {
         }
+         try
+          {
+          
+         Statement instruction = connexion.createStatement();
+         ResultSet resultat = instruction.executeQuery(requetemesSalon);
+           
+         while (resultat.next()) 
+            {
+                   
+            
+                login=resultat.getString("login");      
+                lislogin.add(login);
+                date.add(resultat.getString("message_time").substring(0, 19));
+             
+         
+          }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
             
-        /*requête nombre de ligne   select Count(*) from salon;*/
-        /* type de requête INSERT INTO envoyermess VALUES (numeroligne, idsalon,idcompte,'heure','message');*/
-        /*select id_membre from utilisateur 
-           where login='DIALLO';
-           Select id_salon from salon 
-            where nom_salon='SALON1';*/
-        /*select message from envoyermess 
-                      where id_salon='1';*/
-        /*select login from utilisateur,envoyermess 
-         where id_salon='1' and utilisateur.id_membre=envoyermess.id_membre;*/
-        int i=0;
+           int i=0;
         String messages = new String();
         for(String mes:listMessag)
         {
+          mes=mes.replace("\"", "'");
+         messages+=date.get(i);
+         messages+="    ";
          messages+=lislogin.get(i);
          messages+="   ";
-          messages+=mes;
-          messages+="\n";
-          i++;
+         messages+=mes;
+         messages+="\n";
+    
+         
+            i++;
                   
         }
         
@@ -954,15 +1016,24 @@ public class Ihm extends javax.swing.JFrame {
     }//GEN-LAST:event_envoyerMessageActionPerformed
 
     private void deconnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deconnexionActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            connexion.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Ihm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
+        timer1.stop();
+        
+        
+ 
     }//GEN-LAST:event_deconnexionActionPerformed
 
     private void boutonGrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonGrasActionPerformed
         // TODO add your handling code here:
                if(boutonGras.isSelected())
           {
-              System.out.println("bien selectionner ");
+              
               this.style="gras";
           }
           
@@ -989,6 +1060,155 @@ public class Ihm extends javax.swing.JFrame {
         // TODO add your handling code here:
      
     }//GEN-LAST:event_ongletsKeyPressed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void etatCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etatCActionPerformed
+        // TODO add your handling code here:
+        int indice=0;
+        String idmembre=new String();
+        String idsalon=new String();
+        String online_status=new String();
+        String nomSalon=new String();
+        String login=new String();
+        String requete=new String ();
+        
+        if( etatC.getSelectedIndex()==0)
+        {
+           indice=onglets.getSelectedIndex();
+           nomSalon=((IhmSalon) onglets.getComponentAt(indice)).getNom();
+           login=nomUtilisateur.getText();
+           requete="select id_membre,id_salon from utilisateur,salon";
+           requete+=" where nom_salon="+"'";
+           requete+=nomSalon+"'"+" and login="+"'"+login+"'";
+           
+        try
+        {
+          Statement instruction = connexion.createStatement();
+         ResultSet resultat = instruction.executeQuery(requete);
+         while (resultat.next()) 
+            {
+                   
+            
+             idmembre=resultat.getString("id_membre");
+             idsalon=resultat.getString("id_salon");
+          }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+          String requeteRecupereEtatUTilisateur="select  online_status from enligne where   enligne.id_membre="+idmembre+" "
+            + "and enligne.id_salon="+idsalon+"";
+     
+        
+        try {
+            Statement instruction = connexion.createStatement();
+            ResultSet resultat = instruction.executeQuery(requeteRecupereEtatUTilisateur);
+            while(resultat.next())
+            {
+                
+               online_status=resultat.getString("online_status");
+              
+               
+              
+              
+            }
+       
+                   
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+         String requeteUpdate="UPDATE enligne SET online_status = REPLACE(";
+         requeteUpdate+="online_status"+","+"'"+online_status+"'"+",'En ligne')";
+         requeteUpdate+="where enligne.id_salon="+"'"+idsalon+"'"+"and enligne.id_membre="+"'"+idmembre+"'";
+            try {
+                Statement instruction = connexion.createStatement();
+            ResultSet resultat = instruction.executeQuery(requeteUpdate);
+            
+                
+            } catch (Exception e) {
+            }
+             
+            
+           
+        }
+        else 
+        {
+              indice=onglets.getSelectedIndex();
+           nomSalon=((IhmSalon) onglets.getComponentAt(indice)).getNom();
+           login=nomUtilisateur.getText();
+           requete="select id_membre,id_salon from utilisateur,salon";
+           requete+=" where nom_salon="+"'";
+           requete+=nomSalon+"'"+" and login="+"'"+login+"'";
+           
+        try
+        {
+          Statement instruction = connexion.createStatement();
+         ResultSet resultat = instruction.executeQuery(requete);
+         while (resultat.next()) 
+            {
+                   
+            
+             idmembre=resultat.getString("id_membre");
+             idsalon=resultat.getString("id_salon");
+          }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+          String requeteRecupereEtatUTilisateur="select  online_status from enligne where   enligne.id_membre="+idmembre+" "
+            + "and enligne.id_salon="+idsalon+"";
+     
+        
+        try {
+            Statement instruction = connexion.createStatement();
+            ResultSet resultat = instruction.executeQuery(requeteRecupereEtatUTilisateur);
+            while(resultat.next())
+            {
+                
+               online_status=resultat.getString("online_status");
+              
+               
+              
+              
+            }
+       
+                   
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+         String requeteUpdate="UPDATE enligne SET online_status = REPLACE(";
+         requeteUpdate+="online_status"+","+"'"+online_status+"'"+",'Hors-ligne')";
+         requeteUpdate+="where enligne.id_salon="+"'"+idsalon+"'"+"and enligne.id_membre="+"'"+idmembre+"'";
+            try {
+                Statement instruction = connexion.createStatement();
+            ResultSet resultat = instruction.executeQuery(requeteUpdate);
+            
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+             
+            
+           
+  
+         
+        }
+        
+    }//GEN-LAST:event_etatCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1050,13 +1270,13 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JMenu choixDeconnexion;
     private javax.swing.JMenuItem deconnexion;
     private javax.swing.JButton envoyerMessage;
+    private javax.swing.JComboBox etatC;
     private javax.swing.ButtonGroup groupeBouton;
     private javax.swing.JLabel inciseNomClient;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
