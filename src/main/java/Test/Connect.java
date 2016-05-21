@@ -56,9 +56,9 @@ public class Connect {
            
             
 
-            Connection connexion = DriverManager.getConnection(url, user, password1);
-            System.out.println("Connexion effective !");
-      Statement instruction = connexion.createStatement();
+           Connection connexion = DriverManager.getConnection(url, user, password1);
+           System.out.println("Connexion effective !");
+           Statement instruction = connexion.createStatement();
       ResultSet resultat = instruction.executeQuery("SELECT login,mdp FROM utilisateur");
       
       while (resultat.next()) {
