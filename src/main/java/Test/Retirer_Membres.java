@@ -137,7 +137,7 @@ public class Retirer_Membres extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(240, 230, 179));
 
@@ -346,11 +346,12 @@ public class Retirer_Membres extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+/*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Retirer_Membres().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

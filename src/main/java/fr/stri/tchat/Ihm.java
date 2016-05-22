@@ -12,8 +12,10 @@ import ContenuSalonetClient.ListSalonClient;
 import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.TableSalon;
+import Test.Ajouter_Membre;
 import Test.Connexion;
 import Test.Creer_Salons;
+import Test.Retirer_Membres;
 import Test.Supprimer_Salons;
 import java.awt.Color;
 import java.awt.Component;
@@ -630,8 +632,18 @@ public class Ihm extends javax.swing.JFrame {
         });
 
         jButton4.setText("Ajouter Membre");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Supprimer Membre");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jlistSalonClient.setBackground(new java.awt.Color(231, 229, 239));
         jlistSalonClient.setModel(listmodel);
@@ -1225,6 +1237,21 @@ public class Ihm extends javax.swing.JFrame {
         supsalon.setLocationRelativeTo(null);
         supsalon.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+      Ajouter_Membre ajout=new Ajouter_Membre();
+        ajout.setLocationRelativeTo(null);
+        ajout.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Retirer_Membres retirer=new Retirer_Membres();
+        retirer.setLocationRelativeTo(null);
+        retirer.setVisible(true);
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

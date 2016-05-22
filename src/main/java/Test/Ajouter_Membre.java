@@ -78,7 +78,7 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         combo = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(240, 230, 179));
 
         jPanel1.setBackground(new java.awt.Color(240, 235, 184));
@@ -302,11 +302,11 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+     /*   java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ajouter_Membre().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

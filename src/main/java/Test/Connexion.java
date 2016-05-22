@@ -74,6 +74,7 @@ public class Connexion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(100, 100));
 
+        jPanel1.setBackground(new java.awt.Color(240, 240, 190));
         jPanel1.setToolTipText("");
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
