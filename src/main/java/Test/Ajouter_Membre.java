@@ -6,6 +6,7 @@
 package Test;
 
 import fr.stri.tchat.Ihm;
+import gestionErreur.Erreur;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,67 +19,46 @@ import java.sql.Statement;
  */
 public class Ajouter_Membre extends javax.swing.JFrame {
     
-    //Connection cnx;
-    Statement st;
-    ResultSet rst;
-    private String nomCLient;
+  
+    
+    private Connection connexion;
+    private Connexion con;
+ 
 
     /**
      * Creates new form Ajouter_Membre
      */
     public Ajouter_Membre() {
         initComponents();
-        
+        connexionAlabase();
     }
-    
-    public void Ajouter_Utilisateur(String login, String nomsalon) throws SQLException{
+     public void connexionAlabase()
+     {
+         con =new Connexion();
          try {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5432/projet_java";
-            String user = "postgres";
-            String password1="root";
+            String url = "jdbc:postgresql://localhost:5433/";
+            url+=con.getnombd();
+           
+            
+            
 
-            //Connection cnx = DriverManager.getConnection(url, user, password1);
-      //Statement instruction = cnx.createStatement();
-      Connection connexion = DriverManager.getConnection(url, user, password1);
-       System.out.println("Connexion effective !");
+            this.connexion = DriverManager.getConnection(url,con.getuser(), con.getpassword());
+            System.out.println("Connexion effective !");
+          
+         
      
-       String id_salon=new String();
-       String id_membre=new String();
-       nomsalon = membre.getText();
-       login = leSalon.getText();
-       
-       String requete="INSERT INTO salonutilisateur VALUES"+"("+"'"+id_salon+"'"+"'"+id_membre+"')";
-      String requete2="select id_salon from salon where nom_salon=";
-       requete2+="'"+nomsalon+"'";
-        
-        Statement instruction = connexion.createStatement();
-      //ResultSet rst = instruction.executeQuery("select id_salon from salon where nom_salon="'"+nomsalon+"'"");             
-      // + " SELECT id_salon, id_membre FROM salon ,utilisateur WHERE u.id_membre= su.id_membre AND s.id_s=su.id_su";
-       
-       st.executeUpdate(requete2);
-       
-       
-       
-       
-     // ResultSet resultat = instruction.executeQuery("INSERT INTO salonutilisateur VALUES("+id_salon+","+id_membre+",) SELECT id_salon, id_membre FROM salon as s,utilisateur as u, salonutilsateur as su u WHERE u.id_membre= su.id_membre AND s.id_s=su.id_su");
-      
- 
-
-//String query ="INSERT INTO salonutilisateur  VALUES("+id_salon+","+id_membre+",) SELECT id_salon, id_membre FROM salon as s,utilisateur as u, salonutilsateur as su u WHERE u.id_membre= su.id_membre AND s.id_s=su.id_su";
-    //cnx = connecterDB();
-      
-    
-    }
-        
-     catch (Exception e) {
-            e.printStackTrace();
+    } catch (Exception e) {
+             System.err.println("Erreur de connexion");
         }
-        
-    }
-
+       
+     
+         
+     }
+   
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,6 +75,8 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         membre = new javax.swing.JTextField();
         leSalon = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        combo = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(240, 230, 179));
@@ -111,6 +93,16 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         jLabel3.setText("SALON");
 
         jButton1.setText("Enregistrer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        combo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ecriture", "Lecture" }));
+
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel2.setText("DROIT");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -120,40 +112,52 @@ public class Ajouter_Membre extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(membre)
-                            .addComponent(leSalon, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
-                        .addGap(27, 27, 27))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 40, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(58, 58, 58))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(60, 60, 60))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                .addComponent(membre, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(leSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(membre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(membre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(leSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,6 +173,106 @@ public class Ajouter_Membre extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String idsalon=new String();
+        String idmembre=new String();
+        String sal=leSalon.getText();
+        String login=membre.getText();
+        String requeteInsertionEtat;
+        ResultSet resultat;
+        if(sal.length()==0 && login.length()==0)
+        {
+            Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+        }
+        else 
+        {
+         String requeteIdSalon="Select id_salon from salon where nom_salon";
+               requeteIdSalon+=" ="+"'"+sal+"'";
+        String idcompte="select id_membre from utilisateur where login";
+        idcompte+=" ='"+login+"'";
+        
+        
+        try {
+            
+         Statement instruction = connexion.createStatement();
+          resultat = instruction.executeQuery(requeteIdSalon);
+         
+            while (resultat.next()) 
+            {
+                   
+            idsalon=resultat.getString("id_salon"); 
+         
+          }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         
+        try {
+            
+         Statement instruction = connexion.createStatement();
+          resultat = instruction.executeQuery(idcompte);
+         while (resultat.next()) 
+            {
+                   
+            
+             idmembre=resultat.getString("id_membre");
+         
+          }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+         try {
+             String requeteInseriton="Insert into salonutilisateur Values("+idsalon+","+idmembre+")";
+             Statement instruction = connexion.createStatement();
+             if(combo.getSelectedIndex()==0)
+             {
+             requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmembre+",'En ligne'"+")";    
+             }
+             else 
+             {
+             requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmembre+",'Hors-ligne'"+")";     
+             }
+              
+            
+                        
+              instruction.executeUpdate(requeteInseriton);
+              
+             instruction = connexion.createStatement();
+             instruction.executeUpdate(requeteInsertionEtat);
+             instruction.close();
+             membre.setText("");
+             leSalon.setText("");
+            
+                   
+            } catch (Exception et) {
+                membre.setText("");
+        leSalon.setText("");
+        
+        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+            
+                
+            }
+            
+        
+     
+        
+        
+   
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,8 +310,10 @@ public class Ajouter_Membre extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox combo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

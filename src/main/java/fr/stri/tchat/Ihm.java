@@ -13,6 +13,8 @@ import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.TableSalon;
 import Test.Connexion;
+import Test.Creer_Salons;
+import Test.Supprimer_Salons;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -211,7 +213,7 @@ public class Ihm extends javax.swing.JFrame {
                 i++;
                 
             }
-             
+             resultat.close();
              }    
              
         } catch (Exception e) {
@@ -253,8 +255,9 @@ public class Ihm extends javax.swing.JFrame {
               }
             tablesalon.ajouterUnSalon(salon);
            
-           
+           requeteClientDuSalon.close();
             }
+            
              
         } catch (Exception e) {
             e.printStackTrace();
@@ -475,15 +478,13 @@ public class Ihm extends javax.swing.JFrame {
         panelClientLayout.setHorizontalGroup(
             panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClientLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelClientLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(inciseNomClient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(etatC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelClientLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panelClientLayout.setVerticalGroup(
@@ -622,6 +623,11 @@ public class Ihm extends javax.swing.JFrame {
         });
 
         jButton3.setText("Supprimer Salon");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Ajouter Membre");
 
@@ -695,7 +701,7 @@ public class Ihm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1063,7 +1069,9 @@ public class Ihm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        
+        Creer_Salons salons=new Creer_Salons();
+        salons.setLocationRelativeTo(null);
+        salons.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void etatCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etatCActionPerformed
@@ -1210,6 +1218,14 @@ public class Ihm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_etatCActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        
+        Supprimer_Salons supsalon=new Supprimer_Salons();
+        supsalon.setLocationRelativeTo(null);
+        supsalon.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1247,11 +1263,11 @@ public class Ihm extends javax.swing.JFrame {
          */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              //  new Ihm().setVisible(true);
-             //  Ihm ihm = new Ihm("Client","Administrateur");
-            //   ihm.ajouterIhmSalon();
+               //new Ihm().setVisible(true);
+              // Ihm ihm = new Ihm("Client","Administrateur");
+               //ihm.ajouterIhmSalon();
              
-               // ihm.setVisible(true);
+                //ihm.setVisible(true);
                     
                   
                    

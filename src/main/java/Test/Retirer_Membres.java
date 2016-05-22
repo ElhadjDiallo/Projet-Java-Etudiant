@@ -5,6 +5,12 @@
  */
 package Test;
 
+import gestionErreur.Erreur;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author ngoyet-ndiaye
@@ -14,9 +20,40 @@ public class Retirer_Membres extends javax.swing.JFrame {
     /**
      * Creates new form Retirer_Membres
      */
+    private Connection connexion;
+    private Connexion con;
+ 
     public Retirer_Membres() {
         initComponents();
+        connexionAlabase();
     }
+     public void connexionAlabase()
+     {
+         con =new Connexion();
+         try {
+//      Class.forName("org.postgresql.Driver");
+            System.out.println("Driver O.K.");
+
+            String url = "jdbc:postgresql://localhost:5433/";
+            url+=con.getnombd();
+           
+            
+            
+
+            this.connexion = DriverManager.getConnection(url,con.getuser(), con.getpassword());
+            System.out.println("Connexion effective !");
+          
+         
+     
+    } catch (Exception e) {
+             System.err.println("Erreur de connexion");
+        }
+       
+     
+         
+     }
+   
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,9 +73,9 @@ public class Retirer_Membres extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        membre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        lesalon = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
         jDialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,6 +152,11 @@ public class Retirer_Membres extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jButton2.setText("RETIRER");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -128,8 +170,8 @@ public class Retirer_Membres extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+                    .addComponent(membre)
+                    .addComponent(lesalon, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,11 +185,11 @@ public class Retirer_Membres extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .addComponent(jTextField3))
+                    .addComponent(membre))
                 .addGap(72, 72, 72)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(jTextField4))
+                    .addComponent(lesalon))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
@@ -175,6 +217,106 @@ public class Retirer_Membres extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String idsalon=new String();
+        String idmembre=new String();
+        String sal=lesalon.getText();
+        String login=membre.getText();
+        String requeteInsertionEtat;
+        ResultSet resultat;
+        if(sal.length()==0 && login.length()==0)
+        {
+        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+        }
+        else 
+        {
+         String requeteIdSalon="Select id_salon from salon where nom_salon";
+               requeteIdSalon+=" ="+"'"+sal+"'";
+        String idcompte="select id_membre from utilisateur where login";
+        idcompte+=" ='"+login+"'";
+        
+        
+        try {
+            
+         Statement instruction = connexion.createStatement();
+          resultat = instruction.executeQuery(requeteIdSalon);
+         
+            while (resultat.next()) 
+            {
+                   
+            idsalon=resultat.getString("id_salon"); 
+         
+          }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         
+        try {
+            
+         Statement instruction = connexion.createStatement();
+          resultat = instruction.executeQuery(idcompte);
+         while (resultat.next()) 
+            {
+                   
+            
+             idmembre=resultat.getString("id_membre");
+         
+          }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+         try {
+             String requeteInseriton="DELETE from salonutilisateur Where salonutilisateur.id_salon='"+idsalon+"'and"
+                     + " salonutilisateur.id_membre='"+idmembre+"'";
+             System.out.println("la requete est "+requeteInseriton);
+             
+             Statement instruction = connexion.createStatement();
+           
+       requeteInsertionEtat="DELETE from enligne WHERE enligne.id_salon='"+idsalon+"' and enligne.id_membre='"
+               +idmembre+"'";    
+              
+            System.out.println("la requete est "+requeteInsertionEtat);
+                        
+              instruction.executeUpdate(requeteInseriton);
+              
+             instruction = connexion.createStatement();
+             instruction.executeUpdate(requeteInsertionEtat);
+             instruction.close();
+             membre.setText("");
+             lesalon.setText("");
+            
+                   
+            } catch (Exception et) {
+                membre.setText("");
+           lesalon.setText("");
+        
+        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+            
+                
+            }
+            
+        
+     
+        
+        
+   
+        }
+
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,7 +365,7 @@ public class Retirer_Membres extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField lesalon;
+    private javax.swing.JTextField membre;
     // End of variables declaration//GEN-END:variables
 }

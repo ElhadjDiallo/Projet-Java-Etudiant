@@ -225,20 +225,17 @@ public class Connexion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
+               /*
                 
             Connexion  conexion=new Connexion();
             conexion.setLocationRelativeTo(null);
            
-               conexion.setVisible(true);
+               conexion.setVisible(true);*/
                  
             }
         });
     }
-    public void gestionzoneSaisie()
-    {
-        
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_log;

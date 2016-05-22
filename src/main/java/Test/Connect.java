@@ -67,6 +67,7 @@ public class Connect {
         if(resultat.getString("login").compareTo(username)==0 && resultat.getString("mdp").compareTo(password)==0 )
         {
             connecter=true;
+            resultat.close();
             return connecter;
         }
         else 
