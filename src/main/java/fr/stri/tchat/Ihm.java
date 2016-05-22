@@ -72,6 +72,7 @@ public class Ihm extends javax.swing.JFrame {
         tableIhm=new ArrayList<IhmSalon>();
       
          initComponents();
+         connexionAlabase();
          gererSaisie();
          listSalonClientCellRenderer();
          this.nomUtilisateur.setText(nomUtilisateur);
@@ -146,9 +147,11 @@ public class Ihm extends javax.swing.JFrame {
         HashMap<Integer,FormeClientBd> tabclient= new HashMap<Integer,FormeClientBd>();
         ArrayList<String>temp=new ArrayList<>();
         tablesalon=new TableSalon();
-     
-    int    indiceCourant=onglets.getSelectedIndex();
-    connexionAlabase();
+          int    indiceCourant=onglets.getSelectedIndex();
+        System.out.println("l'indice courant est "+indiceCourant);
+    
+    
+    
                try {
            
             Statement instruction = connexion.createStatement();
@@ -158,7 +161,7 @@ public class Ihm extends javax.swing.JFrame {
               
               
               temp.add(resultat.getString("nom_salon"));
-             
+              System.out.println("le nombre de salon"+temp.size());
               
              
               
@@ -229,7 +232,7 @@ public class Ihm extends javax.swing.JFrame {
             for(String lessalon:temp)
             {
             
-                String  requete="Select login,utilisateur.id_membre from utilisateur,salonutilisateur,salon ";
+            String  requete="Select login,utilisateur.id_membre from utilisateur,salonutilisateur,salon ";
            requete+="where nom_salon=";
            requete+="'"+lessalon+"'";
            requete+=" and  salon.id_salon=salonutilisateur.id_salon and utilisateur.id_membre=salonutilisateur.id_membre"; 
@@ -269,11 +272,19 @@ public class Ihm extends javax.swing.JFrame {
                 
                 
                 
-                
-           listmodel.viderLaliste();
+           if(tablesalon.getTableSalon().size()==0)
+           {
+               indiceCourant=-1;
+               listmodel.formater();
+           }
+          
+           
            vider();
+           listmodel.viderLaliste();
+          
           for(Salon salon2:tablesalon.getTableSalon())   
            {
+               
            IhmSalon salonAjouter=new IhmSalon(salon2);
            recupererContenuSalon(salonAjouter);
            tableIhm.add(salonAjouter);
@@ -282,6 +293,8 @@ public class Ihm extends javax.swing.JFrame {
            salon2.ajouterLesClientDanslaJlistSalonClient(listmodel);
                                
             }
+          
+                 if(indiceCourant>=0)
              onglets.setSelectedIndex(indiceCourant);
              
        

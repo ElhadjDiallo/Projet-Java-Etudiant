@@ -39,6 +39,10 @@ public class ListSalonClient extends AbstractListModel<SalonClient> {
             ls.removeAll(ls);
         }
     }
+    public void formater()
+    {
+        ls.clear();
+    }
     public void addSalon(SalonClient salon) {
         ls.add(salon);
         fireContentsChanged(this, 0, ls.size());
