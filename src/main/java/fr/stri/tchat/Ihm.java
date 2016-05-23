@@ -324,7 +324,9 @@ public class Ihm extends javax.swing.JFrame {
                }
                else 
                {
-                  
+                   list.clearSelection();
+                  MsgPrive client  = new MsgPrive(nomUtilisateur.getText(), value.getNom());
+                client.setVisible(true);
                    f.setBackground(Color.CYAN);
                }
              
@@ -340,6 +342,7 @@ public class Ihm extends javax.swing.JFrame {
            
          if(value instanceof Salon)
              {
+                 
               f.setBackground(Color.green);   
              }
                else
@@ -347,8 +350,7 @@ public class Ihm extends javax.swing.JFrame {
                 f.setForeground(Color.blue); 
                 //message Prive
                 
-                MsgPrive client  = new MsgPrive("+this.nomUtilisateur.getText()+");
-                client.setVisible(true);
+                
               }
            
 
