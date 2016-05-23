@@ -60,7 +60,7 @@ public class Ihm extends javax.swing.JFrame {
     private ArrayList<IhmSalon>tableIhm;
     private Connection connexion;
     private String style;
-  
+   private int  indiceCourant;
     private  javax.swing.Timer timer1;
     /**
      * Creates new form Ihm
@@ -143,26 +143,49 @@ public class Ihm extends javax.swing.JFrame {
     
     public void mettreAjour()
     {
+        int tempo=0;
        int indiceDuClient;
         String online=new String();
         HashMap<Integer,FormeClientBd> tabclient= new HashMap<Integer,FormeClientBd>();
         ArrayList<String>temp=new ArrayList<>();
         tablesalon=new TableSalon();
-          int    indiceCourant=onglets.getSelectedIndex();
-        System.out.println("l'indice courant est "+indiceCourant);
+         indiceCourant=onglets.getSelectedIndex();
+       int max = 0;
+       try {
+           
+            Statement instruction = connexion.createStatement();
+            ResultSet resultat = instruction.executeQuery("SELECT MAX(id_salon) FROM salon");
+            
+             while (resultat.next()) {
+              
+              
+              
+               max=Integer.parseInt(resultat.getString("max")) ;
+               max--;
+                       
+              
+          }
+            
+        } catch (Exception e) {
+           
+                  e.printStackTrace();
+        }
+       
+         
+       
     
     
     
-               try {
+         try {
            
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery("Select nom_salon from salon");
             
-          while (resultat.next()) {
+             while (resultat.next()) {
               
               
               temp.add(resultat.getString("nom_salon"));
-              System.out.println("le nombre de salon"+temp.size());
+            
               
              
               
@@ -207,12 +230,12 @@ public class Ihm extends javax.swing.JFrame {
                 tabclient.put(i,utiliseClient);
                     
                 }
-                if(online.compareTo("En ligne")==0)
+                else
                 {
+                    
                      
                  FormeClientBd utiliseClient=new FormeClientBd(resultat.getString("login"), indiceDuClient,enligne, lesalon);
-                  
-                  tabclient.put(i, utiliseClient);
+                 tabclient.put(i, utiliseClient);
                           
                 }
                 
@@ -276,10 +299,16 @@ public class Ihm extends javax.swing.JFrame {
            if(tablesalon.getTableSalon().size()==0)
            {
                indiceCourant=-1;
-               listmodel.formater();
+              listmodel.formater();
+              
            }
-          
            
+               if(indiceCourant==-1)
+           {
+               listmodel.formater();
+               listmodel.viderLaliste();
+               listSalonClientCellRenderer();
+           }
            vider();
            listmodel.viderLaliste();
           
@@ -294,9 +323,24 @@ public class Ihm extends javax.swing.JFrame {
            salon2.ajouterLesClientDanslaJlistSalonClient(listmodel);
                                
             }
+          if(tablesalon.getTableSalon().size()<max)
+           {
+               indiceCourant--;
+           }
+           System.err.println("le max est et la taille est "+max+"  "+tablesalon.getTableSalon().size()+"l'indice "+indiceCourant);
           
+            if(max<indiceCourant)
+            {
+                indiceCourant--;
+            }
+           
+             
+           
                  if(indiceCourant>=0)
              onglets.setSelectedIndex(indiceCourant);
+                
+                     
+                 
              
        
     }
@@ -918,6 +962,7 @@ public class Ihm extends javax.swing.JFrame {
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(requeteRecupereEtatUTilisateur);
+            System.err.println("la requete est "+requeteRecupereEtatUTilisateur);
             while(resultat.next())
             {
                 
@@ -1267,9 +1312,11 @@ public class Ihm extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        indiceCourant--;
         Retirer_Membres retirer=new Retirer_Membres();
         retirer.setLocationRelativeTo(null);
         retirer.setVisible(true);
+        
         
     }//GEN-LAST:event_jButton5ActionPerformed
 

@@ -232,8 +232,11 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         }
         
          try {
+             
+             
              String requeteInseriton="Insert into salonutilisateur Values("+idsalon+","+idmembre+")";
              Statement instruction = connexion.createStatement();
+             System.out.println("lla requete "+requeteInseriton);
              if(combo.getSelectedIndex()==0)
              {
              requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmembre+",'En ligne'"+")";    
@@ -243,7 +246,7 @@ public class Ajouter_Membre extends javax.swing.JFrame {
              requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmembre+",'Hors-ligne'"+")";     
              }
               
-            
+           System.err.println("la requete"+requeteInsertionEtat);
                         
               instruction.executeUpdate(requeteInseriton);
               

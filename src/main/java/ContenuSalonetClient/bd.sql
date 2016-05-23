@@ -99,12 +99,12 @@ WITH (
 ALTER TABLE public.utilisateur
   OWNER TO postgres;
 
-CREATE TYPE online AS ENUM ('en ligne','absent ','occupé');
+
 
 CREATE TABLE EnLigne(
         id_salon      Int NOT NULL ,
         id_membre     Int NOT NULL ,
-        Online_status online,
+        Online_status text,
         PRIMARY KEY (id_salon ,id_membre )
 );
 
