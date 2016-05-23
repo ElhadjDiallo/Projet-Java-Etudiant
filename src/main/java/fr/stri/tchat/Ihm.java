@@ -15,6 +15,7 @@ import ContenuSalonetClient.TableSalon;
 import Test.Ajouter_Membre;
 import Test.Connexion;
 import Test.Creer_Salons;
+import Test.MsgPrive;
 import Test.Retirer_Membres;
 import Test.Supprimer_Salons;
 import java.awt.Color;
@@ -343,7 +344,11 @@ public class Ihm extends javax.swing.JFrame {
              }
                else
                {
-                f.setForeground(Color.blue);   
+                f.setForeground(Color.blue); 
+                //message Prive
+                
+                MsgPrive client  = new MsgPrive("+this.nomUtilisateur.getText()+");
+                client.setVisible(true);
               }
            
 

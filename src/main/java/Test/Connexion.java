@@ -28,9 +28,9 @@ public class Connexion extends javax.swing.JFrame {
         initComponents();
         setTitle("connexion");
         getContentPane().setBackground(new Color(204,204,255));
-        password="diallo";
+        password="Bah.";
         user="postgres";
-        nombd="javaSTRI";
+        nombd="javaStri";
         
     }
     public String getpassword()
