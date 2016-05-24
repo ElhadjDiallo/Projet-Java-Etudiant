@@ -79,9 +79,9 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(240, 230, 179));
+        setBackground(new java.awt.Color(240, 240, 188));
 
-        jPanel1.setBackground(new java.awt.Color(240, 235, 184));
+        jPanel1.setBackground(new java.awt.Color(240, 240, 188));
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("AJOUT MEMBRE DANS UN SALON ");

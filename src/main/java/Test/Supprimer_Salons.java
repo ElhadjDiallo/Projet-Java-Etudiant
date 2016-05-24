@@ -73,7 +73,7 @@ public class Supprimer_Salons extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(240, 240, 180));
+        jPanel1.setBackground(new java.awt.Color(240, 240, 188));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel1.setText("                 Nom du Salon ");

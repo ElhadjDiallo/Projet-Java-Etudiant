@@ -17,18 +17,16 @@ import java.util.ArrayList;
  */
 public class MsgPrive extends javax.swing.JFrame {
     private String style;
-    private String nomClient1;
-    private String nomClient2;
+    private String nomClient;
 
     /**
      * Creates new form MsgPrive
      */
    
     private Connection connexion; 
-    public MsgPrive(String nomClient1, String nomClient2) {
+    public MsgPrive(String nomClient) {
         initComponents();
-        this.nomClient1 = nomClient1;
-        this.nomClient2 = nomClient2;
+        this.nomClient = nomClient;
     }
 
     /**
@@ -42,7 +40,7 @@ public class MsgPrive extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        afficher = new javax.swing.JTextArea();
+        jTextArea1 = new javax.swing.JTextArea();
         scrollpaneSaisie = new javax.swing.JScrollPane();
         zoneDeSaisie = new javax.swing.JTextArea();
         bt_ajouter = new javax.swing.JButton();
@@ -54,10 +52,10 @@ public class MsgPrive extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(240, 240, 190));
 
-        afficher.setEditable(false);
-        afficher.setColumns(20);
-        afficher.setRows(5);
-        jScrollPane1.setViewportView(afficher);
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         scrollpaneSaisie.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollpaneSaisie.setFocusable(false);
@@ -159,9 +157,9 @@ public class MsgPrive extends javax.swing.JFrame {
 
         String texte=new String();
         texte=zoneDeSaisie.getText();
-        afficher.setText(texte);
-       String requeteIdmembre1="Select id_membre from utilisateur where login='"+nomClient1+"'";
-       // String requeteIdmembre1="Select id_membre from utilisateur where login='bah'";
+
+        // String requeteIdmembre1="Select id_membre from utilisateur where nomClient";
+        String requeteIdmembre1="Select id_membre from utilisateur where login='bah'";
 
         try {
             Statement instruction = connexion.createStatement();
@@ -178,8 +176,8 @@ public class MsgPrive extends javax.swing.JFrame {
 
         }
 
-         String requeteidmembre2="select id_membre from utilisateur where login='"+nomClient2+"'";
-        //String requeteidmembre2="Select id_membre from utilisateur where login='diallo'";
+        // String requetidmembre2="select id_membre from utilisateur where login";
+        String requeteidmembre2="Select id_membre from utilisateur where login='diallo'";
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(requeteidmembre2);
@@ -300,11 +298,11 @@ public class MsgPrive extends javax.swing.JFrame {
     private javax.swing.JRadioButton Gras;
     private javax.swing.JRadioButton Italique;
     private javax.swing.JRadioButton Normal;
-    private javax.swing.JTextArea afficher;
     private javax.swing.JButton bt_ajouter;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JScrollPane scrollpaneSaisie;
     private javax.swing.JTextArea zoneDeSaisie;
     // End of variables declaration//GEN-END:variables

@@ -6,6 +6,7 @@
 package Test;
 
 import fr.stri.tchat.Ihm;
+import fr.stri.tchat.IhmClient;
 import gestionErreur.ErreurDeConnexion;
 import gestionErreur.EtablissementDeConnexion;
 import java.awt.Color;
@@ -28,9 +29,9 @@ public class Connexion extends javax.swing.JFrame {
         initComponents();
         setTitle("connexion");
         getContentPane().setBackground(new Color(204,204,255));
-        password="Bah.";
+        password="diallo";
         user="postgres";
-        nombd="javaStri";
+        nombd="javaSTRI";
         
     }
     public String getpassword()
@@ -159,25 +160,38 @@ public class Connexion extends javax.swing.JFrame {
   
     private void Button_logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_logActionPerformed
     
-    
+        String admin;
         char[] password =mdpasse.getPassword();
         String username = Txt_username.getText();
         this.nomCLient=Txt_username.getText();
         
         String pass=new String(password);
-         
-         if(Connect.isValidUser(username, pass,this.nombd,this.user,this.password))
+        Connect c=new Connect();
+                 
+         if(c.isValidUser(username, pass,this.nombd, user,this.password))
          {
          
-            //   ihm.ajouterIhmSalon();
+          
              this.dispose();
             EtablissementDeConnexion etc= new EtablissementDeConnexion(this, rootPaneCheckingEnabled);
             etc.setLocationRelativeTo(null);
             etc.setVisible(rootPaneCheckingEnabled);
              
-             Ihm ihm = new Ihm(nomCLient,"Administrateur");
+             admin=c.recupererNomAdmin(this.nombd,this.user,this.password);
+             if(c.getEtat()==1)
+             {
+             Ihm ihm = new Ihm(nomCLient,admin);
                ihm.setLocationRelativeTo(null);
                 ihm.setVisible(true);
+                 
+             }
+             else
+             {
+                 IhmClient ihmClient=new IhmClient(nomCLient, admin);
+                 ihmClient.setLocationRelativeTo(null);
+                 ihmClient.setVisible(true);
+                 
+             }
                  
              
                

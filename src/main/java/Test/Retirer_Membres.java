@@ -139,7 +139,7 @@ public class Retirer_Membres extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(240, 230, 179));
+        jPanel2.setBackground(new java.awt.Color(240, 240, 188));
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel6.setText("      RETIRER MEMBRE DU SALON ");

@@ -76,7 +76,7 @@ public class Inscription extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(240, 240, 190));
+        jPanel1.setBackground(new java.awt.Color(240, 240, 188));
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("     CREER VOTRE COMPTE");

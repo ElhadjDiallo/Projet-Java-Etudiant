@@ -5,12 +5,20 @@
  */
 package fr.stri.tchat;
 
+import fr.stri.tchat.*;
+import ContenuSalonetClient.Client;
 import ContenuSalonetClient.Client;
 import ContenuSalonetClient.ClientEtat;
+import ContenuSalonetClient.ClientEtat;
+import ContenuSalonetClient.FormeClientBd;
 import ContenuSalonetClient.FormeClientBd;
 import ContenuSalonetClient.ListSalonClient;
+import ContenuSalonetClient.ListSalonClient;
+import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.SalonClient;
+import ContenuSalonetClient.SalonClient;
+import ContenuSalonetClient.TableSalon;
 import ContenuSalonetClient.TableSalon;
 import Test.Ajouter_Membre;
 import Test.Connexion;
@@ -48,7 +56,7 @@ import javax.swing.ListCellRenderer;
  *
  * @author elhadj
  */
-public class Ihm extends javax.swing.JFrame {
+public class IhmClient extends javax.swing.JFrame {
 
    
     /*Contenu de l'Ihm de la partie creation du salon avec la barre de clients 
@@ -67,7 +75,7 @@ public class Ihm extends javax.swing.JFrame {
      */
     
     
-    public Ihm(String nomUtilisateur,String nomAdmin) {
+    public IhmClient(String nomUtilisateur,String nomAdmin) {
         
         listmodel = new ListSalonClient();
         tableIhm=new ArrayList<IhmSalon>();
@@ -440,10 +448,6 @@ public class Ihm extends javax.swing.JFrame {
         boutonGras = new javax.swing.JRadioButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jlistSalonClient = new javax.swing.JList();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -508,7 +512,7 @@ public class Ihm extends javax.swing.JFrame {
         });
 
         inciseNomClient.setFont(new java.awt.Font("URW Chancery L", 1, 24)); // NOI18N
-        inciseNomClient.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/Projet-Java-Etudiant-a9c31df1d2b064014f35173e88e1c9870d48e882/src/main/resources/fr/stri/tchat/cl.jpg")); // NOI18N
+        inciseNomClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/cl.jpg"))); // NOI18N
         inciseNomClient.setText("CL");
         inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -517,11 +521,11 @@ public class Ihm extends javax.swing.JFrame {
         panelClientLayout.setHorizontalGroup(
             panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClientLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelClientLayout.createSequentialGroup()
                         .addComponent(inciseNomClient)
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(etatC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nomUtilisateur, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -641,7 +645,7 @@ public class Ihm extends javax.swing.JFrame {
                     .addGroup(EntreeClavierLayout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(envoyerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         jSplitPane4.setRightComponent(EntreeClavier);
@@ -654,34 +658,6 @@ public class Ihm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(16, 204, 36));
         jLabel1.setText("Administrateur");
 
-        jButton2.setText("Ajouter Salon");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Supprimer Salon");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Ajouter Membre");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Supprimer Membre");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
         jlistSalonClient.setBackground(new java.awt.Color(231, 229, 239));
         jlistSalonClient.setModel(listmodel);
         jScrollPane2.setViewportView(jlistSalonClient);
@@ -693,10 +669,6 @@ public class Ihm extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -710,15 +682,7 @@ public class Ihm extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
 
         jSplitPane3.setRightComponent(jPanel4);
@@ -1076,7 +1040,7 @@ public class Ihm extends javax.swing.JFrame {
             // TODO add your handling code here:
             connexion.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Ihm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IhmClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
         timer1.stop();
@@ -1116,13 +1080,6 @@ public class Ihm extends javax.swing.JFrame {
         // TODO add your handling code here:
      
     }//GEN-LAST:event_ongletsKeyPressed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Creer_Salons salons=new Creer_Salons();
-        salons.setLocationRelativeTo(null);
-        salons.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void etatCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etatCActionPerformed
         // TODO add your handling code here:
@@ -1268,31 +1225,6 @@ public class Ihm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_etatCActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        
-        Supprimer_Salons supsalon=new Supprimer_Salons();
-        supsalon.setLocationRelativeTo(null);
-        supsalon.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-      Ajouter_Membre ajout=new Ajouter_Membre();
-        ajout.setLocationRelativeTo(null);
-        ajout.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        indiceCourant--;
-        Retirer_Membres retirer=new Retirer_Membres();
-        retirer.setLocationRelativeTo(null);
-        retirer.setVisible(true);
-        
-        
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -1310,14 +1242,26 @@ public class Ihm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ihm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IhmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ihm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IhmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ihm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IhmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ihm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IhmClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1356,10 +1300,6 @@ public class Ihm extends javax.swing.JFrame {
     private javax.swing.JComboBox etatC;
     private javax.swing.ButtonGroup groupeBouton;
     private javax.swing.JLabel inciseNomClient;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
