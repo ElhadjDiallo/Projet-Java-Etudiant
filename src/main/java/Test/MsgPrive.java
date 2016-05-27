@@ -33,6 +33,7 @@ public class MsgPrive extends javax.swing.JFrame {
 
     /**
      * Creates new form MsgPrive
+     * 
      */
    
     private Connection connexion; 
@@ -42,7 +43,9 @@ public class MsgPrive extends javax.swing.JFrame {
         initComponents();
         this.nomClient1 = nomClt1;
         this.nomClient2 = nomClt2;
-        name.setText(nomClt1);
+        
+        this.name.setText(nomClt1);
+        this.destinataire.setText(nomClt2);
          this.style="normal";    
         connexionAlabase();
          timer1 = new javax.swing.Timer(2000, new ActionListener() {
@@ -267,9 +270,11 @@ public void affichage(String texte,String selection)
         jScrollPane2 = new javax.swing.JScrollPane();
         afficher = new javax.swing.JTextPane();
         name = new javax.swing.JLabel();
+        inciseNomClient = new javax.swing.JLabel();
+        destinataire = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(240, 240, 190));
+        setBackground(new java.awt.Color(240, 240, 188));
 
         scrollpaneSaisie.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollpaneSaisie.setFocusable(false);
@@ -312,62 +317,93 @@ public void affichage(String texte,String selection)
 
         jLabel4.setFont(new java.awt.Font("TlwgTypewriter", 2, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(54, 36, 209));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/strilogo_opt(1).png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/strilogo.png")); // NOI18N
 
+        afficher.setEditable(false);
         jScrollPane2.setViewportView(afficher);
 
-        name.setText("jLabel1");
+        name.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        name.setForeground(new java.awt.Color(33, 37, 230));
+        name.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/ico.gif")); // NOI18N
+        name.setText("CLIENT ");
+
+        inciseNomClient.setFont(new java.awt.Font("URW Chancery L", 1, 24)); // NOI18N
+        inciseNomClient.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/cl.jpg")); // NOI18N
+        inciseNomClient.setText("CL");
+        inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        destinataire.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        destinataire.setForeground(new java.awt.Color(27, 211, 28));
+        destinataire.setText("          DESTINATAIRE");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Normal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Gras)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Italique))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(137, Short.MAX_VALUE))
+                        .addComponent(scrollpaneSaisie)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_ajouter)
+                        .addGap(72, 72, 72))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(name))
-                            .addComponent(scrollpaneSaisie))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bt_ajouter)
-                        .addGap(42, 42, 42))))
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Normal)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Gras)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Italique)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(inciseNomClient))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(destinataire, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(name)))))
+                        .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(name)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(destinataire, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(name))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(inciseNomClient)
+                        .addGap(0, 272, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Normal)
                             .addComponent(Gras)
                             .addComponent(Italique))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(bt_ajouter, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bt_ajouter)
+                        .addGap(8, 8, 8)))
                 .addGap(24, 24, 24))
         );
 
@@ -515,6 +551,8 @@ public void affichage(String texte,String selection)
     private javax.swing.JTextPane afficher;
     private javax.swing.JButton bt_ajouter;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel destinataire;
+    private javax.swing.JLabel inciseNomClient;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel name;
