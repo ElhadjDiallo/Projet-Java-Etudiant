@@ -38,7 +38,7 @@ public class MsgPrive extends javax.swing.JFrame {
         this.nomClient2 = nomClt2;
         name.setText(nomClt1);
         
-        
+        connexionAlabase();
          timer1 = new javax.swing.Timer(2000, new ActionListener() {
 
             @Override
@@ -94,7 +94,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
         //afficher.setText(texte);
        String requeteIdmembre1="Select id_membre from utilisateur where login='"+nomClient1+"'";
        // String requeteIdmembre1="Select id_membre from utilisateur where login='bah'";
-        connexionAlabase();
+        
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(requeteIdmembre1);
@@ -164,7 +164,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
               while (resultat.next()){
                 login = resultat.getString("login");
                 System.out.println(login);
-                instruction.close();
+               
               }
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,7 +180,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
                 time = resultat.getString("message_time");
                 System.out.println(time);
               }
-              instruction.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -381,7 +381,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
         try {
             Statement instruction = connexion.createStatement();
             instruction.executeUpdate(requeteInsertion);
-           instruction.close();
+          
 
         } catch (Exception e) {
             e.printStackTrace();
