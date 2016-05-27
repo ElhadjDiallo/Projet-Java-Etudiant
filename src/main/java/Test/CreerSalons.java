@@ -15,7 +15,7 @@ import java.sql.Statement;
  *
  * @author ngoyet-ndiaye
  */
-public class Creer_Salons extends javax.swing.JFrame {
+public class CreerSalons extends javax.swing.JFrame {
 
     /**
      * Creates new form Creer_Salons
@@ -23,7 +23,7 @@ public class Creer_Salons extends javax.swing.JFrame {
      */
     private Connection connexion;
     private Connexion con;
-    public Creer_Salons() {
+    public CreerSalons() {
         initComponents();
       connexionAlabase();
         
@@ -36,8 +36,10 @@ public class Creer_Salons extends javax.swing.JFrame {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/";
-            url+=con.getnombd();
+            String url = "jdbc:postgresql://localhost:";
+             url+=con.getport();
+             url+="/"+con.getnombd();
+            
            
             
             
@@ -208,14 +210,21 @@ public class Creer_Salons extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Creer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Creer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Creer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Creer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
+/*        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Creer_Salons().setVisible(true);
+            }
         //</editor-fold>
 
         /* Create and display the form */

@@ -5,6 +5,7 @@
  */
 package Test;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,6 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 
 /**
@@ -37,7 +43,7 @@ public class MsgPrive extends javax.swing.JFrame {
         this.nomClient1 = nomClt1;
         this.nomClient2 = nomClt2;
         name.setText(nomClt1);
-        
+         this.style="normal";    
         connexionAlabase();
          timer1 = new javax.swing.Timer(2000, new ActionListener() {
 
@@ -61,8 +67,10 @@ public class MsgPrive extends javax.swing.JFrame {
 
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/";
-            url+=con.getnombd();
+            String url = "jdbc:postgresql://localhost:";
+             url+=con.getport();
+             url+="/"+con.getnombd();
+            
             
             
 
@@ -88,13 +96,12 @@ public void recupererMessage(String nomClient1, String nomClient2){
         Integer idmembre2 = 0 ;
         String login = null;
         String time = null;
-       // String nomClient = new String();
+    
         ArrayList <String>listMessag=new ArrayList<>();
 
-        //afficher.setText(texte);
+      
        String requeteIdmembre1="Select id_membre from utilisateur where login='"+nomClient1+"'";
-       // String requeteIdmembre1="Select id_membre from utilisateur where login='bah'";
-        
+     
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(requeteIdmembre1);
@@ -103,7 +110,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
             {
 
                 idmembre1=resultat.getInt("id_membre");
-                System.out.println(idmembre1);
+              
             }
             instruction.close();
 
@@ -113,8 +120,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
         }
 
          String requeteidmembre2="select id_membre from utilisateur where login='"+nomClient2+"'";
-        //String requeteidmembre2="Select id_membre from utilisateur where login='diallo'";
-   
+       
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(requeteidmembre2);
@@ -123,12 +129,12 @@ public void recupererMessage(String nomClient1, String nomClient2){
             {
 
                 idmembre2=resultat.getInt("id_membre");
-                System.out.println(idmembre2);
+               
 
             }
-            instruction.close();
+            
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
 
         }
@@ -144,29 +150,28 @@ public void recupererMessage(String nomClient1, String nomClient2){
             {
 
                 String recup = resultat.getString("message");
-                System.out.println(recup);
+              
                 listMessag.add(recup);
                
             }
-            instruction.close();
+            
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         
         /*------------------*/
         String reqrecuplogin= "Select login from utilisateur where id_membre='"+idmembre1+"'";
-        //String reqrecupmsg="Select message from messageprive where idmembre ";
-      
+    
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(reqrecuplogin);
               while (resultat.next()){
                 login = resultat.getString("login");
-                System.out.println(login);
+              
                
               }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         /*recup temps*/
@@ -178,10 +183,10 @@ public void recupererMessage(String nomClient1, String nomClient2){
             ResultSet resultat = instruction.executeQuery(reqrecuptemps);
               while (resultat.next()){
                 time = resultat.getString("message_time");
-                System.out.println(time);
+               
               }
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         
@@ -190,14 +195,58 @@ public void recupererMessage(String nomClient1, String nomClient2){
         String text=new String();
         for(String mes:listMessag)
         {
-            text+="["+login+"]";
+            time=time.substring(0, 10);
+            text+=""+time+"\t";
+            text+="["+login+"] \t";
             text+=mes;
-            text+="\t"+time+"";
+            
             text+="\n";
         }
-        afficher.setText(text);
+       
+        affichage(text,this.style);
         
 }
+public void affichage(String texte,String selection)
+    {
+        
+       
+        
+     StyledDocument document = new DefaultStyledDocument();
+    SimpleAttributeSet attributes = new SimpleAttributeSet();
+    attributes = new SimpleAttributeSet();
+    if(selection.compareTo("gras")==0)
+    {
+    attributes.addAttribute(StyleConstants.CharacterConstants.Bold, Boolean.TRUE);
+    
+    
+    }
+    else if(selection.compareTo("italique")==0)
+    {
+    attributes.addAttribute(StyleConstants.CharacterConstants.Italic, Boolean.TRUE);    
+    }
+    else if(selection.compareTo("normal")==0)
+    {
+        Font f = new Font("Courier", Font.BOLD, 50);
+        attributes.addAttribute(f, Boolean.TRUE);
+    }
+    else 
+    {
+        Font f = new Font("Courier", Font.BOLD, 50);
+        attributes.addAttribute(f, Boolean.TRUE);
+    }
+    try {
+      document.insertString(document.getLength(),texte, attributes);
+       
+        afficher.setDocument(document);
+        afficher.setCaretPosition(document.getLength());
+    } catch (BadLocationException badLocationException) {
+
+       badLocationException.printStackTrace();
+    }
+      
+      // affichageSalonClient.setText(texte);
+    }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -307,8 +356,8 @@ public void recupererMessage(String nomClient1, String nomClient2){
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addComponent(name)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -334,9 +383,9 @@ public void recupererMessage(String nomClient1, String nomClient2){
 
         String texte=new String();
         texte=zoneDeSaisie.getText();
-        //afficher.setText(texte);
+       
        String requeteIdmembre1="Select id_membre from utilisateur where login='"+nomClient1+"'";
-       // String requeteIdmembre1="Select id_membre from utilisateur where login='bah'";
+    
         connexionAlabase();
         try {
             Statement instruction = connexion.createStatement();
@@ -349,7 +398,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
                 System.out.println(idmembre1);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
 
         }
@@ -388,9 +437,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
 
         }
       
-        /*MsgPrive client  = new MsgPrive(nomClient);
-        client.setVisible(true);
-        client.jTextArea1.setText(texte);*/
+       
 
     }//GEN-LAST:event_bt_ajouterActionPerformed
 
@@ -418,6 +465,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
         if(Italique.isSelected())
         {
             this.style="italique";
+            
         }
     }//GEN-LAST:event_ItaliqueActionPerformed
 

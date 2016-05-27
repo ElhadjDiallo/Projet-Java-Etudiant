@@ -18,7 +18,7 @@ import java.util.ArrayList;
  *
  * @author ngoyet-ndiaye
  */
-public class Ajouter_Membre extends javax.swing.JFrame {
+public class AjouterMembre extends javax.swing.JFrame {
     
   
     
@@ -29,7 +29,7 @@ public class Ajouter_Membre extends javax.swing.JFrame {
     /**
      * Creates new form Ajouter_Membre
      */
-    public Ajouter_Membre() {
+    public AjouterMembre() {
         initComponents();
         connexionAlabase();
     }
@@ -307,13 +307,13 @@ public class Ajouter_Membre extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_Membre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterMembre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_Membre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterMembre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_Membre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterMembre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ajouter_Membre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AjouterMembre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -322,6 +322,14 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ajouter_Membre().setVisible(true);
+            }
+        //</editor-fold>
+
+        /* Create and display the form */
+        /*
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AjouterMembre().setVisible(true);
             }
         });*/
     }

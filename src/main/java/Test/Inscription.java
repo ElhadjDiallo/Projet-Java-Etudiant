@@ -32,11 +32,13 @@ public class Inscription extends javax.swing.JFrame {
      {
          con =new Connexion();
          try {
-//      Class.forName("org.postgresql.Driver");
+    // Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/";
-            url+=con.getnombd();
+            String url = "jdbc:postgresql://localhost:";
+             url+=con.getport();
+             url+="/"+con.getnombd();
+            
            
             
             

@@ -25,6 +25,7 @@ public class Connexion extends javax.swing.JFrame {
     private String nombd;
     private String user;
     private String password;
+    private String port;
     public Connexion() {
         initComponents();
         setTitle("connexion");
@@ -32,6 +33,8 @@ public class Connexion extends javax.swing.JFrame {
         password="diallo";
         user="postgres";
         nombd="javaSTRI";
+        port="5433";
+        
         
     }
     public String getpassword()
@@ -45,6 +48,10 @@ public class Connexion extends javax.swing.JFrame {
     public String getnombd()
     {
         return nombd;
+    }
+    public String getport()
+    {
+        return port;
     }
             
     
@@ -169,7 +176,7 @@ public class Connexion extends javax.swing.JFrame {
         String pass=new String(password);
         Connect c=new Connect();
                  
-         if(c.isValidUser(username, pass,this.nombd, user,this.password))
+         if(c.isValidUser(username, pass,this.nombd, user,this.password,this.port))
          {
          
           
@@ -178,7 +185,7 @@ public class Connexion extends javax.swing.JFrame {
             etc.setLocationRelativeTo(null);
             etc.setVisible(rootPaneCheckingEnabled);
              
-             admin=c.recupererNomAdmin(this.nombd,this.user,this.password);
+             admin=c.recupererNomAdmin(this.nombd,this.user,this.password,port);
              if(c.getEtat()==1)
              {
              Ihm ihm = new Ihm(nomCLient,admin);

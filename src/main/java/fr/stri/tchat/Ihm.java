@@ -12,11 +12,11 @@ import ContenuSalonetClient.ListSalonClient;
 import ContenuSalonetClient.Salon;
 import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.TableSalon;
-import Test.Ajouter_Membre;
+import Test.AjouterMembre;
 import Test.Connexion;
-import Test.Creer_Salons;
+import Test.CreerSalons;
 import Test.MsgPrive;
-import Test.Retirer_Membres;
+import Test.RetirerMembres;
 import Test.Supprimer_Salons;
 import java.awt.Color;
 import java.awt.Component;
@@ -82,7 +82,7 @@ public class Ihm extends javax.swing.JFrame {
          boutonGras.setName("gras");
          boutonItalique.setName("italique");
          boutonNormal.setName("normale");
-          this.style="normal";
+         this.style="normal";
          
           mettreAjour();
         timer1 = new javax.swing.Timer(2000, new ActionListener() {
@@ -113,8 +113,10 @@ public class Ihm extends javax.swing.JFrame {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/";
-            url+=con.getnombd();
+            String url = "jdbc:postgresql://localhost:";
+             url+=con.getport();
+             url+="/"+con.getnombd();
+                  
             
             
 
@@ -1146,7 +1148,7 @@ public class Ihm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Creer_Salons salons=new Creer_Salons();
+        CreerSalons salons=new CreerSalons();
         salons.setLocationRelativeTo(null);
         salons.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -1219,7 +1221,7 @@ public class Ihm extends javax.swing.JFrame {
             ResultSet resultat = instruction.executeQuery(requeteUpdate);
             
                 
-            } catch (Exception e) {
+            } catch (SQLException e) {
             }
              
             
@@ -1305,7 +1307,7 @@ public class Ihm extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-      Ajouter_Membre ajout=new Ajouter_Membre();
+      AjouterMembre ajout=new AjouterMembre();
         ajout.setLocationRelativeTo(null);
         ajout.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -1313,7 +1315,7 @@ public class Ihm extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         indiceCourant--;
-        Retirer_Membres retirer=new Retirer_Membres();
+        RetirerMembres retirer=new RetirerMembres();
         retirer.setLocationRelativeTo(null);
         retirer.setVisible(true);
         

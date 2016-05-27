@@ -43,7 +43,7 @@ public class Connect {
     }
     
 
-   public  boolean isValidUser(String username, String password,String nombd,String user,String password1) {
+   public  boolean isValidUser(String username, String password,String nombd,String user,String password1,String port) {
         boolean connecter=false;
            
         
@@ -51,7 +51,8 @@ public class Connect {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/"+nombd;
+            String url = "jdbc:postgresql://localhost:";
+            url+=port+"/"+nombd;
           
             
            
@@ -96,14 +97,15 @@ public class Connect {
         }
         return false;
   }
- public String recupererNomAdmin(String nombd,String user,String password1)
+ public String recupererNomAdmin(String nombd,String user,String password1,String port)
 {
        
     try {
 
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/"+nombd;
+            String url = "jdbc:postgresql://localhost:";
+                    url+=port+"/"+nombd;
         
     
           Connection connexion = DriverManager.getConnection(url, user, password1);

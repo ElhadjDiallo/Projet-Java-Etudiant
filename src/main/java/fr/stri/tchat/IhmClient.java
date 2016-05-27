@@ -20,11 +20,11 @@ import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.SalonClient;
 import ContenuSalonetClient.TableSalon;
 import ContenuSalonetClient.TableSalon;
-import Test.Ajouter_Membre;
+import Test.AjouterMembre;
 import Test.Connexion;
-import Test.Creer_Salons;
+import Test.CreerSalons;
 import Test.MsgPrive;
-import Test.Retirer_Membres;
+import Test.RetirerMembres;
 import Test.Supprimer_Salons;
 import java.awt.Color;
 import java.awt.Component;
@@ -120,8 +120,10 @@ public class IhmClient extends javax.swing.JFrame {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/";
-            url+=con.getnombd();
+            String url = "jdbc:postgresql://localhost:";
+             url+=con.getport();
+             url+="/"+con.getnombd();
+            
             
             
 

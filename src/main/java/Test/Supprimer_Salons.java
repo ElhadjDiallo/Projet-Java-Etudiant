@@ -36,9 +36,10 @@ public class Supprimer_Salons extends javax.swing.JFrame {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/";
-            url+=con.getnombd();
-           
+            String url = "jdbc:postgresql://localhost:";
+             url+=con.getport();
+             url+="/"+con.getnombd();
+            
             
             
 

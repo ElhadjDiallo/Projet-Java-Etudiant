@@ -17,15 +17,15 @@ import java.util.ArrayList;
  *
  * @author ngoyet-ndiaye
  */
-public class Retirer_Membres extends javax.swing.JFrame {
+public class RetirerMembres extends javax.swing.JFrame {
 
     /**
-     * Creates new form Retirer_Membres
+     * Creates new form RetirerMembres
      */
     private Connection connexion;
     private Connexion con;
  
-    public Retirer_Membres() {
+    public RetirerMembres() {
         initComponents();
         connexionAlabase();
     }
@@ -36,10 +36,10 @@ public class Retirer_Membres extends javax.swing.JFrame {
 //      Class.forName("org.postgresql.Driver");
             System.out.println("Driver O.K.");
 
-            String url = "jdbc:postgresql://localhost:5433/";
-            url+=con.getnombd();
-           
-            
+            String url = "jdbc:postgresql://localhost:";
+             url+=con.getport();
+             url+="/"+con.getnombd();
+                     
             
 
             this.connexion = DriverManager.getConnection(url,con.getuser(), con.getpassword());
@@ -343,13 +343,13 @@ public class Retirer_Membres extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Retirer_Membres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RetirerMembres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Retirer_Membres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RetirerMembres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Retirer_Membres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RetirerMembres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Retirer_Membres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RetirerMembres.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -358,6 +358,14 @@ public class Retirer_Membres extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Retirer_Membres().setVisible(true);
+            }
+        //</editor-fold>
+
+        /* Create and display the form */
+/*
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new RetirerMembres().setVisible(true);
             }
         });*/
     }
