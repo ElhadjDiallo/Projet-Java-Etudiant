@@ -1,7 +1,11 @@
 package ContenuSalonetClient;
 
 import javax.swing.ImageIcon;
-
+/**
+ * 
+ * @author elhadj
+ * pour mettre à un client une icone 
+ */
 public class ClientEtat {
 	
 	private String value;

@@ -4,9 +4,12 @@ package ContenuSalonetClient;
 import javax.swing.ImageIcon;
 
 
-
+/**
+ * 
+ * @author elhadj
+ */
 public class Client extends SalonClient{
-        private String cp1;
+       
 	
 	private String nomclient;
         /*mettre en ligne ou hors ligne */

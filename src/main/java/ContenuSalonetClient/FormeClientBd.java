@@ -8,6 +8,7 @@ package ContenuSalonetClient;
 /**
  *
  * @author elhadj
+ * Stocke un client la clé tel que present dans la base de donné et le nom du salon dans lequel il se trouve 
  */
 public class FormeClientBd {
      private   Client leclient;

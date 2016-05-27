@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -181,6 +182,8 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         String sal=leSalon.getText();
         String login=membre.getText();
         String requeteInsertionEtat;
+        ArrayList<String>tabid=new ArrayList<>();
+                
         ResultSet resultat;
         if(sal.length()==0 && login.length()==0)
         {
@@ -204,9 +207,10 @@ public class Ajouter_Membre extends javax.swing.JFrame {
             while (resultat.next()) 
             {
                    
-            idsalon=resultat.getString("id_salon"); 
+            idsalon=resultat.getString("id_salon");
+            
          
-          }
+             }
             
             
         } catch (Exception e) {
@@ -222,6 +226,7 @@ public class Ajouter_Membre extends javax.swing.JFrame {
                    
             
              idmembre=resultat.getString("id_membre");
+             tabid.add(idmembre);
          
           }
             
@@ -232,27 +237,35 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         }
         
          try {
-             
-             
-             String requeteInseriton="Insert into salonutilisateur Values("+idsalon+","+idmembre+")";
+             if(!tabid.isEmpty())
+             {
+               for(String idmemb:tabid)
+               {
+                   String requeteInseriton="Insert into salonutilisateur Values("+idsalon+","+idmemb+")";
              Statement instruction = connexion.createStatement();
-             System.out.println("lla requete "+requeteInseriton);
+            
              if(combo.getSelectedIndex()==0)
              {
-             requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmembre+",'En ligne'"+")";    
+             requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmemb+",'En ligne'"+")";    
              }
              else 
              {
-             requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmembre+",'Hors-ligne'"+")";     
+             requeteInsertionEtat="Insert into enligne Values("+idsalon+","+idmemb+",'Hors-ligne'"+")";     
              }
               
-           System.err.println("la requete"+requeteInsertionEtat);
+           
                         
               instruction.executeUpdate(requeteInseriton);
               
              instruction = connexion.createStatement();
              instruction.executeUpdate(requeteInsertionEtat);
-             instruction.close();
+      
+              instruction.close();   
+             }
+               
+
+            }
+                           
              membre.setText("");
              leSalon.setText("");
             
@@ -305,7 +318,8 @@ public class Ajouter_Membre extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-     /*   java.awt.EventQueue.invokeLater(new Runnable() {
+        /*
+        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ajouter_Membre().setVisible(true);
             }

@@ -178,7 +178,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <EmptySpace pref="49" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="inciseNomClient" min="-2" max="-2" attributes="0"/>
@@ -214,6 +214,9 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="e6" green="23" red="21" type="rgb"/>
                     </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/fr/stri/tchat/ico.gif"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="NomClient"/>
                   </Properties>
                 </Component>
@@ -237,7 +240,7 @@
                       <Font name="URW Chancery L" size="24" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="/home/elhadj/NetBeansProjects/Projet-Java-Etudiant-a9c31df1d2b064014f35173e88e1c9870d48e882/src/main/resources/fr/stri/tchat/cl.jpg"/>
+                      <Image iconType="2" name="/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/cl.jpg"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="CL"/>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -348,7 +351,7 @@
                                       <Component id="envoyerMessage" min="-2" pref="37" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="133" max="32767" attributes="0"/>
+                              <EmptySpace pref="173" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

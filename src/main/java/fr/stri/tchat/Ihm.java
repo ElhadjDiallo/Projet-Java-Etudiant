@@ -60,7 +60,7 @@ public class Ihm extends javax.swing.JFrame {
     private ArrayList<IhmSalon>tableIhm;
     private Connection connexion;
     private String style;
-   private int  indiceCourant;
+    private int  indiceCourant;/* indice du placement du panel salon sur l'affichage*/
     private  javax.swing.Timer timer1;
     /**
      * Creates new form Ihm
@@ -105,6 +105,7 @@ public class Ihm extends javax.swing.JFrame {
          zoneDeSaisie.setWrapStyleWord(true);
          zoneDeSaisie.setLineWrap(true);
      }
+     
      public void connexionAlabase()
      {
          Connexion con =new Connexion();
@@ -122,14 +123,17 @@ public class Ihm extends javax.swing.JFrame {
           
          
      
-    } catch (Exception e) {
+    } catch (SQLException e) {
              System.err.println("Erreur de connexion");
         }
        
      
          
      }
-   
+   /***
+    * 
+    * permet de vider tout le contenu du jtabpane onglets
+    */
     private void vider()
     {
         if(onglets.getTabCount()!=0)
@@ -139,20 +143,25 @@ public class Ihm extends javax.swing.JFrame {
            
     }
    
-    
+    /**
+     * 
+     * 
+     */
     
     public void mettreAjour()
     {
-        int tempo=0;
+    
        int indiceDuClient;
         String online=new String();
         HashMap<Integer,FormeClientBd> tabclient= new HashMap<Integer,FormeClientBd>();
         ArrayList<String>temp=new ArrayList<>();
-        tablesalon=new TableSalon();
+          tablesalon=new TableSalon();
          indiceCourant=onglets.getSelectedIndex();
          
        
-    
+    /***
+     * Recupère le nom  du salon  
+     */
     
     
          try {
@@ -170,12 +179,15 @@ public class Ihm extends javax.swing.JFrame {
               
           }
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
            
                    System.out.println("Erreur là");
         }
             
             int i=0;  
+            /**
+             * Récupère l'id de l'utilisateur son nom et son etat connecté ou pas 
+             */
          try {
              for(String lesalon:temp)
              {
@@ -199,7 +211,10 @@ public class Ihm extends javax.swing.JFrame {
   
                online=resultat.getString("online_status");
                
-              
+              /**
+               * 
+               * je sauvegarde un client dans une table pour memoriser sa clé dans la table 
+               */
                 
                 if(online.compareTo("Hors-ligne")==0)
                 {
@@ -240,13 +255,17 @@ public class Ihm extends javax.swing.JFrame {
            requete+="'"+lessalon+"'";
            requete+=" and  salon.id_salon=salonutilisateur.id_salon and utilisateur.id_membre=salonutilisateur.id_membre"; 
               
-           salon = new Salon(lessalon);    
+           salon = new Salon(lessalon);
+           
             Statement instruction = connexion.createStatement();
            ResultSet  requeteClientDuSalon=instruction.executeQuery(requete);
+           
            while(requeteClientDuSalon.next())
               {
                   int cle=Integer.parseInt(requeteClientDuSalon.getString("id_membre"));
-               
+           /*
+                  on stocke les clients dans une arrayList ordonné par leur clé 
+                  */    
                  list=salon.findClient(tabclient, lessalon);
                  if(list.isEmpty()==false)
                  {
@@ -267,12 +286,14 @@ public class Ihm extends javax.swing.JFrame {
             }
             
              
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         
          
-                
+                /**
+                 * pour savoir qu'il y' a plus de salon dans le panel
+                 */
                 
                 
            if(tablesalon.getTableSalon().size()==0)
@@ -299,6 +320,7 @@ public class Ihm extends javax.swing.JFrame {
             }
           boolean existe=true;
           try {
+              
               onglets.getComponentAt(indiceCourant);
             
         } catch (Exception e) {
@@ -345,9 +367,11 @@ public class Ihm extends javax.swing.JFrame {
                f.setForeground(Color.red);    
                }
                else 
-               {
-                  
+               {    
+                   MsgPrive ms=new MsgPrive(nomUtilisateur.getText(),value.getNom());
+                   ms.setVisible(true);
                    f.setBackground(Color.CYAN);
+                   list.clearSelection();
                }
              
                    
@@ -498,6 +522,7 @@ public class Ihm extends javax.swing.JFrame {
 
         nomUtilisateur.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         nomUtilisateur.setForeground(new java.awt.Color(33, 35, 230));
+        nomUtilisateur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/ico.gif"))); // NOI18N
         nomUtilisateur.setText("NomClient");
 
         etatC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En ligne", "Hors ligne", " " }));
@@ -508,7 +533,7 @@ public class Ihm extends javax.swing.JFrame {
         });
 
         inciseNomClient.setFont(new java.awt.Font("URW Chancery L", 1, 24)); // NOI18N
-        inciseNomClient.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/Projet-Java-Etudiant-a9c31df1d2b064014f35173e88e1c9870d48e882/src/main/resources/fr/stri/tchat/cl.jpg")); // NOI18N
+        inciseNomClient.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/cl.jpg")); // NOI18N
         inciseNomClient.setText("CL");
         inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -517,7 +542,7 @@ public class Ihm extends javax.swing.JFrame {
         panelClientLayout.setHorizontalGroup(
             panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelClientLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(panelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelClientLayout.createSequentialGroup()
                         .addComponent(inciseNomClient)
@@ -641,7 +666,7 @@ public class Ihm extends javax.swing.JFrame {
                     .addGroup(EntreeClavierLayout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(envoyerMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         jSplitPane4.setRightComponent(EntreeClavier);
@@ -796,7 +821,7 @@ public class Ihm extends javax.swing.JFrame {
           }
             
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
               System.err.println("Erreur sur Id Salon");
         }
           
@@ -822,7 +847,7 @@ public class Ihm extends javax.swing.JFrame {
           }
             
             
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
          requeteMessage="select message from envoyermess  where id_salon=";
@@ -862,6 +887,7 @@ public class Ihm extends javax.swing.JFrame {
          i++;
                   
         }
+       
       
          ihmSalon.afficher(messages,style);
          
@@ -971,6 +997,7 @@ public class Ihm extends javax.swing.JFrame {
             
         }
         }
+        /*
        
        String requetemesSalon;
        requetemesSalon="select login,message_time from utilisateur,envoyermess"; 
@@ -1065,7 +1092,7 @@ public class Ihm extends javax.swing.JFrame {
         
        
         
-        
+        */
    
         
        

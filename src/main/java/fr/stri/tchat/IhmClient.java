@@ -502,9 +502,10 @@ public class IhmClient extends javax.swing.JFrame {
 
         nomUtilisateur.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         nomUtilisateur.setForeground(new java.awt.Color(33, 35, 230));
+        nomUtilisateur.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/ico.gif"))); // NOI18N
         nomUtilisateur.setText("NomClient");
 
-        etatC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "En ligne", "Hors ligne", " " }));
+        etatC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hors-ligne" }));
         etatC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 etatCActionPerformed(evt);
@@ -913,7 +914,7 @@ public class IhmClient extends javax.swing.JFrame {
             
             
         } catch (Exception e) {
-            e.printStackTrace();
+            
         }
         
         if(verif)
@@ -935,6 +936,7 @@ public class IhmClient extends javax.swing.JFrame {
             
         }
         }
+        /*
        
        String requetemesSalon;
        requetemesSalon="select login,message_time from utilisateur,envoyermess"; 
@@ -1027,7 +1029,7 @@ public class IhmClient extends javax.swing.JFrame {
         onglets.add(tableIhm.get(indiceDuSalon),indiceDuSalon);
         onglets.setSelectedIndex(indiceDuSalon);
         
-       
+       */
         
         
    
@@ -1090,7 +1092,7 @@ public class IhmClient extends javax.swing.JFrame {
         String nomSalon=new String();
         String login=new String();
         String requete=new String ();
-        
+        /*
         if( etatC.getSelectedIndex()==0)
         {
            indice=onglets.getSelectedIndex();
@@ -1154,8 +1156,8 @@ public class IhmClient extends javax.swing.JFrame {
              
             
            
-        }
-        else 
+        }*/
+        if(etatC.getSelectedIndex()==0) 
         {
               indice=onglets.getSelectedIndex();
            nomSalon=((IhmSalon) onglets.getComponentAt(indice)).getNom();
@@ -1210,11 +1212,11 @@ public class IhmClient extends javax.swing.JFrame {
          requeteUpdate+="where enligne.id_salon="+"'"+idsalon+"'"+"and enligne.id_membre="+"'"+idmembre+"'";
             try {
                 Statement instruction = connexion.createStatement();
-            ResultSet resultat = instruction.executeQuery(requeteUpdate);
+            instruction.executeUpdate(requeteUpdate);
             
                 
             } catch (Exception e) {
-                e.printStackTrace();
+              
             }
              
             

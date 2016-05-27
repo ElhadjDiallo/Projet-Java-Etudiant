@@ -9,7 +9,9 @@ import gestionErreur.Erreur;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -226,6 +228,7 @@ public class Retirer_Membres extends javax.swing.JFrame {
         String login=membre.getText();
         String requeteInsertionEtat;
         ResultSet resultat;
+        ArrayList<String>tabid=new ArrayList<>();
         if(sal.length()==0 && login.length()==0)
         {
         Erreur e=new Erreur(this, rootPaneCheckingEnabled);
@@ -236,8 +239,6 @@ public class Retirer_Membres extends javax.swing.JFrame {
         {
          String requeteIdSalon="Select id_salon from salon where nom_salon";
                requeteIdSalon+=" ="+"'"+sal+"'";
-        String idcompte="select id_membre from utilisateur where login";
-        idcompte+=" ='"+login+"'";
         
         
         try {
@@ -250,15 +251,18 @@ public class Retirer_Membres extends javax.swing.JFrame {
                    
             idsalon=resultat.getString("id_salon"); 
          
-          }
+            }
             
             
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String idcompte="select id_membre from utilisateur where login ";
+        idcompte+=" ='"+login+"'";
+        
          
         try {
-            
+           
          Statement instruction = connexion.createStatement();
           resultat = instruction.executeQuery(idcompte);
          while (resultat.next()) 
@@ -267,6 +271,7 @@ public class Retirer_Membres extends javax.swing.JFrame {
             
              idmembre=resultat.getString("id_membre");
          
+            
           }
             
             
@@ -275,45 +280,48 @@ public class Retirer_Membres extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-         try {
+          
+          try {
+
              String requeteInseriton="DELETE from salonutilisateur Where salonutilisateur.id_salon='"+idsalon+"'and"
                      + " salonutilisateur.id_membre='"+idmembre+"'";
-             System.out.println("la requete est "+requeteInseriton);
-             
+               
              Statement instruction = connexion.createStatement();
            
-       requeteInsertionEtat="DELETE from enligne WHERE enligne.id_salon='"+idsalon+"' and enligne.id_membre='"
+             requeteInsertionEtat="DELETE from enligne WHERE enligne.id_salon='"+idsalon+"' and enligne.id_membre='"
                +idmembre+"'";    
               
-            System.out.println("la requete est "+requeteInsertionEtat);
-                        
+       
+                       
               instruction.executeUpdate(requeteInseriton);
               
              instruction = connexion.createStatement();
              instruction.executeUpdate(requeteInsertionEtat);
              instruction.close();
+       
+          
              membre.setText("");
              lesalon.setText("");
             
                    
-            } catch (Exception et) {
+            } catch (SQLException et) {
+                
                 membre.setText("");
-           lesalon.setText("");
-        
-        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
-        e.setLocationRelativeTo(null);
-        e.setVisible(true);
-            
+                lesalon.setText("");
+               
+                  
                 
             }
             
+             
+             }
+             
         
      
         
         
    
-        }
-
+        
         
         
     }//GEN-LAST:event_jButton2ActionPerformed

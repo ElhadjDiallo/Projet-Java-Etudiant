@@ -47,7 +47,7 @@ public class Inscription extends javax.swing.JFrame {
          
      
     } catch (Exception e) {
-             System.err.println("Erreur de connexion");
+             System.err.println("");
         }
        
      
@@ -70,9 +70,9 @@ public class Inscription extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
-        password = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,14 +122,14 @@ public class Inscription extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                            .addComponent(password))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(password)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -170,7 +170,8 @@ public class Inscription extends javax.swing.JFrame {
          String idmax=new String();
          String requeteInsertion;
         String login=username.getText();
-        String mdp=password.getText();
+       char [] p=password.getPassword();
+        String mdp=new String (p);
            ResultSet resultat ;
        if(login.length()==0 && mdp.length()==0)
        {
@@ -198,7 +199,7 @@ public class Inscription extends javax.swing.JFrame {
             {
                  requeteInsertion="INSERT INTO utilisateur VALUES";
                  requeteInsertion+="(1,'"+login+"','"+mdp+"')";
-                 System.out.println("la requete "+requeteInsertion);
+               
                  instruction.executeUpdate(requeteInsertion);
                   
                 
@@ -210,7 +211,7 @@ public class Inscription extends javax.swing.JFrame {
                 
                  requeteInsertion="INSERT INTO utilisateur VALUES";
                  requeteInsertion+="("+id+",'"+login+"','"+mdp+"')";
-                 System.out.println("la requete "+requeteInsertion);
+               
                  if(instruction.executeUpdate(requeteInsertion)==0)
                  {
                      
@@ -301,7 +302,7 @@ public class Inscription extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField password;
+    private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
