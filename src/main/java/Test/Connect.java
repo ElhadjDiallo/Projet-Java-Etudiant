@@ -33,25 +33,14 @@ public class Connect {
     // @SuppressWarnings("unused")
    
     public static void main(String[] args) {
-        //ConnexionBd c = new ConnexionBd();
-        //c.obtenirConnexion();
-       /* 
-        try {
-            Class.forName("org.postgresql.Driver");
-            System.out.println("Driver O.K.");
-
-            String url = "jdbc:postgresql://localhost:5433/javaSTRI";
-            String user = "postgres";
-            String password = "root";
-
-            Connection con = DriverManager.getConnection(url, user, password);
-            System.out.println("Connexion effective !");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+        
     }
     
+    public boolean existeDeja(String username,String password,String nombd)
+    {
+        
+        return false;
+    }
     
 
    public  boolean isValidUser(String username, String password,String nombd,String user,String password1) {
@@ -100,7 +89,7 @@ public class Connect {
         }
         
       }
-    } catch (Exception e) {
+    } catch (SQLException e) {
             e.printStackTrace();
             
             
@@ -111,7 +100,7 @@ public class Connect {
 {
        
     try {
-//      Class.forName("org.postgresql.Driver");
+
             System.out.println("Driver O.K.");
 
             String url = "jdbc:postgresql://localhost:5433/"+nombd;
@@ -138,13 +127,13 @@ public class Connect {
         
       }
       
-    } catch (Exception e) {
+    } catch (SQLException e) {
             e.printStackTrace();
             
             
         }
  
-return "Administrateur";
+    return "Administrateur";
 
 }
        
@@ -152,5 +141,5 @@ return "Administrateur";
 
         
     
-    }
+}
 

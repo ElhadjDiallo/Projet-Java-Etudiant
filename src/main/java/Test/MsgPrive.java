@@ -105,6 +105,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
                 idmembre1=resultat.getInt("id_membre");
                 System.out.println(idmembre1);
             }
+            instruction.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,6 +126,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
                 System.out.println(idmembre2);
 
             }
+            instruction.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,6 +148,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
                 listMessag.add(recup);
                
             }
+            instruction.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,6 +164,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
               while (resultat.next()){
                 login = resultat.getString("login");
                 System.out.println(login);
+                instruction.close();
               }
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,6 +180,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
                 time = resultat.getString("message_time");
                 System.out.println(time);
               }
+              instruction.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

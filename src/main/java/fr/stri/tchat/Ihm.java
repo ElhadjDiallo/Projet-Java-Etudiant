@@ -1280,11 +1280,11 @@ public class Ihm extends javax.swing.JFrame {
          requeteUpdate+="where enligne.id_salon="+"'"+idsalon+"'"+"and enligne.id_membre="+"'"+idmembre+"'";
             try {
                 Statement instruction = connexion.createStatement();
-            ResultSet resultat = instruction.executeQuery(requeteUpdate);
+                 instruction.executeUpdate(requeteUpdate);
             
                 
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (SQLException e) {
+               e.printStackTrace();
             }
              
             
