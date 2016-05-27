@@ -30,10 +30,10 @@ public class Connexion extends javax.swing.JFrame {
         initComponents();
         setTitle("connexion");
         getContentPane().setBackground(new Color(204,204,255));
-        password="post";
+        password="diallo";
         user="postgres";
         nombd="javaSTRI";
-        port="5432";
+        port="5433";
         
         
     }

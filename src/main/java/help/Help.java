@@ -30,18 +30,11 @@ public class Help extends javax.swing.JFrame {
         initComponents();
        mesOnglets.addTab("Administrateur",aide1);
        
-      
-         
-        
-       mesOnglets.addTab("Administrateur",aide2);
-       
-       
-       
+    
+       mesOnglets.addTab("Administrateur",aide2);   
         
        mesOnglets.addTab("Administrateur",aide3);
        
-       
-        
        
        mesOnglets.addTab("Administrateur",aide4);
        

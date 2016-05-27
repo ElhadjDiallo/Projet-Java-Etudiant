@@ -63,6 +63,7 @@ public class Ihm extends javax.swing.JFrame {
     private String style;
     private int  indiceCourant;/* indice du placement du panel salon sur l'affichage*/
     private  javax.swing.Timer timer1;
+    private         MsgPrive ms;
     /**
      * Creates new form Ihm
      */
@@ -371,7 +372,7 @@ public class Ihm extends javax.swing.JFrame {
                }
                else 
                {    
-                   MsgPrive ms=new MsgPrive(nomUtilisateur.getText(),value.getNom());
+                   ms=new MsgPrive(nomUtilisateur.getText(),value.getNom());
                    ms.setVisible(true);
                    f.setBackground(Color.CYAN);
                    list.clearSelection();
@@ -509,9 +510,7 @@ public class Ihm extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,6 +535,7 @@ public class Ihm extends javax.swing.JFrame {
         });
 
         inciseNomClient.setFont(new java.awt.Font("URW Chancery L", 1, 24)); // NOI18N
+        inciseNomClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/cl.jpg"))); // NOI18N
         inciseNomClient.setText("CL");
         inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -724,7 +724,7 @@ public class Ihm extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -786,7 +786,7 @@ public class Ihm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -1004,103 +1004,8 @@ public class Ihm extends javax.swing.JFrame {
             
         }
         }
-        /*
-       
-       String requetemesSalon;
-       requetemesSalon="select login,message_time from utilisateur,envoyermess"; 
-       requetemesSalon+=" where id_salon=";
-       requetemesSalon+="'"+idsalon+"'"+" and utilisateur.id_membre=envoyermess.id_membre";
         
-        try {
-            
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requetemesSalon);
-           
-         while (resultat.next()) 
-            {
-                   
-            
-                login=resultat.getString("login"); 
-                
-                lislogin.add(login);
-             
-         
-          }
-            
-            
-        } catch (Exception e) {
-        }
-        String requeteMessage="select message from envoyermess  where id_salon=";
-        requeteMessage+="'"+idsalon+"'";
-        try {
-            
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requeteMessage);
-         while (resultat.next()) 
-            {
-                   
-                
-               listMessag.add(resultat.getString("message")); 
-             
-         
-          }
-            
-            
-        } catch (Exception e) {
-        }
-         try
-          {
-          
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requetemesSalon);
-           
-         while (resultat.next()) 
-            {
-                   
-            
-                login=resultat.getString("login");      
-                lislogin.add(login);
-                date.add(resultat.getString("message_time").substring(0, 19));
-             
-         
-          }
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-            
-           int i=0;
-        String messages = new String();
-        for(String mes:listMessag)
-        {
-          mes=mes.replace("\"", "'");
-         messages+=date.get(i);
-         messages+="    ";
-         messages+=lislogin.get(i);
-         messages+="   ";
-         messages+=mes;
-         messages+="\n";
-    
-         
-            i++;
-                  
-        }
-        
-         
-        tableIhm.get(indiceDuSalon).afficher(messages,style);
-        onglets.remove(indiceDuSalon);
-        
-       
-        
-        onglets.add(tableIhm.get(indiceDuSalon),indiceDuSalon);
-        onglets.setSelectedIndex(indiceDuSalon);
-        
-       
-        
-        */
-   
+      
         
        
     }//GEN-LAST:event_envoyerMessageActionPerformed
@@ -1113,6 +1018,7 @@ public class Ihm extends javax.swing.JFrame {
             Logger.getLogger(Ihm.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
+        ms.dispose();
         timer1.stop();
         
         

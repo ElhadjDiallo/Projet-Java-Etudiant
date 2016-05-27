@@ -70,6 +70,7 @@ public class IhmClient extends javax.swing.JFrame {
     private String style;
    private int  indiceCourant;
     private  javax.swing.Timer timer1;
+    MsgPrive ms;
     /**
      * Creates new form Ihm
      */
@@ -358,7 +359,7 @@ public class IhmClient extends javax.swing.JFrame {
                {
                   
                   
-                   MsgPrive ms=new MsgPrive(nomUtilisateur.getText(),value.getNom());
+                  ms=new MsgPrive(nomUtilisateur.getText(),value.getNom());
                    ms.setVisible(true);
                    f.setBackground(Color.CYAN);
                    list.clearSelection();
@@ -1054,6 +1055,7 @@ public class IhmClient extends javax.swing.JFrame {
             Logger.getLogger(IhmClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
+        ms.dispose();
         timer1.stop();
         
         

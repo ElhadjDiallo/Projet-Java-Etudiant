@@ -48,6 +48,7 @@ public class MsgPrive extends javax.swing.JFrame {
         this.destinataire.setText(nomClt2);
          this.style="normal";    
          this.inciseNomClient.setText(nomClt1.substring(0,2));
+         gererSaisie();
         connexionAlabase();
          timer1 = new javax.swing.Timer(2000, new ActionListener() {
 
@@ -216,6 +217,12 @@ public void recupererMessage(String nomClient1, String nomClient2){
         affichage(text,this.style);
         
 }
+        public void gererSaisie()
+     {
+         zoneDeSaisie.setWrapStyleWord(true);
+         zoneDeSaisie.setLineWrap(true);
+     }
+
 public void affichage(String texte,String selection)
     {
         
@@ -422,7 +429,7 @@ public void affichage(String texte,String selection)
 
         String texte=new String();
         texte=zoneDeSaisie.getText();
-       
+       zoneDeSaisie.setText("");
        String requeteIdmembre1="Select id_membre from utilisateur where login='"+nomClient1+"'";
     
         connexionAlabase();
