@@ -57,7 +57,98 @@ public class Inscription extends javax.swing.JFrame {
          
      }
    
-  
+    public void verification()
+    {
+         String idmax=new String();
+         String requeteInsertion;
+        String login=username.getText();
+       char [] p=password.getPassword();
+        String mdp=new String (p);
+           ResultSet resultat ;
+       if(login.length()==0 && mdp.length()==0)
+       {
+        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+       }
+       else 
+       {
+                String requeteMaxId="SELECT MAX(id_membre) FROM utilisateur";
+           
+           try {
+            
+             Statement instruction = connexion.createStatement();
+             resultat = instruction.executeQuery(requeteMaxId);
+              while(resultat.next())
+              {
+                  
+                  idmax=resultat.getString("max");
+                  
+              }
+             
+            
+            if(idmax==null)
+            {
+                 requeteInsertion="INSERT INTO utilisateur VALUES";
+                 requeteInsertion+="(1,'"+login+"','"+mdp+"')";
+               
+                 instruction.executeUpdate(requeteInsertion);
+                  
+                
+            }
+            else
+            {
+                int id=Integer.parseInt(idmax);
+                id++;
+                
+                 requeteInsertion="INSERT INTO utilisateur VALUES";
+                 requeteInsertion+="("+id+",'"+login+"','"+mdp+"')";
+                Connect c=new Connect();
+               
+               if(c.existeDeja(login,con.getnombd(),con.getuser(),con.getpassword(),con.getport()))
+               {
+                  ExisteDeja erreur=new ExisteDeja(this, rootPaneCheckingEnabled);
+                  erreur.setLocationRelativeTo(null);
+                    erreur.setVisible(rootPaneCheckingEnabled);
+               }
+               else 
+               {
+                 if(instruction.executeUpdate(requeteInsertion)==0)
+                 {
+                     
+                     Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+                     e.setLocationRelativeTo(null);
+                     e.setVisible(true);
+                
+                 }
+                 else
+                 {
+                        this.dispose();
+                        con.setLocationRelativeTo(null);
+                        con.setVisible(rootPaneCheckingEnabled);
+                     
+                 }
+                
+                   
+               }
+                 
+                
+            }
+            
+        } catch (Exception et) {
+            Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+            
+        }
+      
+              
+          
+       }
+       
+       
+     
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -170,95 +261,7 @@ public class Inscription extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         String idmax=new String();
-         String requeteInsertion;
-        String login=username.getText();
-       char [] p=password.getPassword();
-        String mdp=new String (p);
-           ResultSet resultat ;
-       if(login.length()==0 && mdp.length()==0)
-       {
-        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
-        e.setLocationRelativeTo(null);
-        e.setVisible(true);
-       }
-       else 
-       {
-                String requeteMaxId="SELECT MAX(id_membre) FROM utilisateur";
-           
-           try {
-            
-             Statement instruction = connexion.createStatement();
-             resultat = instruction.executeQuery(requeteMaxId);
-              while(resultat.next())
-              {
-                  
-                  idmax=resultat.getString("max");
-                  
-              }
-             
-            
-            if(idmax==null)
-            {
-                 requeteInsertion="INSERT INTO utilisateur VALUES";
-                 requeteInsertion+="(1,'"+login+"','"+mdp+"')";
-               
-                 instruction.executeUpdate(requeteInsertion);
-                  
-                
-            }
-            else
-            {
-                int id=Integer.parseInt(idmax);
-                id++;
-                
-                 requeteInsertion="INSERT INTO utilisateur VALUES";
-                 requeteInsertion+="("+id+",'"+login+"','"+mdp+"')";
-                Connect c=new Connect();
-               
-               if(c.existeDeja(login,con.getnombd(),con.getuser(),con.getpassword(),con.getport()))
-               {
-                  ExisteDeja erreur=new ExisteDeja(this, rootPaneCheckingEnabled);
-                  erreur.setLocationRelativeTo(null);
-                    erreur.setVisible(rootPaneCheckingEnabled);
-               }
-               else 
-               {
-                 if(instruction.executeUpdate(requeteInsertion)==0)
-                 {
-                     
-                     Erreur e=new Erreur(this, rootPaneCheckingEnabled);
-                     e.setLocationRelativeTo(null);
-                     e.setVisible(true);
-                
-                 }
-                 else
-                 {
-                        this.dispose();
-                        con.setLocationRelativeTo(null);
-                        con.setVisible(rootPaneCheckingEnabled);
-                     
-                 }
-                
-                   
-               }
-                 
-                
-            }
-            
-        } catch (Exception et) {
-            Erreur e=new Erreur(this, rootPaneCheckingEnabled);
-        e.setLocationRelativeTo(null);
-        e.setVisible(true);
-            
-        }
-      
-              
-          
-       }
-       
-       
-                 
+        verification();
         
                  
     }//GEN-LAST:event_jButton1ActionPerformed

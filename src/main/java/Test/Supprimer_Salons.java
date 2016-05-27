@@ -55,6 +55,66 @@ public class Supprimer_Salons extends javax.swing.JFrame {
      
          
      }
+       public void supprimerSalon()
+       {
+            String idsalon=new String();
+        String sal=lesalon.getText();
+        ResultSet resultat;
+        Statement instruction;
+        if(sal.length()==0)
+        {
+            Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+
+        }
+        else 
+        {
+            String requeteIdSalon="Select id_salon from salon where nom_salon";
+            requeteIdSalon+=" ="+"'"+sal+"'";
+            try {
+            
+          instruction = connexion.createStatement();
+          resultat = instruction.executeQuery(requeteIdSalon);
+         
+            while (resultat.next()) 
+            {
+                   
+            idsalon=resultat.getString("id_salon"); 
+         
+          }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         
+
+            String requeteSuppression="DELETE from salon Where salon.id_salon='"+idsalon+"'";
+            try {
+                
+                
+            instruction = connexion.createStatement();
+             instruction.executeUpdate(requeteSuppression);
+             instruction.close();
+            
+             lesalon.setText("");
+            
+            } catch (Exception et) {
+                //e.printStackTrace();
+         lesalon.setText("");
+        
+        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+        
+                
+            }
+            
+               
+        }
+       
+       }
   
 
     /**
@@ -145,63 +205,7 @@ public class Supprimer_Salons extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
    
        // TODO add your handling code here:
-         String idsalon=new String();
-        String sal=lesalon.getText();
-        ResultSet resultat;
-        Statement instruction;
-        if(sal.length()==0)
-        {
-            Erreur e=new Erreur(this, rootPaneCheckingEnabled);
-        e.setLocationRelativeTo(null);
-        e.setVisible(true);
-
-        }
-        else 
-        {
-            String requeteIdSalon="Select id_salon from salon where nom_salon";
-            requeteIdSalon+=" ="+"'"+sal+"'";
-            try {
-            
-          instruction = connexion.createStatement();
-          resultat = instruction.executeQuery(requeteIdSalon);
-         
-            while (resultat.next()) 
-            {
-                   
-            idsalon=resultat.getString("id_salon"); 
-         
-          }
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-         
-
-            String requeteSuppression="DELETE from salon Where salon.id_salon='"+idsalon+"'";
-            try {
-                
-                
-            instruction = connexion.createStatement();
-             instruction.executeUpdate(requeteSuppression);
-             instruction.close();
-            
-             lesalon.setText("");
-            
-            } catch (Exception et) {
-                //e.printStackTrace();
-         lesalon.setText("");
-        
-        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
-        e.setLocationRelativeTo(null);
-        e.setVisible(true);
-        
-                
-            }
-            
-               
-        }
-        
+       supprimerSalon();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

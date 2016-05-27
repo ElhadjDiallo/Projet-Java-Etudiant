@@ -47,6 +47,7 @@ public class MsgPrive extends javax.swing.JFrame {
         this.name.setText(nomClt1);
         this.destinataire.setText(nomClt2);
          this.style="normal";    
+         this.inciseNomClient.setText(nomClt1.substring(0,2));
         connexionAlabase();
          timer1 = new javax.swing.Timer(2000, new ActionListener() {
 
@@ -99,7 +100,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
         Integer idmembre2 = 0 ;
         String login = null;
         String time = null;
-    
+       ArrayList<String> listid = new ArrayList<>();
         ArrayList <String>listMessag=new ArrayList<>();
 
       
@@ -142,20 +143,24 @@ public void recupererMessage(String nomClient1, String nomClient2){
 
         }
         /*recuperer message */
-       String reqrecupmsg="Select message from messageprive where (id_membre1="+idmembre1+"and id_membre2 ="+idmembre2+")";
+       String reqrecupmsg="Select id_membre1 ,message from messageprive where ( (id_membre1="+idmembre1+"and id_membre2 ="+idmembre2+") or (id_membre1="+idmembre2+"and id_membre2 ="+idmembre1+"))";
+       
         //String reqrecupmsg="Select message from messageprive where idmembre ";
        
+       String id=new String();
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(reqrecupmsg);
-
+             
             while (resultat.next())
             {
 
                 String recup = resultat.getString("message");
               
                 listMessag.add(recup);
-               
+                id=resultat.getString("id_membre1");
+             
+               listid.add(id);
             }
             
 
@@ -163,23 +168,10 @@ public void recupererMessage(String nomClient1, String nomClient2){
             e.printStackTrace();
         }
         
-        /*------------------*/
-        String reqrecuplogin= "Select login from utilisateur where id_membre='"+idmembre1+"'";
-    
-        try {
-            Statement instruction = connexion.createStatement();
-            ResultSet resultat = instruction.executeQuery(reqrecuplogin);
-              while (resultat.next()){
-                login = resultat.getString("login");
-              
-               
-              }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        
         /*recup temps*/
          String reqrecuptemps="Select message_time from messageprive where id_membre1='"+idmembre1+"'";
-        //String reqrecupmsg="Select message from messageprive where idmembre ";
+     
       
         try {
             Statement instruction = connexion.createStatement();
@@ -187,6 +179,7 @@ public void recupererMessage(String nomClient1, String nomClient2){
               while (resultat.next()){
                 time = resultat.getString("message_time");
                
+                 time=time.substring(0, 10);   
               }
             
         } catch (SQLException e) {
@@ -196,14 +189,28 @@ public void recupererMessage(String nomClient1, String nomClient2){
         
         /*------------------*/
         String text=new String();
+        int i=0;
         for(String mes:listMessag)
         {
-            time=time.substring(0, 10);
-            text+=""+time+"\t";
-            text+="["+login+"] \t";
+           
+            text+=""+time+"      ";
+            id=listid.get(i);
+            if(Integer.parseInt(id)==idmembre1)
+            {
+               
+            text+=name.getText()+"  ";    
+            }
+            else 
+            {
+               
+             text+=destinataire.getText()+"   ";
+            }
+            
+            
             text+=mes;
             
             text+="\n";
+            i++;
         }
        
         affichage(text,this.style);
@@ -317,18 +324,18 @@ public void affichage(String texte,String selection)
 
         jLabel4.setFont(new java.awt.Font("TlwgTypewriter", 2, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(54, 36, 209));
-        jLabel4.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/strilogo.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/strilogo.png"))); // NOI18N
 
         afficher.setEditable(false);
         jScrollPane2.setViewportView(afficher);
 
         name.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         name.setForeground(new java.awt.Color(33, 37, 230));
-        name.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/ico.gif")); // NOI18N
+        name.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/ico.gif"))); // NOI18N
         name.setText("CLIENT ");
 
         inciseNomClient.setFont(new java.awt.Font("URW Chancery L", 1, 24)); // NOI18N
-        inciseNomClient.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/cl.jpg")); // NOI18N
+        inciseNomClient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/cl.jpg"))); // NOI18N
         inciseNomClient.setText("CL");
         inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -345,10 +352,9 @@ public void affichage(String texte,String selection)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(scrollpaneSaisie)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bt_ajouter)
-                        .addGap(72, 72, 72))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(bt_ajouter))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
@@ -359,10 +365,10 @@ public void affichage(String texte,String selection)
                                         .addComponent(Gras)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(Italique)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane2)
+                                        .addGap(27, 27, 27)
                                         .addComponent(inciseNomClient))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,19 +397,16 @@ public void affichage(String texte,String selection)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(inciseNomClient)
-                        .addGap(0, 272, Short.MAX_VALUE)))
+                        .addGap(0, 269, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Normal)
+                    .addComponent(Gras)
+                    .addComponent(Italique))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Normal)
-                            .addComponent(Gras)
-                            .addComponent(Italique))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bt_ajouter)
-                        .addGap(8, 8, 8)))
+                    .addComponent(scrollpaneSaisie, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_ajouter))
                 .addGap(24, 24, 24))
         );
 
@@ -460,6 +463,7 @@ public void affichage(String texte,String selection)
         }
 
         /*requete envoie message*/
+        texte=texte.replace("'","\"");
         String requeteInsertion="INSERT INTO messageprive VALUES";
         requeteInsertion+="("+idmembre1+","+idmembre2+","+"CURRENT_TIMESTAMP"+",'"+texte+"')";
  
@@ -509,7 +513,7 @@ public void affichage(String texte,String selection)
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+      /*  Set the Nimbus look and feel*/ 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -532,14 +536,17 @@ public void affichage(String texte,String selection)
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+      //  Create and display the form 
+     /*   java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              // MsgPrive c = new MsgPrive("bah", "diallo");
-             // c.setVisible(true);
+               MsgPrive c = new MsgPrive("DIALLO", "BAH");
+              c.setVisible(true);
+               MsgPrive d = new MsgPrive("BAH", "DIALLO");
+              d.setVisible(true);
+              
             }
        
-                });
+                });*/
     }
     
     
@@ -560,3 +567,4 @@ public void affichage(String texte,String selection)
     private javax.swing.JTextArea zoneDeSaisie;
     // End of variables declaration//GEN-END:variables
 }
+

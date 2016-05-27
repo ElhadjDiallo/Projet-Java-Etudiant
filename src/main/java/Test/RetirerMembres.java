@@ -54,6 +54,104 @@ public class RetirerMembres extends javax.swing.JFrame {
      
          
      }
+     public void retirerUnmembre()
+     {
+         String idsalon=new String();
+        String idmembre=new String();
+        String sal=lesalon.getText();
+        String login=membre.getText();
+        String requeteInsertionEtat;
+        ResultSet resultat;
+        ArrayList<String>tabid=new ArrayList<>();
+        if(sal.length()==0 && login.length()==0)
+        {
+        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+        e.setLocationRelativeTo(null);
+        e.setVisible(true);
+        }
+        else 
+        {
+         String requeteIdSalon="Select id_salon from salon where nom_salon";
+               requeteIdSalon+=" ="+"'"+sal+"'";
+        
+        
+        try {
+            
+         Statement instruction = connexion.createStatement();
+          resultat = instruction.executeQuery(requeteIdSalon);
+         
+            while (resultat.next()) 
+            {
+                   
+            idsalon=resultat.getString("id_salon"); 
+         
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String idcompte="select id_membre from utilisateur where login ";
+        idcompte+=" ='"+login+"'";
+        
+         
+        try {
+           
+         Statement instruction = connexion.createStatement();
+          resultat = instruction.executeQuery(idcompte);
+         while (resultat.next()) 
+            {
+                   
+            
+             idmembre=resultat.getString("id_membre");
+         
+            
+          }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+          
+          try {
+
+             String requeteInseriton="DELETE from salonutilisateur Where salonutilisateur.id_salon='"+idsalon+"'and"
+                     + " salonutilisateur.id_membre='"+idmembre+"'";
+               
+             Statement instruction = connexion.createStatement();
+           
+             requeteInsertionEtat="DELETE from enligne WHERE enligne.id_salon='"+idsalon+"' and enligne.id_membre='"
+               +idmembre+"'";    
+              
+       
+                       
+              instruction.executeUpdate(requeteInseriton);
+              
+             instruction = connexion.createStatement();
+             instruction.executeUpdate(requeteInsertionEtat);
+             instruction.close();
+       
+          
+             membre.setText("");
+             lesalon.setText("");
+            
+                   
+            } catch (SQLException et) {
+                
+                membre.setText("");
+                lesalon.setText("");
+               
+                  
+                
+            }
+            
+             
+             }
+             
+      
+     }
    
     
 
@@ -222,103 +320,9 @@ public class RetirerMembres extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String idsalon=new String();
-        String idmembre=new String();
-        String sal=lesalon.getText();
-        String login=membre.getText();
-        String requeteInsertionEtat;
-        ResultSet resultat;
-        ArrayList<String>tabid=new ArrayList<>();
-        if(sal.length()==0 && login.length()==0)
-        {
-        Erreur e=new Erreur(this, rootPaneCheckingEnabled);
-        e.setLocationRelativeTo(null);
-        e.setVisible(true);
-        }
-        else 
-        {
-         String requeteIdSalon="Select id_salon from salon where nom_salon";
-               requeteIdSalon+=" ="+"'"+sal+"'";
-        
-        
-        try {
-            
-         Statement instruction = connexion.createStatement();
-          resultat = instruction.executeQuery(requeteIdSalon);
-         
-            while (resultat.next()) 
-            {
-                   
-            idsalon=resultat.getString("id_salon"); 
-         
-            }
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String idcompte="select id_membre from utilisateur where login ";
-        idcompte+=" ='"+login+"'";
-        
-         
-        try {
-           
-         Statement instruction = connexion.createStatement();
-          resultat = instruction.executeQuery(idcompte);
-         while (resultat.next()) 
-            {
-                   
-            
-             idmembre=resultat.getString("id_membre");
-         
-            
-          }
-            
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
           
-          try {
-
-             String requeteInseriton="DELETE from salonutilisateur Where salonutilisateur.id_salon='"+idsalon+"'and"
-                     + " salonutilisateur.id_membre='"+idmembre+"'";
-               
-             Statement instruction = connexion.createStatement();
-           
-             requeteInsertionEtat="DELETE from enligne WHERE enligne.id_salon='"+idsalon+"' and enligne.id_membre='"
-               +idmembre+"'";    
-              
-       
-                       
-              instruction.executeUpdate(requeteInseriton);
-              
-             instruction = connexion.createStatement();
-             instruction.executeUpdate(requeteInsertionEtat);
-             instruction.close();
-       
-          
-             membre.setText("");
-             lesalon.setText("");
-            
-                   
-            } catch (SQLException et) {
-                
-                membre.setText("");
-                lesalon.setText("");
-               
-                  
-                
-            }
-            
-             
-             }
-             
-        
      
-        
+          retirerUnmembre();
         
    
         

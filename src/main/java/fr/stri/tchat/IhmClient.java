@@ -357,7 +357,11 @@ public class IhmClient extends javax.swing.JFrame {
                else 
                {
                   
+                  
+                   MsgPrive ms=new MsgPrive(nomUtilisateur.getText(),value.getNom());
+                   ms.setVisible(true);
                    f.setBackground(Color.CYAN);
+                   list.clearSelection();
                }
              
                    
@@ -838,6 +842,10 @@ public class IhmClient extends javax.swing.JFrame {
      
        
    }
+   public void envoyerMessage()
+   {
+       
+   }
     private void envoyerMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoyerMessageActionPerformed
         // TODO add your handling code here:
          
@@ -902,7 +910,6 @@ public class IhmClient extends javax.swing.JFrame {
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(requeteRecupereEtatUTilisateur);
-            System.err.println("la requete est "+requeteRecupereEtatUTilisateur);
             while(resultat.next())
             {
                 
