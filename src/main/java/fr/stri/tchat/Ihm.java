@@ -18,6 +18,7 @@ import Test.CreerSalons;
 import Test.MsgPrive;
 import Test.RetirerMembres;
 import Test.Supprimer_Salons;
+import help.Help;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -535,7 +536,6 @@ public class Ihm extends javax.swing.JFrame {
         });
 
         inciseNomClient.setFont(new java.awt.Font("URW Chancery L", 1, 24)); // NOI18N
-        inciseNomClient.setIcon(new javax.swing.ImageIcon("/home/elhadj/NetBeansProjects/projet-update/Projet-Java-Etudiant/src/main/resources/fr/stri/tchat/cl.jpg")); // NOI18N
         inciseNomClient.setText("CL");
         inciseNomClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
@@ -767,6 +767,11 @@ public class Ihm extends javax.swing.JFrame {
         jMenu1.setText("Aide");
 
         jMenuItem3.setText("A propos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -1321,6 +1326,12 @@ public class Ihm extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        Help h=new Help() ;
+        h.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
