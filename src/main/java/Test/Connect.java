@@ -36,13 +36,7 @@ public class Connect {
         
     }
     
-    public boolean existeDeja(String username,String password,String nombd)
-    {
-        
-        return false;
-    }
-    
-
+   
    public  boolean isValidUser(String username, String password,String nombd,String user,String password1,String port) {
         boolean connecter=false;
            
@@ -108,8 +102,8 @@ public class Connect {
                     url+=port+"/"+nombd;
         
     
-          Connection connexion = DriverManager.getConnection(url, user, password1);
-         System.out.println("Connexion effective !");
+       Connection connexion = DriverManager.getConnection(url, user, password1);
+       System.out.println("Connexion effective !");
       Statement instruction = connexion.createStatement();
       ResultSet resultat = instruction.executeQuery("SELECT login,type FROM utilisateur");
       
@@ -138,6 +132,57 @@ public class Connect {
     return "Administrateur";
 
 }
+  public boolean existeDeja(String username,String nombd,String user,String password1,String port)
+    {
+     boolean connecter=false;
+           
+        
+        try {
+//      Class.forName("org.postgresql.Driver");
+            System.out.println("Driver O.K.");
+
+            String url = "jdbc:postgresql://localhost:";
+            url+=port+"/"+nombd;
+          
+            
+           
+            
+   
+      Connection connexion = DriverManager.getConnection(url, user, password1);
+      System.out.println("Connexion effective !");
+      Statement instruction = connexion.createStatement();
+      ResultSet resultat = instruction.executeQuery("SELECT login FROM utilisateur");
+      
+      while (resultat.next()) {
+           
+          
+         
+        if(resultat.getString("login").compareTo(username)==0)
+        {
+           
+             
+             
+            connecter=true;
+            resultat.close();
+            return connecter;
+        }
+       
+        
+      }
+      resultat.close();
+    } catch (SQLException e) {
+            e.printStackTrace();
+            
+            
+        }
+        
+        return false;   
+        
+        
+     
+    }
+    
+
        
 
 

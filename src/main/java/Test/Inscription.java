@@ -6,6 +6,7 @@
 package Test;
 
 import gestionErreur.Erreur;
+import gestionErreur.ExisteDeja;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -213,22 +214,34 @@ public class Inscription extends javax.swing.JFrame {
                 
                  requeteInsertion="INSERT INTO utilisateur VALUES";
                  requeteInsertion+="("+id+",'"+login+"','"+mdp+"')";
+                Connect c=new Connect();
                
+               if(c.existeDeja(login,con.getnombd(),con.getuser(),con.getpassword(),con.getport()))
+               {
+                  ExisteDeja erreur=new ExisteDeja(this, rootPaneCheckingEnabled);
+                  erreur.setLocationRelativeTo(null);
+                    erreur.setVisible(rootPaneCheckingEnabled);
+               }
+               else 
+               {
                  if(instruction.executeUpdate(requeteInsertion)==0)
                  {
                      
-                       Erreur e=new Erreur(this, rootPaneCheckingEnabled);
+                     Erreur e=new Erreur(this, rootPaneCheckingEnabled);
                      e.setLocationRelativeTo(null);
                      e.setVisible(true);
                 
                  }
                  else
                  {
-                     this.dispose();
-                      con.setLocationRelativeTo(null);
-                       con.setVisible(rootPaneCheckingEnabled);
+                        this.dispose();
+                        con.setLocationRelativeTo(null);
+                        con.setVisible(rootPaneCheckingEnabled);
                      
                  }
+                
+                   
+               }
                  
                 
             }

@@ -12,7 +12,7 @@ public class Client extends SalonClient{
        
 	
 	private String nomclient;
-        /*mettre en ligne ou hors ligne */
+     
     private ClientEtat clientEtat;
 	public Client(String nomClient)
 	{

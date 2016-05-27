@@ -154,8 +154,8 @@ public class CreerSalons extends javax.swing.JFrame {
         else
         {
             try {
-                String requeteMaxId="SELECT MAX(id_salon) FROM salon";
-            
+               
+             String requeteMaxId="SELECT MAX(id_salon) FROM salon";
              Statement instruction = connexion.createStatement();
              resultat = instruction.executeQuery(requeteMaxId);
               while(resultat.next())
@@ -170,7 +170,7 @@ public class CreerSalons extends javax.swing.JFrame {
             {
                  requeteInsertion="INSERT INTO salon VALUES";
                  requeteInsertion+="(1,'"+sal+"')";
-                 System.out.println("la requete "+requeteInsertion);
+                
                   resultat=instruction.executeQuery(requeteInsertion);
                 
             }
@@ -197,43 +197,7 @@ public class CreerSalons extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-/*        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Creer_Salons().setVisible(true);
-            }
-        //</editor-fold>
-
-        /* Create and display the form */
-/*        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Creer_Salons().setVisible(true);
-            }
-        });*/
-    }
+       }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
