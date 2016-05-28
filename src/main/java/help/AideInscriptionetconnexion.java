@@ -9,12 +9,12 @@ package help;
  *
  * @author Widiane
  */
-public class Aide_administrateur3 extends javax.swing.JPanel {
+public class AideInscriptionetconnexion extends javax.swing.JPanel {
 
     /**
-     * Creates new form Aide_administrateur3
+     * Creates new form Aide_inscriptionetconnexion
      */
-    public Aide_administrateur3() {
+    public AideInscriptionetconnexion() {
         initComponents();
     }
 
@@ -29,7 +29,7 @@ public class Aide_administrateur3 extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Widiane\\Documents\\NetBeansProjects\\ProjetjavaDMWC\\Projet-Java-Etudiant\\src\\main\\resources\\fr\\stri\\tchat\\aideadmin3.PNG")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/aideutilisateur.PNG"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

@@ -14,19 +14,19 @@ public class Help extends javax.swing.JFrame {
     /**
      * Creates new form Help
      */
-    private Aide_administrateur aide1;
-    private Aide_administrateur2 aide2 ;
-    private Aide_administrateur3 aide3 ;
-    private Aide_administrateur4 aide4 ;
-    private Aide_inscriptionetconnexion aide5 ;
-    private Guide_utilisateur1 aide6 ;
+    private AideAadministrateur aide1;
+    private AideAdministrateur2 aide2 ;
+    private AideAdministrateur3 aide3 ;
+    private AideAdministrateur4 aide4 ;
+    private AideInscriptionetconnexion aide5 ;
+    private GuideUtilisateur1 aide6 ;
     public Help() {
-         aide1=new Aide_administrateur();
-         aide2=new Aide_administrateur2();
-         aide3=new Aide_administrateur3();
-         aide4=new Aide_administrateur4();
-         aide5=new Aide_inscriptionetconnexion();
-         aide6=new Guide_utilisateur1();
+         aide1=new AideAadministrateur();
+         aide2=new AideAdministrateur2();
+         aide3=new AideAdministrateur3();
+         aide4=new AideAdministrateur4();
+         aide5=new AideInscriptionetconnexion();
+         aide6=new GuideUtilisateur1();
         initComponents();
        mesOnglets.addTab("Administrateur",aide1);
        
@@ -60,7 +60,7 @@ public class Help extends javax.swing.JFrame {
 
         mesOnglets = new javax.swing.JTabbedPane();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

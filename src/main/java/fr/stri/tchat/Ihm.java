@@ -885,11 +885,11 @@ public class Ihm extends javax.swing.JFrame {
          mes=mes.replace("\"", "'");
          messages+=date.get(i);
          messages+="    ";
-         messages+=lislogin.get(i);
+         messages+="["+lislogin.get(i)+"]";
          messages+="   ";
          messages+=mes;
          messages+="\n";
-    
+        
          
          i++;
                   
@@ -1018,7 +1018,12 @@ public class Ihm extends javax.swing.JFrame {
             Logger.getLogger(Ihm.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
-        ms.dispose();
+        try {
+        ms.dispose();    
+        } catch (Exception e) {
+        }
+        
+             
         timer1.stop();
         
         
@@ -1063,10 +1068,9 @@ public class Ihm extends javax.swing.JFrame {
         salons.setLocationRelativeTo(null);
         salons.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void etatCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etatCActionPerformed
-        // TODO add your handling code here:
-        int indice=0;
+public void changerStatus()
+{
+     int indice=0;
         String idmembre=new String();
         String idsalon=new String();
         String online_status=new String();
@@ -1205,6 +1209,11 @@ public class Ihm extends javax.swing.JFrame {
   
          
         }
+    
+}
+    private void etatCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_etatCActionPerformed
+        // TODO add your handling code here:
+           changerStatus();
         
     }//GEN-LAST:event_etatCActionPerformed
 

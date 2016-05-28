@@ -51,12 +51,12 @@ public class IhmSalon extends javax.swing.JPanel {
         
      StyledDocument document = new DefaultStyledDocument();
     SimpleAttributeSet attributes = new SimpleAttributeSet();
-    attributes = new SimpleAttributeSet();
+   // attributes = new SimpleAttributeSet();
     if(selection.compareTo("gras")==0)
     {
     attributes.addAttribute(StyleConstants.CharacterConstants.Bold, Boolean.TRUE);
     
-     //attributes.addAttribute(StyleConstants.CharacterConstants.Foreground, Color.LIGHT_GRAY);
+  
     }
     else if(selection.compareTo("italique")==0)
     {

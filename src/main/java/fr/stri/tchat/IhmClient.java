@@ -26,6 +26,7 @@ import Test.CreerSalons;
 import Test.MsgPrive;
 import Test.RetirerMembres;
 import Test.Supprimer_Salons;
+import help.Help;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -215,9 +216,10 @@ public class IhmClient extends javax.swing.JFrame {
                 if(online.compareTo("Hors-ligne")==0)
                 {
                    
-                  
+                // stocque les clients en fonction de leur clé comme structuré dans la table en ligne et salonutilisateur  
                 FormeClientBd utiliseClient=new FormeClientBd(resultat.getString("login"), indiceDuClient, horsligne, lesalon);    
                 tabclient.put(i,utiliseClient);
+                
                     
                 }
                 else
@@ -712,6 +714,11 @@ public class IhmClient extends javax.swing.JFrame {
         jMenu1.setText("Aide");
 
         jMenuItem3.setText("A propos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem3);
 
         jMenuBar1.add(jMenu1);
@@ -825,7 +832,7 @@ public class IhmClient extends javax.swing.JFrame {
          mes=mes.replace("\"", "'");
          messages+=date.get(i);
          messages+="    ";
-         messages+=lislogin.get(i);
+         messages+="["+lislogin.get(i)+"]";
          messages+="   ";
          messages+=mes;
          messages+="\n";
@@ -845,12 +852,6 @@ public class IhmClient extends javax.swing.JFrame {
    }
    public void envoyerMessage()
    {
-       
-   }
-    private void envoyerMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoyerMessageActionPerformed
-        // TODO add your handling code here:
-         
-        
         boolean verif=false;
         String idsalon = new String();
         String idmembre =new String();
@@ -946,103 +947,14 @@ public class IhmClient extends javax.swing.JFrame {
             
         }
         }
-        /*
-       
-       String requetemesSalon;
-       requetemesSalon="select login,message_time from utilisateur,envoyermess"; 
-       requetemesSalon+=" where id_salon=";
-       requetemesSalon+="'"+idsalon+"'"+" and utilisateur.id_membre=envoyermess.id_membre";
-        
-        try {
-            
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requetemesSalon);
-           
-         while (resultat.next()) 
-            {
-                   
-            
-                login=resultat.getString("login"); 
-                
-                lislogin.add(login);
-             
-         
-          }
-            
-            
-        } catch (Exception e) {
-        }
-        String requeteMessage="select message from envoyermess  where id_salon=";
-        requeteMessage+="'"+idsalon+"'";
-        try {
-            
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requeteMessage);
-         while (resultat.next()) 
-            {
-                   
-                
-               listMessag.add(resultat.getString("message")); 
-             
-         
-          }
-            
-            
-        } catch (Exception e) {
-        }
-         try
-          {
-          
-         Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requetemesSalon);
-           
-         while (resultat.next()) 
-            {
-                   
-            
-                login=resultat.getString("login");      
-                lislogin.add(login);
-                date.add(resultat.getString("message_time").substring(0, 19));
-             
-         
-          }
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-            
-           int i=0;
-        String messages = new String();
-        for(String mes:listMessag)
-        {
-          mes=mes.replace("\"", "'");
-         messages+=date.get(i);
-         messages+="    ";
-         messages+=lislogin.get(i);
-         messages+="   ";
-         messages+=mes;
-         messages+="\n";
-    
-         
-            i++;
-                  
-        }
-        
-         
-        tableIhm.get(indiceDuSalon).afficher(messages,style);
-        onglets.remove(indiceDuSalon);
-        
-       
-        
-        onglets.add(tableIhm.get(indiceDuSalon),indiceDuSalon);
-        onglets.setSelectedIndex(indiceDuSalon);
-        
-       */
-        
         
    
+   }
+    private void envoyerMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envoyerMessageActionPerformed
+        // TODO add your handling code here:
+       envoyerMessage();
+        
+       
         
        
     }//GEN-LAST:event_envoyerMessageActionPerformed
@@ -1055,7 +967,11 @@ public class IhmClient extends javax.swing.JFrame {
             Logger.getLogger(IhmClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
-        ms.dispose();
+        try {
+        ms.dispose();    
+        } catch (Exception e) {
+        }
+        
         timer1.stop();
         
         
@@ -1103,72 +1019,7 @@ public class IhmClient extends javax.swing.JFrame {
         String nomSalon=new String();
         String login=new String();
         String requete=new String ();
-        /*
-        if( etatC.getSelectedIndex()==0)
-        {
-           indice=onglets.getSelectedIndex();
-           nomSalon=((IhmSalon) onglets.getComponentAt(indice)).getNom();
-           login=nomUtilisateur.getText();
-           requete="select id_membre,id_salon from utilisateur,salon";
-           requete+=" where nom_salon="+"'";
-           requete+=nomSalon+"'"+" and login="+"'"+login+"'";
-           
-        try
-        {
-          Statement instruction = connexion.createStatement();
-         ResultSet resultat = instruction.executeQuery(requete);
-         while (resultat.next()) 
-            {
-                   
-            
-             idmembre=resultat.getString("id_membre");
-             idsalon=resultat.getString("id_salon");
-          }
-            
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-          String requeteRecupereEtatUTilisateur="select  online_status from enligne where   enligne.id_membre="+idmembre+" "
-            + "and enligne.id_salon="+idsalon+"";
-     
-        
-        try {
-            Statement instruction = connexion.createStatement();
-            ResultSet resultat = instruction.executeQuery(requeteRecupereEtatUTilisateur);
-            while(resultat.next())
-            {
-                
-               online_status=resultat.getString("online_status");
-              
-               
-              
-              
-            }
-       
-                   
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-         String requeteUpdate="UPDATE enligne SET online_status = REPLACE(";
-         requeteUpdate+="online_status"+","+"'"+online_status+"'"+",'En ligne')";
-         requeteUpdate+="where enligne.id_salon="+"'"+idsalon+"'"+"and enligne.id_membre="+"'"+idmembre+"'";
-            try {
-                Statement instruction = connexion.createStatement();
-            ResultSet resultat = instruction.executeQuery(requeteUpdate);
-            
-                
-            } catch (Exception e) {
-            }
-             
-            
-           
-        }*/
-        if(etatC.getSelectedIndex()==0) 
+           if(etatC.getSelectedIndex()==0) 
         {
               indice=onglets.getSelectedIndex();
            nomSalon=((IhmSalon) onglets.getComponentAt(indice)).getNom();
@@ -1237,6 +1088,12 @@ public class IhmClient extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_etatCActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        Help h=new Help();
+        h.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

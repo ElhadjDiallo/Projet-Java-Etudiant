@@ -9,12 +9,12 @@ package help;
  *
  * @author Widiane
  */
-public class Aide_administrateur extends javax.swing.JPanel {
+public class AideAadministrateur extends javax.swing.JPanel {
 
     /**
      * Creates new form Aide_administrateur
      */
-    public Aide_administrateur() {
+    public AideAadministrateur() {
         initComponents();
     }
 
@@ -29,6 +29,8 @@ public class Aide_administrateur extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/aideadmin1.PNG"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -37,7 +39,7 @@ public class Aide_administrateur extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

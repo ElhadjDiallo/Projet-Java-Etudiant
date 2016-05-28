@@ -193,22 +193,22 @@ public void recupererMessage(String nomClient1, String nomClient2){
         int i=0;
         for(String mes:listMessag)
         {
-           
+             mes=mes.replaceAll("\"","'" );
             text+=""+time+"      ";
             id=listid.get(i);
             if(Integer.parseInt(id)==idmembre1)
             {
                
-            text+=name.getText()+"  ";    
+            text+="["+name.getText()+" ] ";    
             }
             else 
             {
                
-             text+=destinataire.getText()+"   ";
+             text+="["+destinataire.getText()+"]   ";
             }
             
             
-            text+=mes;
+            text+="  "+mes;
             
             text+="\n";
             i++;
@@ -287,7 +287,6 @@ public void affichage(String texte,String selection)
         inciseNomClient = new javax.swing.JLabel();
         destinataire = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(240, 240, 188));
 
         scrollpaneSaisie.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

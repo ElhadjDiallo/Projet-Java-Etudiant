@@ -29,7 +29,7 @@
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Widiane\Documents\NetBeansProjects\ProjetjavaDMWC\Projet-Java-Etudiant\src\main\resources\fr\stri\tchat\Interface1.PNG"/>
+          <Image iconType="3" name="/fr/stri/tchat/aideadmin3.PNG"/>
         </Property>
       </Properties>
     </Component>
