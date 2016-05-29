@@ -77,11 +77,7 @@ public class Connect {
             resultat.close();
             return connecter;
         }
-        else 
-        {
-            System.out.println("j'ai pas encore trouvé");
-            
-        }
+        
         
       }
     } catch (SQLException e) {

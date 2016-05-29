@@ -17,7 +17,7 @@ import Test.Connexion;
 import Test.CreerSalons;
 import Test.MsgPrive;
 import Test.RetirerMembres;
-import Test.Supprimer_Salons;
+import Test.SupprimerSalons;
 import help.Help;
 import java.awt.Color;
 import java.awt.Component;
@@ -968,7 +968,7 @@ public class Ihm extends javax.swing.JFrame {
         try {
             Statement instruction = connexion.createStatement();
             ResultSet resultat = instruction.executeQuery(requeteRecupereEtatUTilisateur);
-            System.err.println("la requete est "+requeteRecupereEtatUTilisateur);
+           
             while(resultat.next())
             {
                 
@@ -992,7 +992,7 @@ public class Ihm extends javax.swing.JFrame {
            
          String requeteInsertion="INSERT INTO envoyermess VALUES";
                  requeteInsertion+="("+""+idsalon+","+idmembre+","+"CURRENT_TIMESTAMP"+",'"+texte+"')";
-                 System.out.println("la requete "+requeteInsertion);
+                
       
         try {
             
@@ -1220,7 +1220,7 @@ public void changerStatus()
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         
-        Supprimer_Salons supsalon=new Supprimer_Salons();
+        SupprimerSalons supsalon=new SupprimerSalons();
         supsalon.setLocationRelativeTo(null);
         supsalon.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed

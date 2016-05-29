@@ -179,7 +179,7 @@ public void ajouterlesalon()
                 id++;
                  requeteInsertion="INSERT INTO salon VALUES";
                  requeteInsertion+="("+id+",'"+sal+"')";
-                 System.out.println("la requete "+requeteInsertion);
+               
                   resultat=instruction.executeQuery(requeteInsertion);
                 
             }

@@ -44,7 +44,7 @@ public class Help extends javax.swing.JFrame {
        
        
        
-       mesOnglets.addTab("Administrateur",aide6);
+       mesOnglets.addTab("USER NORMAL",aide6);
         
        
     }

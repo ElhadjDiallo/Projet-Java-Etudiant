@@ -15,16 +15,16 @@ import java.sql.Statement;
  *
  * @author ngoyet-ndiaye
  */
-public class Supprimer_Salons extends javax.swing.JFrame {
+public class SupprimerSalons extends javax.swing.JFrame {
 
     /**
-     * Creates new form Supprimer_Salons
+     * Creates new form SupprimerSalons
      */
     
     private Connection connexion;
     private Connexion con;
  
-    public Supprimer_Salons() {
+    public SupprimerSalons() {
         initComponents();
         connexionAlabase();
     }
@@ -226,13 +226,13 @@ public class Supprimer_Salons extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Supprimer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupprimerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Supprimer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupprimerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Supprimer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupprimerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Supprimer_Salons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SupprimerSalons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -240,6 +240,13 @@ public class Supprimer_Salons extends javax.swing.JFrame {
        /* java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Supprimer_Salons().setVisible(true);
+            }
+        //</editor-fold>
+
+        /* Create and display the form */
+       /* java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new SupprimerSalons().setVisible(true);
             }
         });*/
     }

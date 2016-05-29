@@ -25,7 +25,7 @@ import Test.Connexion;
 import Test.CreerSalons;
 import Test.MsgPrive;
 import Test.RetirerMembres;
-import Test.Supprimer_Salons;
+import Test.SupprimerSalons;
 import help.Help;
 import java.awt.Color;
 import java.awt.Component;
@@ -935,7 +935,7 @@ public class IhmClient extends javax.swing.JFrame {
            
          String requeteInsertion="INSERT INTO envoyermess VALUES";
                  requeteInsertion+="("+""+idsalon+","+idmembre+","+"CURRENT_TIMESTAMP"+",'"+texte+"')";
-                 System.out.println("la requete "+requeteInsertion);
+            
       
         try {
             

@@ -29,6 +29,8 @@ public class GuideUtilisateur1 extends javax.swing.JPanel {
 
         jLabel2 = new javax.swing.JLabel();
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fr/stri/tchat/aideutilisateur.PNG"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(

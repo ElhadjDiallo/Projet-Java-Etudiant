@@ -98,24 +98,15 @@ public class IhmSalon extends javax.swing.JPanel {
                JLabel resultat=new JLabel();
                resultat.setText(value.toString());
                resultat.setIcon(value.etatclient());
-               int i=0;
+             
                
-              if(list.getSelectedIndex()!=-1)
-               {
-                   Connexion n=new Connexion();
-                   n.setVisible(true);
-                   list.clearSelection();
-               }
+             
                if(isSelected)
                {
                    
                    
                    resultat.setBackground(Color.CYAN);
-                   if(isSelected && i==0)
-               {
-                   System.out.println("DIALLLO");
-                   i++;
-               }
+                 
                    
                }
                else 
