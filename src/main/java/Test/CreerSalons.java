@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author ngoyet-ndiaye
+ 
  */
 public class CreerSalons extends javax.swing.JFrame {
 

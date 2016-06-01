@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author ngoyet-ndiaye
+ *
  */
 public class RetirerMembres extends javax.swing.JFrame {
 

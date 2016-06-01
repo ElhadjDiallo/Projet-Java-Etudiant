@@ -2,6 +2,12 @@ package ContenuSalonetClient;
 
 import javax.swing.ImageIcon;
 
+/**
+ * 
+ * 
+ * @author elhadj
+ * pour pouvoir stocker dans la jlist à droite un client et un salon 
+ */
 public  class SalonClient {
 	
 	private String nom;

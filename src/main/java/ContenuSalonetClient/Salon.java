@@ -6,7 +6,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
-
+/**
+ * represente un salon dans la base donnée 
+*/
 public class Salon extends SalonClient {
 	private String nomSalon;
  

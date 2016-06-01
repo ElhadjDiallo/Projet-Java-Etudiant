@@ -7,7 +7,9 @@ import javax.swing.ImageIcon;
 /**
  * 
  * @author elhadj
+ * 
  */
+
 public class Client extends SalonClient{
        
 	
