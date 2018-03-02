@@ -1,4 +1,3 @@
 # Projet-Java-Etudiant
-Projet Java réaliser une application de Tchat
+une application de Chat avec base de donnée
 
-Bonjour le monde
